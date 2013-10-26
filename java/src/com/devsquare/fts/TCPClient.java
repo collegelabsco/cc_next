@@ -3,10 +3,6 @@ package com.devsquare.fts;
 //import java.io.DataInputStream;
 //import java.io.DataOutputStream;
 import java.io.*;
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.UnknownHostException;
 import java.net.*;
 
 public class TCPClient {
@@ -23,6 +19,7 @@ public class TCPClient {
             //final int portNumber = 80;
             /*InetAddress ownIP=InetAddress.getLocalHost();
         	final String machineName = ownIP.getHostAddress();*/
+            
             final String machineName = "207.211.87.41";
             System.out.println("Connecting to : " + machineName + ", port: " + portNumber);
             clientSocket = new Socket(machineName, portNumber);
