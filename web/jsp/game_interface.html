@@ -1,0 +1,446 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>Game Interface</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable -->
+<link href="CSS/main.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+body {
+	background-color: #e2e2e2;
+}
+-->
+</style>
+<script type="text/javascript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_nbGroup(event, grpName) { //v6.0
+  var i,img,nbArr,args=MM_nbGroup.arguments;
+  if (event == "init" && args.length > 2) {
+    if ((img = MM_findObj(args[2])) != null && !img.MM_init) {
+      img.MM_init = true; img.MM_up = args[3]; img.MM_dn = img.src;
+      if ((nbArr = document[grpName]) == null) nbArr = document[grpName] = new Array();
+      nbArr[nbArr.length] = img;
+      for (i=4; i < args.length-1; i+=2) if ((img = MM_findObj(args[i])) != null) {
+        if (!img.MM_up) img.MM_up = img.src;
+        img.src = img.MM_dn = args[i+1];
+        nbArr[nbArr.length] = img;
+    } }
+  } else if (event == "over") {
+    document.MM_nbOver = nbArr = new Array();
+    for (i=1; i < args.length-1; i+=3) if ((img = MM_findObj(args[i])) != null) {
+      if (!img.MM_up) img.MM_up = img.src;
+      img.src = (img.MM_dn && args[i+2]) ? args[i+2] : ((args[i+1])? args[i+1] : img.MM_up);
+      nbArr[nbArr.length] = img;
+    }
+  } else if (event == "out" ) {
+    for (i=0; i < document.MM_nbOver.length; i++) {
+      img = document.MM_nbOver[i]; img.src = (img.MM_dn) ? img.MM_dn : img.MM_up; }
+  } else if (event == "down") {
+    nbArr = document[grpName];
+    if (nbArr)
+      for (i=0; i < nbArr.length; i++) { img=nbArr[i]; img.src = img.MM_up; img.MM_dn = 0; }
+    document[grpName] = nbArr = new Array();
+    for (i=2; i < args.length-1; i+=2) if ((img = MM_findObj(args[i])) != null) {
+      if (!img.MM_up) img.MM_up = img.src;
+      img.src = img.MM_dn = (args[i+1])? args[i+1] : img.MM_up;
+      nbArr[nbArr.length] = img;
+  } }
+}
+//-->
+</script>
+</head>
+
+<body onload="MM_preloadImages('images/home_over.jpg','images/my_space_me_over.jpg','images/communities_over.jpg','images/knowledge_over.jpg','images/news_events_over.jpg','images/careers_over.jpg','images/contact_over.jpg')">
+<table width="960" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan="3" background="images/top_line.jpg"><img src="images/spacer.gif" width="1" height="3" /></td>
+  </tr>
+  <tr>
+    <td width="148" rowspan="2" align="center" bgcolor="#FFFFFF"><img src="images/instep_logo.jpg" width="106" height="85" /></td>
+    <td height="54" colspan="2" align="right" valign="middle" bgcolor="#000000" class="rightimgpad"><img src="images/infosys_logo.jpg" width="70" height="29"  /></td>
+  </tr>
+  <tr>
+    <td height="30" background="images/menu_bg2.jpg" class="signin2">An Infosys Online Game Programming Contest</td>
+    <td height="30" align="right" background="images/menu_bg2.jpg">
+	<table border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <!--<td><a href="rescue.jsp" target="_top" onclick="MM_nbGroup('down','group1','home','images/home_over.jpg',1)" onmouseover="MM_nbGroup('over','home','images/home_over.jpg','',1)" onmouseout="MM_nbGroup('out')"><img src="images/home.jpg" alt="" name="home" width="91" height="30" border="0" id="home" onload="" /></a></td>
+        <td><a href="javascript:;" target="_top" onclick="MM_nbGroup('down','group1','menudivider','',1)" onmouseover="MM_nbGroup('over','menudivider','','',1)" onmouseout="MM_nbGroup('out')"><img src="images/menu_divider.jpg" alt="" name="menudivider" width="2" height="30" border="0" id="menudivider" onload="" /></a></td>-->
+        <td><a href="detailed_Instructions.html" target="_top" onclick="MM_nbGroup('down','group1','moreinfo','images/more_info.jpg',1)" onmouseover="MM_nbGroup('over','moreinfo','images/more_info_over.jpg','',1)" onmouseout="MM_nbGroup('out')"><img src="images/more_info.jpg" alt="" name="moreinfo"  border="0" id="myspaceme" onload="" /></a></td>
+        <!--<td><a href="javascript:;" target="_top" onclick="MM_nbGroup('down','group1','menudivider3','',1)" onmouseover="MM_nbGroup('over','menudivider3','','',1)" onmouseout="MM_nbGroup('out')"><img src="images/menu_divider.jpg" alt="" name="menudivider3" width="2" height="30" border="0" id="menudivider3" onload="" /></a></td>
+        <td><a href="contact_us.jsp" target="_top" onclick="MM_nbGroup('down','group1','contact','images/contact_over.jpg',1)" onmouseover="MM_nbGroup('over','contact','images/contact_over.jpg','',1)" onmouseout="MM_nbGroup('out')"><img src="images/contact.jpg" alt="" name="contact" width="99" height="30" border="0" id="contact" onload="" /></a></td>-->
+        </tr>
+    </table>
+    </td>
+  </tr>
+
+    <tr>
+      <td colspan="3" background="images/but_line.jpg"><img src="images/spacer.gif" width="1" height="3" /></td>
+    </tr>
+    <tr>
+      <td colspan="3" align="center" bgcolor="#FFFFFF"><table width="912" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td height="39" align="left" background="images/sub_header_bg.jpg"><!-- InstanceBeginEditable name="EditRegion4" -->
+            <p class="subheader">GameInterface.java</p>
+          <!-- InstanceEndEditable --></td>
+        </tr>
+      </table></td>
+    </tr>
+    <tr>
+      <td bgcolor="#FFFFFF">&nbsp;</td>
+      <td width="384" bgcolor="#FFFFFF">&nbsp;</td>
+      <td width="428" bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="3" bgcolor="#FFFFFF" class="leftimgpad"><!-- InstanceBeginEditable name="EditRegion1" -->
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td><span class="comntext2">com.devsquare.fts</span><br />
+              <span class="subtitle3">Class GameInterface<br />
+              <br />
+              <a href="#" class="bluetext2">java.lang.Object</a> <br />
+              <img src="images/line.jpg" width="15" height="14" class="leftimgpad" /><strong class="normaltext2">com.devsquare.fts.GameInterface</strong> <br />
+              <br />
+              </span></td>
+          </tr>
+          <tr>
+            <td background="images/dot.jpg"><img src="images/spacer.gif" width="1" height="1" /></td>
+          </tr>
+          <tr>
+            <td><span class="comntext2"><br />public class</span> <strong class="subtitle2">GameInterface</strong><dt class="comntext2">extends java.lang.Object<br />
+              <br />
+            </dt>
+            </td>
+          </tr>
+          <tr>
+            <td background="images/dot.jpg"><img src="images/spacer.gif" width="1" height="1" /></td>
+          </tr>
+          <tr>
+            <td height="100"><table width="918" border="0" cellpadding="0" cellspacing="0" bordercolor="#999999">
+              <tr>
+                <td height="33" colspan="2" bgcolor="#f2f2f2"><strong class="subtitle3">Field Summary</strong></td>
+              </tr>
+              <tr>
+                <td width="107" height="30" class="comntext2">java.lang.String</td>
+                <td width="805"><strong><a href="game_interface.html#uid" class="bluetext2">uid</a></strong> </td>
+              </tr>
+              <tr>
+                <td class="comntext2">int</td>
+                <td><strong><a href="game_interface.html#gamelevel" class="bluetext2">level</a></strong> </td>
+              </tr>
+              <tr>
+                <td colspan="2" class="comntext2">&nbsp;</td>
+              </tr>
+              <tr>
+                <td colspan="2" bgcolor="#d1d1d1" class="comntext2"><img src="images/spacer.gif" width="1" height="1" /></td>
+              </tr>
+            </table>
+            <br />
+            <table width="918" border="0" cellpadding="0" cellspacing="0" bordercolor="#999999">
+              <tr>
+                <td width="912" height="33" colspan="2" bgcolor="#f2f2f2"><strong class="subtitle3">Constructor Summary</strong></td>
+              </tr>
+              
+              <tr>
+                <td colspan="2" class="comntext2"><strong><a href="game_interface#GameInterface(java.lang.String, int)" class="bluetext2">GameInterface&nbsp;&nbsp;</a></strong>(java.lang.String uid,   int level)</td>
+              </tr>
+              <tr>
+                <td colspan="2" class="comntext2">&nbsp;</td>
+              </tr>
+              <tr>
+                <td colspan="2" bgcolor="#d1d1d1" class="comntext2"><img src="images/spacer.gif" width="1" height="1" /></td>
+              </tr>
+            </table>
+            <br />
+            <table width="918" border="0" cellpadding="0" cellspacing="0" bordercolor="#999999">
+              <tr>
+                <td height="33" colspan="2" bgcolor="#f2f2f2"><strong class="subtitle3">Method Summary</strong></td>
+              </tr>
+              <tr>
+                <td width="193" height="30" class="comntext2">com.devsquare.fts.ServerData</td>
+                <td width="725"><strong><a href="#extractServerMsg" class="bluetext2">extractServerMsg</a></strong><span class="comntext">(java.lang.String serverMsg)</span> </td>
+              </tr>
+              <tr>
+                <td height="30" class="comntext2">char[][]</td>
+                <td><strong><a href="#getBoard" class="bluetext2">getBoard</a></strong><span class="comntext">()
+                  </span>
+                  <!-- <BR>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TD>  </TR>  <TR BGCOLOR="white" CLASS="TableRowColor">  <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">  <CODE>&nbsp;char[][]</CODE></FONT></TD>  <TD><CODE><B><A HREF="../../../com/devsquare/fts/GameInterface.html#getBoardFrommessage(int, java.lang.String)">getBoardFrommessage</A></B>(int&nbsp;rowCount,                      java.lang.String&nbsp;message)</CODE> -->
+                <br /></td>
+              </tr>
+              <tr>
+                <td height="30" class="comntext2">int</td>
+                <td><strong><a href="#getColumnCount" class="bluetext2">getColumnCount</a></strong><span class="comntext">()
+                  </span> </td>
+              </tr>
+              <tr>
+                <td height="30" class="comntext2">int</td>
+                <td><span class="bluetext2"><strong><a href="#getCurrentStep" class="bluetext2">getCurrentStep</a></strong></span><span class="comntext">() </span><br /></td>
+              </tr>
+              <tr>
+                <td height="30" class="comntext2">java.util.ArrayList&lt;java.awt.Point&gt;</td>
+                <td><strong><a href="#getPointsbyType" class="bluetext2">getPointsbyType</a></strong><span class="comntext">(char c) </span><br /></td>
+              </tr>
+              <tr>
+                <td height="30" class="comntext2">java.lang.String</td>
+                <td><strong><a href="#getStatus" class="bluetext2">getStatus</a></strong><span class="comntext">() </span></td>
+              </tr>
+              <tr>
+                <td height="30" class="comntext2">java.lang.String</td>
+                <td><strong><a href="#getUserMessage" class="bluetext2">getUserMessage</a></strong><span class="comntext">() </span></td>
+              </tr>
+              <tr>
+                <td height="30" class="comntext2">int</td>
+                <td><strong><a href="#getxPosition" class="bluetext2">getxPosition</a></strong><span class="comntext">() </span></td>
+              </tr>
+              <tr>
+                <td height="30" class="comntext2">int</td>
+                <td><strong><a href="#getyPosition" class="bluetext2">getyPosition</a></strong><span class="comntext">() </span><br /></td>
+              </tr>
+              <tr>
+                <td height="30" class="comntext2">boolean</td>
+                <td><strong><a href="#isFinished" class="bluetext2">isFinished</a></strong><span class="comntext">() </span></td>
+              </tr>
+              <tr>
+                <td height="30" class="comntext2">void</td>
+                <td><strong><a href="#makeMove" class="bluetext2">makeMove</a></strong><span class="comntext">(java.lang.String command,   java.lang.String type) </span></td>
+              </tr>
+              <tr>
+                <td height="30" class="comntext2">void</td>
+                <td><strong><a href="#updateGame" class="bluetext2">updateGame</a></strong><span class="comntext">(com.devsquare.fts.ServerData sdata) </span><br /></td>
+              </tr>
+              
+              <tr>
+                <td colspan="2" class="comntext2">&nbsp;</td>
+              </tr>
+              <tr>
+                <td colspan="2" bgcolor="#d1d1d1" class="comntext2"><img src="images/spacer.gif" width="1" height="1" /></td>
+              </tr>
+            </table>
+            <br />
+          
+            <table width="918" border="0" cellpadding="0" cellspacing="0" bordercolor="#999999">
+              <tr>
+                <td height="33" bgcolor="#f2f2f2"><strong class="subtitle3">Field Detail</strong></td>
+              </tr>
+              <tr>
+                <td height="30" class="subtitle2">uid </td>
+              </tr>
+              <tr>
+                <td height="30" class="comntext2">public java.lang.String uid </td>
+              </tr>
+              <tr>
+                <td height="30" class="subtitle2">The Game ID. </td>
+              </tr>
+              <tr>
+                <td height="30" class="subtitle2"><h3 class="subtitle2">level</h3>
+                  <pre class="comntext2">int <strong>level</strong></pre>
+                The Game Level. <br />
+                <br /></td>
+              </tr>
+              <tr>
+                <td bgcolor="#d1d1d1" class="comntext2"><img src="images/spacer.gif" width="1" height="1" /></td>
+              </tr>
+            </table>
+            <br />
+           
+            <table width="918" border="0" cellpadding="0" cellspacing="0" bordercolor="#999999">
+              <tr>
+                <td height="33" bgcolor="#f2f2f2"><strong>Constructor Detail</strong></td>
+              </tr>
+              <tr>
+                <td height="30" class="subtitle2">GameInterface</td>
+              </tr>
+              <tr>
+                <td height="30" class="comntext2">public <strong>GameInterface</strong>(java.lang.String uid,                       int level)</td>
+              </tr>
+              
+              <tr>
+                <td bgcolor="#d1d1d1" class="comntext2"><img src="images/spacer.gif" width="1" height="1" /></td>
+              </tr>
+            </table>
+            <br />
+           
+            <table width="918" border="0" cellpadding="0" cellspacing="0" bordercolor="#999999">
+              <tr>
+                <td height="33" bgcolor="#f2f2f2"><strong>Method Detail</strong></td>
+              </tr>
+              <tr>
+                <td height="30" class="subtitle2"><A name="getUserMessage">getUserMessage</A></td>
+              </tr>
+              <tr>
+                <td height="30" class="comntext2">public java.lang.String getUserMessage()<br />
+                  <br />
+                  Returns a String that contains gameid, step no., type of command(stop/init/move etc), source(user/server), level(1/2) and bonus points.
+                  <br />
+                All of the above parameters are separated by semicolons.<br />
+                <br /></td>
+              </tr>
+              <tr>
+                <td bgcolor="#d1d1d1"><img src="images/spacer.gif" width="1" height="1" /></td>
+              </tr>
+              <tr>
+                <td height="30" class="comntext2"><span class="subtitle2"><br />
+                  <A name="getxPosition">getxPosition</A>
+                  </span><br />
+                  <br />
+                public int <strong>getxPosition(</strong>)<br />
+                <br />
+                Returns the player position with respect to X axis. <br />
+                <br /></td>
+              </tr>
+              <tr>
+                <td bgcolor="#d1d1d1" class="comntext2"><img src="images/spacer.gif" width="1" height="1" /></td>
+              </tr>
+              <tr>
+                <td class="comntext2"><h3><br />
+                    <span class="subtitle2"><A name="getyPosition">getyPosition</A></span></h3>
+                  <pre class="comntext2">public int <strong>getyPosition</strong>()</pre>
+                Returns the player position with   respect to Y axis. <br />
+                <br /></td>
+              </tr>
+              <tr>
+                <td bgcolor="#d1d1d1" class="comntext2"><img src="images/spacer.gif" width="1" height="1" /></td>
+              </tr>
+              <tr>
+                <td class="comntext2"><h3 class="subtitle2"><A name="getPointsbyType">getPointsbyType</A></h3>
+                  <pre class="comntext2">public java.util.ArrayList&lt;java.awt.Point&gt; <strong>getPointsbyType</strong>(char c)</pre>
+                  Returns   an ArrayList of coordinates of the specified character in the form of <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/awt/Point.html" class="bluetext2"><strong> Point</strong></a>.<br />
+                  Player   should import <em>java.awt.Point</em> before using this function.<br />
+                  <p><strong class="subtitle2">Parameters:</strong><br />
+                    
+                c - a character from the board matrix. <br />
+                  <br />
+                  </p></td>
+              </tr>
+              <tr>
+                <td bgcolor="#d1d1d1" class="comntext2"><img src="images/spacer.gif" width="1" height="1" /></td>
+              </tr>
+              <tr>
+                <td class="comntext2"><h3 class="subtitle2"><A name="updateGame">updateGame</A></h3>
+                  <pre class="comntext2">public void <strong>updateGame</strong>(com.devsquare.fts.ServerData sdata)</pre>
+                  <strong>Updates   the information from current game, using variables in ServerData.</strong> <br />
+                <br /></td>
+              </tr>
+            </table></td>
+          </tr>
+          <tr>
+            <td bgcolor="#d1d1d1"><img src="images/spacer.gif" width="1" height="1" /></td>
+          </tr>
+          <tr>
+            <td><h3 class="subtitle2"><A name="makeMove">makeMove</A></h3>
+              <pre class="comntext2">public void <strong>makeMove</strong>(java.lang.String command,                       <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;java.lang.String type)</pre>
+              <span class="comntext2">Moves the Player position   towards the specified direction.</span><br />
+              <p><strong class="subtitle2">Parameters:</strong><br />
+     c<span class="comntext2">ommand - This command is always the String   &quot;move&quot;.<br />
+                      type - This is a String telling directions eg:   &quot;left&quot;/&quot;right&quot;/&quot;up&quot;/&quot;down&quot;. </span><br />
+                  <br />
+              </p></td>
+          </tr>
+          <tr>
+            <td bgcolor="#d1d1d1"><img src="images/spacer.gif" width="1" height="1" /></td>
+          </tr>
+          <tr>
+            <td><h3 class="subtitle2"><A Name="extractServerMsg">extractServerMsg</A></h3>
+              <pre class="comntext2">public com.devsquare.fts.ServerData <strong>extractServerMsg</strong>(java.lang.String serverMsg)</pre>
+              <span class="comntext2">Extracts   the information from the user message that is read from the socket. <br />
+              <br />
+              </span></td>
+          </tr>
+          <tr>
+            <td bgcolor="#d1d1d1"><img src="images/spacer.gif" width="1" height="1" /></td>
+          </tr>
+          <tr>
+            <td><h3 class="subtitle2"><A name="getCurrentStep">getCurrentStep</A></h3>
+              <pre class="comntext2">public int <strong>getCurrentStep</strong>()</pre>
+              <span class="comntext2">Returns the number of steps moved   by the player block. <br />
+              <br />
+              </span></td>
+          </tr>
+          <tr>
+            <td bgcolor="#d1d1d1"><img src="images/spacer.gif" width="1" height="1" /></td>
+          </tr>
+          <tr>
+            <td><h3 class="subtitle2"><A name="getBoard">getBoard</A></h3>
+              <pre class="comntext2">public char[][] <strong>getBoard</strong>()</pre>
+              <span class="comntext2">Returns the board characters in the   form of a 2D matrix. <br />
+              <br />
+              </span></td>
+          </tr>
+          <tr>
+            <td bgcolor="#d1d1d1"><img src="images/spacer.gif" width="1" height="1" /></td>
+          </tr>
+          <tr>
+            <td><h3 class="subtitle2"><A name="getColumnCount">getColumnCount</A></h3>
+              <pre class="comntext2">public int <strong>getColumnCount</strong>()</pre>
+              <span class="comntext2">Returns the number of columns in   the matrix.<br />
+              <br />
+              </span></td>
+          </tr>
+          <tr>
+            <td bgcolor="#d1d1d1"><img src="images/spacer.gif" width="1" height="1" /></td>
+          </tr>
+          <tr>
+            <td><h3 class="subtitle2"><A name="getStatus">getStatus</A></h3>
+              <pre class="comntext2">public java.lang.String <strong>getStatus</strong>()</pre>
+              <span class="comntext2">Returns the status of the   game in the form of a String. <br />
+              <br />
+              </span></td>
+          </tr>
+          <tr>
+            <td bgcolor="#d1d1d1"><img src="images/spacer.gif" width="1" height="1" /></td>
+          </tr>
+          <tr>
+            <td><h3 class="subtitle2"><A name="isFinished">isFinished</A></h3>
+              <pre class="comntext2">public boolean <strong>isFinished</strong>()</pre>
+              <span class="comntext2">Returns true if the game is   stopped. <br />
+              <br />
+              </span></td>
+          </tr>
+          <tr>
+            <td bgcolor="#d1d1d1"><img src="images/spacer.gif" width="1" height="1" /></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      <!-- InstanceEndEditable --></td>
+    </tr>
+    
+   
+       
+  
+ 
+  <tr>
+    <td colspan="3" bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3" bgcolor="#ff6600"><img src="images/spacer.gif" width="1" height="3" /></td>
+  </tr>
+  <tr>
+    <td height="43" colspan="2" background="images/bott_bg.jpg" ><a class="copyrights2" href="#">Sitemap</a></td>
+    <td background="images/bott_bg.jpg" class="rightimgpad"><img src="images/rss.jpg" width="37" height="14"  /></td>
+  </tr>
+  <tr>
+	    <td height="39" colspan="2" bgcolor="#FFFFFF" class="normaltext3">Copyrights ©2010 Infosys Technologies Limited</td>
+	    <td bgcolor="#FFFFFF"><a class="copyrights" href="#">Privacy Statement</a> | &nbsp;&nbsp;<a class="copyrights" href="#">Safe Harbor Provision</a> | &nbsp;&nbsp;<a class="copyrights" href="#">Terms of use</a> | &nbsp;&nbsp;<a class="copyrights" href="#">Trademarks</a></td>
+  	</tr>
+</table>
+</body>
+<!-- InstanceEnd --></html>
