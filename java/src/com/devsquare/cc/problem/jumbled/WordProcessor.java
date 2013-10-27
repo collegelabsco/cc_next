@@ -152,6 +152,10 @@ public class WordProcessor {
 	}
 	
 	
+	boolean isaValidWord(String word){
+		return wordMap.containsKey(word);
+	}
+	
 
 	public static void main(String args[]) throws CCSystemException,
 			IOException {

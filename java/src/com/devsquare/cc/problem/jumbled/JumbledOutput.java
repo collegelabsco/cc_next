@@ -1,24 +1,32 @@
 package com.devsquare.cc.problem.jumbled;
 
+import java.util.Map;
+
 import com.devsquare.cc.interfaces.Output;
+import com.devsquare.cc.interfaces.Parameter;
 
-public class JumbledOutput implements Output<String> {
+public class JumbledOutput implements Output<String,String[]> {
 	
-	private String jw = null;
-	private String original = null;
-
-	public JumbledOutput(String jw,String original) {
-		this.jw = jw;
-		this.original = original;
+	Map<String, Object> outputMap = null;
+	
+	public JumbledOutput(Map<String, Object> outputMap) {
+		this.outputMap = outputMap;
 	}
 	
 	@Override
 	public String getOutput(){
-		return jw;
+		return (String)outputMap.get(Parameter.OUTPUT);
 	}
 	
 	public String getOriginal(){
-		return this.original;
+		return (String)outputMap.get(Parameter.ORIGINAL_WORD);
 	}
+	
+	@Override
+	public String[] getErrorOutput(){
+		return (String[])outputMap.get(Parameter.ERROR_OUTPUT);
+	}
+	
+	
 
 }

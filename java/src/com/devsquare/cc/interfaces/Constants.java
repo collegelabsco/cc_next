@@ -8,7 +8,7 @@ public interface Constants {
 	int LEVEL_4=4;
 	
 	
-	int LOG_LEVEL=2;
+	int LOG_LEVEL=1;
 	
 	
 	
