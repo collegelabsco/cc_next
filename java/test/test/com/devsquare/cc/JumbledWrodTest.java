@@ -19,7 +19,7 @@ import com.devsquare.cc.util.StringUtil;
 
 public class JumbledWrodTest extends BaseTest {
 	
-	static Problem<JumbledOutput, JumbledParameter> p = null;
+	static JumbledWordProblem p = null;
 	
 	@BeforeClass
 	public static void setup() throws CCSystemException{
@@ -40,10 +40,10 @@ public class JumbledWrodTest extends BaseTest {
 	public void testProblemOutput() throws Exception {
 		
 		JumbledOutput o = p.get(null);
-		Log.info(o.getOriginal() + " : " + o.getOutput());
+		Log.info(o.getOriginal() + " : " + o.getResult());
 		Assert.assertNotNull(o);
-		Assert.assertEquals(o.getOutput().length(), o.getOriginal().length());
-		Assert.assertEquals(StringUtil.sortString(o.getOutput()),
+		Assert.assertEquals(o.getResult().length(), o.getOriginal().length());
+		Assert.assertEquals(StringUtil.sortString(o.getResult()),
 				StringUtil.sortString(o.getOriginal()));
 
 	}

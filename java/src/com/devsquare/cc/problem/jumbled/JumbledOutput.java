@@ -5,7 +5,7 @@ import java.util.Map;
 import com.devsquare.cc.interfaces.Output;
 import com.devsquare.cc.interfaces.Parameter;
 
-public class JumbledOutput implements Output<String,String[]> {
+public class JumbledOutput implements Output {
 	
 	Map<String, Object> outputMap = null;
 	
@@ -13,8 +13,7 @@ public class JumbledOutput implements Output<String,String[]> {
 		this.outputMap = outputMap;
 	}
 	
-	@Override
-	public String getOutput(){
+	public String getResult(){
 		return (String)outputMap.get(Parameter.OUTPUT);
 	}
 	

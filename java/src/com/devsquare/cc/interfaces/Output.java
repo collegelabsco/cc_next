@@ -1,8 +1,7 @@
 package com.devsquare.cc.interfaces;
 
-public interface Output<T,E> {
+public interface Output<E> {
 
-	T getOutput();
 	
 	E getErrorOutput();
 

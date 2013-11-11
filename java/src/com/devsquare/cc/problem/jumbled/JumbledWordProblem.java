@@ -19,7 +19,6 @@ public class JumbledWordProblem implements Problem<JumbledOutput,JumbledParamete
 	}
 	
 	
-	@Override
 	public JumbledOutput get(JumbledParameter parameter) throws Exception {
 		String original = wp.getRandomWord();
 		String jw = wp.jumbledTheWord(original);
