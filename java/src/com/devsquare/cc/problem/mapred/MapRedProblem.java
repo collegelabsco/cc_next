@@ -85,7 +85,7 @@ public class MapRedProblem implements Problem<MapRedOuput, MapredParameter> {
 			int lineIndex = ranGen.nextInt(lines.size()-1);
 			String line = lines.get(lineIndex);
 			int age = ranGen.nextInt(100);
-			String _li = line+"|"+age+"\r\n";
+			String _li = line+"|"+age+"\n";
 			os.write(_li.getBytes());
 			os.flush();
 			int count = 1;

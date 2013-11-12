@@ -1,19 +1,23 @@
 package com.devsquare.cc.problem.mapred;
 
+import java.util.HashMap;
 import java.util.Map;
 
+import com.devsquare.cc.interfaces.Constants;
 import com.devsquare.cc.interfaces.Output;
+import com.devsquare.cc.interfaces.Parameter;
 
 public class MapRedOuput implements Output<String> {
 
+	Map<String, Object> output = new HashMap<String, Object>();
+	
 	public MapRedOuput(Map<String, Object> outputMap) {
-		// TODO Auto-generated constructor stub
+		this.output = outputMap;
 	}
 
 	@Override
 	public String getErrorOutput() {
-		// TODO Auto-generated method stub
-		return null;
+		return (String)output.get(Parameter.ERROR_OUTPUT);
 	}
 	
 	
