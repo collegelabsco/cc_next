@@ -1,6 +1,7 @@
 package com.devsquare.fts;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.util.ArrayList;
 
 public class GameRunner extends Thread {

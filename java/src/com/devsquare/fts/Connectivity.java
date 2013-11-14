@@ -1,12 +1,16 @@
 package com.devsquare.fts;
 
-import java.io.*;
-
+import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
-import java.util.Hashtable;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.text.*;
-import java.sql.*;
+import java.util.Hashtable;
 
 class Connectivity extends Thread implements Runnable
 

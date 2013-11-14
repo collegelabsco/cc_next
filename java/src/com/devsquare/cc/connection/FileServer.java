@@ -31,7 +31,7 @@ private static ExecutorService executorService = Executors.newCachedThreadPool()
             	Log.info("Listening for request...");
                 Socket serviceSocket= serverSocket.accept();
                 try{
-				executorService. execute(new FileEvent(serviceSocket));
+			//	executorService. execute(new FileEvent(serviceSocket));
                 }catch(Throwable t){
                 	t.printStackTrace();
                 }

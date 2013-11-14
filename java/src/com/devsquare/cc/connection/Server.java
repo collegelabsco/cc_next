@@ -33,7 +33,7 @@ public class Server {
             	Log.info("Listening for request...");
                 Socket serviceSocket= serverSocket.accept();
                 try{
-				executorService. execute(new Event(serviceSocket));
+				//executorService. execute(new Event(serviceSocket));
                 }catch(Throwable t){
                 	t.printStackTrace();
                 }

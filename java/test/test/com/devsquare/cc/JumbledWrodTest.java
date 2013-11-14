@@ -10,7 +10,6 @@ import org.junit.Test;
 
 import com.devsquare.cc.CCSystemException;
 import com.devsquare.cc.interfaces.Parameter;
-import com.devsquare.cc.interfaces.Problem;
 import com.devsquare.cc.log.Log;
 import com.devsquare.cc.problem.jumbled.JumbledOutput;
 import com.devsquare.cc.problem.jumbled.JumbledParameter;

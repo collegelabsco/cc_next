@@ -42,7 +42,7 @@ public class MapredTest extends BaseTest {
 		mrp.readFile(mp);
 		
 		String content[] = baos.toString().split("\n");
-		Map<Integer, Integer> ageCount = new HashMap<>();
+		Map<Integer, Integer> ageCount = new HashMap<Integer, Integer>();
 		for(String line:content){
 			String token[] = line.split("\\|");
 			int count = 1;
@@ -61,7 +61,7 @@ public class MapredTest extends BaseTest {
 		}
 		
 		MapredOriginalData mod = mp.getOriginal();
-		Map<String, Object> params = new HashMap<>();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(Parameter.PEOPLE_AGE, ageCount);
 		mp = new MapredParameter(params);
 		mp.setMapredOrinalData(mod);

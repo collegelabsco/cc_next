@@ -1,9 +1,16 @@
 package com.devsquare.fts;
 
-import javax.swing.*;
+import java.awt.Color;
 //import java.applet.Applet;
-import java.awt.*;
-import java.text.*;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.MediaTracker;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Simulation extends JFrame {
   Dimension d;

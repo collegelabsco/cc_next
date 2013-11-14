@@ -54,7 +54,7 @@ public class MapRedProblem implements Problem<MapRedOuput, MapredParameter> {
 		Map<Integer,Integer> ageGroup = parameter.getPeopleCountWithAge();
 		Iterator<Entry<Integer, Integer>> paItr = ageGroup.entrySet().iterator();
 		MapredOriginalData mod = parameter.getOriginal();
-		Map<String, Object> outputMap = new HashMap<>();
+		Map<String, Object> outputMap = new HashMap<String, Object>();
 		while(paItr.hasNext()){
 			Entry<Integer, Integer> entry = paItr.next();
 			if(mod.getPeopleAgeGroup().get(entry.getKey())!=

@@ -1,32 +1,41 @@
 package com.devsquare.cc.connection;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.Socket;
-import java.nio.channels.Channel;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.devsquare.cc.InvalidRequest;
 import com.devsquare.cc.log.Log;
 
 public class Event implements Runnable {
 
-	Socket clientSocket = null;
+	/*Socket clientSocket = null;
 	DataInputStream is = null;
 	DataOutputStream writer = null;
 	Channel channel = null;
-
-	public Event(Socket socket) throws IOException {
+*/
+	/*public Event(Socket socket) throws IOException {
 		this.clientSocket = socket;
 		is = new DataInputStream(socket.getInputStream());
 		writer = new DataOutputStream(socket.getOutputStream());
 		channel = socket.getChannel();
+	}*/
+	
+	HttpServletRequest req = null;
+	HttpServletResponse res = null;
+	
+
+	public Event(HttpServletRequest request, HttpServletResponse response) {
+		this.req = request;
+		this.res = response;
+
 	}
-	
-	
+
+
 
 	@Override
 	public void run() {
@@ -48,37 +57,12 @@ public class Event implements Runnable {
 			write("Bad request");
 		} catch (Exception e) {
 			write("Something wrong at server :"+e.getMessage());
-		} finally {
-			try {
-				clientSocket.shutdownOutput();
-				Thread t = new Thread(){
-					public void run(){
-						try {
-							while(is.read()!=-1);
-							Log.info("Socket closed from client.");
-							synchronized (clientSocket) {
-								clientSocket.notify();
-							}
-							
-						} catch (IOException e) {
-							//e.printStackTrace();
-						}
-						
-					}
-				};
-				t.setDaemon(true);
-				t.start();
-				close();
-				
-			} catch (IOException | InterruptedException e) {
-				e.printStackTrace();
-			} 
-		}
+			e.printStackTrace();
+		} 
 	}
 	
 	protected void process() throws Exception{
-		String qString = is.readLine();
-		clientSocket.shutdownInput();
+		String qString = req.getQueryString();
 		Map<String, String> requestParams = getQueryMap(qString);
 		validateRequest(requestParams, qString);
 		String type = requestParams.get(SessionConstants.TYPE);
@@ -98,26 +82,10 @@ public class Event implements Runnable {
 		write(response);
 	}
 	
-	private void close() throws IOException, InterruptedException{
-		   synchronized (clientSocket) {
-			clientSocket.wait(waitTime());
-			Log.info("Closing socket..");
-			clientSocket.close();
-			is = null;
-			writer = null;
-		}
-	}
-	
-	protected int waitTime(){
-		return 10000;
-	}
-	
 	
 	public void write(String text){
-		
 		try {
-			writer.writeBytes(text+"\n");
-			writer.flush();
+			res.getWriter().write(text);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

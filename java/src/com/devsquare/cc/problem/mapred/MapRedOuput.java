@@ -3,7 +3,6 @@ package com.devsquare.cc.problem.mapred;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.devsquare.cc.interfaces.Constants;
 import com.devsquare.cc.interfaces.Output;
 import com.devsquare.cc.interfaces.Parameter;
 

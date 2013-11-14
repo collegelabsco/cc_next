@@ -18,7 +18,7 @@ public class JumbledWordProblem implements Problem<JumbledOutput,JumbledParamete
 	
 	
 	private JumbledWordProblem() throws CCSystemException{
-		this.wp = WordProcessor.getInstance().init();
+		this.wp = WordProcessor.getInstance();
 	}
 	
 	public static JumbledWordProblem get() throws CCSystemException{
@@ -48,7 +48,7 @@ public class JumbledWordProblem implements Problem<JumbledOutput,JumbledParamete
 		String jw = parameter.getJumbledWord();
 		String sortedJW = StringUtil.sortString(jw);
 		String[] response = parameter.getResponse();
-		List<String> errorWords = new LinkedList<>();
+		List<String> errorWords = new LinkedList<String>();
 		if(response!=null){
 			for(String word:response){
 
@@ -60,7 +60,7 @@ public class JumbledWordProblem implements Problem<JumbledOutput,JumbledParamete
 			}
 		}
 		
-		Map<String, Object> outputMap = new HashMap<>();
+		Map<String, Object> outputMap = new HashMap<String, Object>();
 		if(errorWords.size()>0){
 			String[] errorValues = new String[errorWords.size()];
 			errorWords.toArray(errorValues);

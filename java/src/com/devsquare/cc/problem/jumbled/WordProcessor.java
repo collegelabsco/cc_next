@@ -2,6 +2,7 @@ package com.devsquare.cc.problem.jumbled;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.net.URL;
 import java.nio.channels.FileChannel;
@@ -18,19 +19,21 @@ import com.devsquare.cc.log.Log;
 
 public class WordProcessor {
 
-	private static WordProcessor SINGLETON = new WordProcessor();
+	private static WordProcessor SINGLETON = null;
 
 	private Object mapObject = new Object();
 
-	private final Map<String, Object> wordMap = new HashMap<>();
+	private final Map<String, Object> wordMap = new HashMap<String, Object>();
 
-	private final List<String> wordList = new ArrayList<>();
+	private final List<String> wordList = new ArrayList<String>();
 
 	Random randomGen = new Random();
 
 	private long dfl;
 	
 	private String filePath = null;
+	
+	URL url = null;
 
 	// a [closed%3:00:04::] [closed] shut, unopen
 
@@ -39,6 +42,9 @@ public class WordProcessor {
 	}
 
 	public static WordProcessor getInstance() {
+		if(SINGLETON == null){
+			SINGLETON = new WordProcessor();
+		}
 		return SINGLETON;
 	}
 	
@@ -46,28 +52,33 @@ public class WordProcessor {
 		return dfl;
 	}
 	
-	public void streamDictionaryFile(WritableByteChannel channel) throws IOException{
-		FileInputStream fis = new FileInputStream(filePath);
-		FileChannel fc = fis.getChannel();
-		long position = 0;
-		long length = dfl;
-		while(true){
-			long read = fc.transferTo(position, length, channel);
-			length = length-read;
-			if(length==0){
-				break;
-			}
-			position=position+read;
-		}
-		
-		fc.close();
-		fis.close();
-		//new FileInputStream(filePath).getChannel().transferTo(0, dfl,channel );
+	public InputStream getDictionaryStream() throws IOException{
+		return url.openStream();
 	}
+	
+	
+//	public void streamDictionaryFile(WritableByteChannel channel) throws IOException{
+//		FileInputStream fis = new FileInputStream(filePath);
+//		FileChannel fc = fis.getChannel();
+//		long position = 0;
+//		long length = dfl;
+//		while(true){
+//			long read = fc.transferTo(position, length, channel);
+//			length = length-read;
+//			if(length==0){
+//				break;
+//			}
+//			position=position+read;
+//		}
+//		
+//		fc.close();
+//		fis.close();
+//		//new FileInputStream(filePath).getChannel().transferTo(0, dfl,channel );
+//	}
 
 	public WordProcessor init() throws CCSystemException{
 		
-		URL url = WordProcessor.class.getResource("core-wordnet.txt");
+		url = WordProcessor.class.getResource("core-wordnet.txt");
 		RandomAccessFile raf = null;
 		try {
 			filePath = url.getFile();

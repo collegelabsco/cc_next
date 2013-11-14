@@ -48,7 +48,7 @@ public class BitmapProblem implements Problem<BitmapOutput, BitmapParameter> {
 		String fileId = parameter.getFileID();
 		IReader reader = readerMap.get(fileId);
 		byte b[] = reader.read(position, length);
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(BitmapParameter.BYTE, b);
 		BitmapOutput bop = new BitmapOutput(map);
 		return bop;
@@ -58,7 +58,7 @@ public class BitmapProblem implements Problem<BitmapOutput, BitmapParameter> {
 		int index = randomGen.nextInt(readerMap.size());
 		Entry<String, IReader> entry = (Entry<String, IReader>)readerMap.entrySet().toArray()[index];
 		
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(BitmapParameter.FILE_ID, entry.getKey());
 		map.put(BitmapParameter.FILE_SIZE, entry.getValue().size());
 		

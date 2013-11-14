@@ -75,7 +75,7 @@ public class BitmapTest extends BaseTest {
 		
 		BitmapProblem problem = new BitmapProblem();
 		BitmapOutput output = problem.getRandomFile();
-		int size = (int)output.get(Parameter.FILE_SIZE);
+		int size = (Integer)output.get(Parameter.FILE_SIZE);
 		String fileId = (String)output.get(Parameter.FILE_ID);
 		
 		int sigments= 10;
@@ -91,12 +91,12 @@ public class BitmapTest extends BaseTest {
 		
 		Set<Entry<Integer, Integer>> entrySet = map.entrySet();
 		Iterator<Entry<Integer, Integer>> itr = entrySet.iterator();
-		List<BitmapRequestLog> rLogList = new LinkedList<>();
+		List<BitmapRequestLog> rLogList = new LinkedList<BitmapRequestLog>();
 		while(itr.hasNext()){
 			Entry<Integer, Integer> entry = itr.next();
 			int position = entry.getKey();
 			int length = entry.getValue();
-			Map<String, Object> params = new HashMap<>();
+			Map<String, Object> params = new HashMap<String, Object>();
 			params.put(Parameter.FILE_ID, fileId);
 			params.put(Parameter.LENGTH, length);
 			params.put(Parameter.POSITION, position);

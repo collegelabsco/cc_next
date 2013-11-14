@@ -1,10 +1,10 @@
 package com.devsquare.fts;
 
+import java.awt.Point;
 import java.io.DataInputStream;
-import java.util.ArrayList;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.awt.Point;
+import java.util.ArrayList;
 
 //Please DO NOT change this file.
 

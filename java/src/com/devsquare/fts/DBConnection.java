@@ -1,9 +1,9 @@
 package com.devsquare.fts;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.net.*;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 public class DBConnection
 {
