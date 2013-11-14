@@ -14,8 +14,19 @@ public class JumbledWordProblem implements Problem<JumbledOutput,JumbledParamete
 
 	private WordProcessor wp = null;
 	
-	public JumbledWordProblem() throws CCSystemException{
+	private static JumbledWordProblem jwp = null;
+	
+	
+	private JumbledWordProblem() throws CCSystemException{
 		this.wp = WordProcessor.getInstance().init();
+	}
+	
+	public static JumbledWordProblem get() throws CCSystemException{
+		if(jwp==null){
+			jwp = new JumbledWordProblem();
+		}
+		
+		return jwp;
 	}
 	
 	

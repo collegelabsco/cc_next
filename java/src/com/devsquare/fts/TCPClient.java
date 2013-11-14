@@ -15,12 +15,12 @@ public class TCPClient {
     public TCPClient() {
 
         try {        	 
-            final int portNumber = 443;
+            final int portNumber = 8081;
             //final int portNumber = 80;
             /*InetAddress ownIP=InetAddress.getLocalHost();
         	final String machineName = ownIP.getHostAddress();*/
             
-            final String machineName = "207.211.87.41";
+            final String machineName = "localhost";
             System.out.println("Connecting to : " + machineName + ", port: " + portNumber);
             clientSocket = new Socket(machineName, portNumber);
             input = new DataInputStream(clientSocket.getInputStream());

@@ -10,14 +10,14 @@ public class DBConnection
 
    public MysqlDataSource ds;
 
-   String DB_SERVER="207.211.87.41";//Enter your database server name
+   String DB_SERVER="localhost";//Enter your database server name
    //String DB_SERVER="10.74.65.45";//Enter your database server name
    //String DB_SERVER="192.168.0.12";//Enter your database server name
    int DB_SERVER_PORT=3306; //Enter your database port number
-   String DB_NAME="code4jobs"; //Enter your database name
+   String DB_NAME="devsquare"; //Enter your database name
    //String DB_NAME="devsquare"; //Enter your database name
    String USER_NAME="root"; //Enter your mysql username
-   String USER_PASSWORD="dsroot123";//Enter your mysql password*/
+   String USER_PASSWORD="";//Enter your mysql password*/
    //String USER_PASSWORD="root";//Enter your mysql password*/
 
 

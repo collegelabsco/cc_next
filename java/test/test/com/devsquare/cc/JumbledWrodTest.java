@@ -24,7 +24,7 @@ public class JumbledWrodTest extends BaseTest {
 	@BeforeClass
 	public static void setup() throws CCSystemException{
 		Log.debug("Setting test setup");
-		p = new JumbledWordProblem();
+		p = JumbledWordProblem.get();
 	}
 	
 	

@@ -7,8 +7,8 @@ public class TCPServer {
 	public static void main(String[] args) {
 	   
 		try {			
-			ServerSocket serverSocket = new ServerSocket(443, 36);
-            //ServerSocket serverSocket = new ServerSocket(80, 36);
+			//ServerSocket serverSocket = new ServerSocket(443, 36);
+            ServerSocket serverSocket = new ServerSocket(8081);
 
             while (true) {
                

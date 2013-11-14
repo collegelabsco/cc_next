@@ -1,4 +1,4 @@
-package com.devsquare.cc;
+package com.devsquare.cc.mgr;
 
 import java.io.IOException;
 import java.util.zip.ZipEntry;

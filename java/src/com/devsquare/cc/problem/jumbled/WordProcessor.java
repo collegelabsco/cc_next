@@ -1,9 +1,11 @@
 package com.devsquare.cc.problem.jumbled;
 
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.net.URL;
+import java.nio.channels.FileChannel;
+import java.nio.channels.WritableByteChannel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +28,10 @@ public class WordProcessor {
 
 	Random randomGen = new Random();
 
+	private long dfl;
+	
+	private String filePath = null;
+
 	// a [closed%3:00:04::] [closed] shut, unopen
 
 	private WordProcessor() {
@@ -35,13 +41,38 @@ public class WordProcessor {
 	public static WordProcessor getInstance() {
 		return SINGLETON;
 	}
+	
+	public long getDictionaryFileSize(){
+		return dfl;
+	}
+	
+	public void streamDictionaryFile(WritableByteChannel channel) throws IOException{
+		FileInputStream fis = new FileInputStream(filePath);
+		FileChannel fc = fis.getChannel();
+		long position = 0;
+		long length = dfl;
+		while(true){
+			long read = fc.transferTo(position, length, channel);
+			length = length-read;
+			if(length==0){
+				break;
+			}
+			position=position+read;
+		}
+		
+		fc.close();
+		fis.close();
+		//new FileInputStream(filePath).getChannel().transferTo(0, dfl,channel );
+	}
 
 	public WordProcessor init() throws CCSystemException{
 		
 		URL url = WordProcessor.class.getResource("core-wordnet.txt");
 		RandomAccessFile raf = null;
 		try {
-			raf = new RandomAccessFile(url.getFile(), "r");
+			filePath = url.getFile();
+			raf = new RandomAccessFile(filePath, "r");
+			dfl = raf.length();
 			String line = null;
 			while ((line = raf.readLine()) != null) {
 				line = line.trim();

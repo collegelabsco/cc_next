@@ -11,9 +11,9 @@ import java.util.zip.ZipOutputStream;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.devsquare.cc.DataTransferMgr;
 import com.devsquare.cc.interfaces.Callback;
 import com.devsquare.cc.interfaces.Parameter;
+import com.devsquare.cc.mgr.DataTransferMgr;
 import com.devsquare.cc.problem.mapred.MapRedOuput;
 import com.devsquare.cc.problem.mapred.MapRedProblem;
 import com.devsquare.cc.problem.mapred.MapredOriginalData;

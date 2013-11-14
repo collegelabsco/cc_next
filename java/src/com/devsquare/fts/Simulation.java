@@ -149,16 +149,16 @@ public class Simulation extends JFrame {
 
   public static void main(String[] args) {
       // pass game id as args[0]
-      if (args.length == 0) {
+      /*if (args.length == 0) {
           System.out.println("Please pass the game id as an argument.");
           return;
-      }
+      }*/
       int level = 1;
 
-      System.out.println("Starting with gameid: " + args[0]);
+      //System.out.println("Starting with gameid: " + args[0]);
       //System.out.println("Starting with gameid: " + 1234);
       GameRunner game = new GameRunner();
-      game.initialize(args[0],level);
+      game.initialize("1406990789",level);
       game.start();
 
       Simulation simulation = new Simulation();
