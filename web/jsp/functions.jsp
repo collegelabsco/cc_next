@@ -2,11 +2,11 @@
 <%@ page import="java.util.regex.*" %>
 <%@ include file="constants.jsp" %>  
 <%!
-	private static String countUserId = "select email,pwd from game_rescue where email = ? and pwd = ?";
-	private static String checkUserExistence = "select email from game_rescue where email = ?";
-	private static String insertLogDetails = "insert into rescue_logger(email,gameid,time) values (?,?,?)";
-	private static String insertUserDetails = "insert into game_rescue(fname,lname,universityid,email,pwd,university,academic,sem) values (?,?,?,?,?,?,?,?)";
-	private static String get_password = "select pwd from game_rescue where email = ?";
+	private static String countUserId = "select email,pwd from users where email = ? and pwd = ?";
+	private static String checkUserExistence = "select email from users where email = ?";
+	private static String insertLogDetails = "insert into logger(email,gameid,time) values (?,?,?)";
+	private static String insertUserDetails = "insert into users(fname,lname,universityid,email,pwd,university,academic,sem) values (?,?,?,?,?,?,?,?)";
+	private static String get_password = "select pwd from users where email = ?";
 	
 	public static int checkUserId(String email) {
 		
@@ -247,44 +247,37 @@
 		public static int checkLogin(String email, String password) {
 			
 	        int exp = -1; 
-	        int key = 10;
 	        PreparedStatement pstmt = null;
 	        Connection con = null;
-	        String eid = null;
-			String passwrd = null;
 			ResultSet rst = null;
 	        try {
 	        	Class.forName(driverName).newInstance();
-	        	con = DriverManager.getConnection(connectionString, db_username, db_password);		
+	        	con = DriverManager.getConnection(connectionString, db_username, db_password);
+                System.out.println("checkLogin: "+countUserId+"||"+email+"||"+password);
 	            pstmt = con.prepareStatement(countUserId);
 	            pstmt.setString(1, email);			
 	            pstmt.setString(2, password);
 	            rst = pstmt.executeQuery();
-	            while(rst.next()) {
-					
-	                eid = rst.getString("email");
-					passwrd = rst.getString("pwd");				
-					
-					if(eid.equalsIgnoreCase(email) && passwrd.equalsIgnoreCase(password)) {
-						exp = 1;
-						break;
-					}
+	            if(rst.next()) {
+				    exp = 1;
 	            }
 
-							
-	        } catch (Exception e) {
+System.out.println("checkLogin: 2");
+
+            } catch (Throwable e) {
 	            e.printStackTrace();
 	        } finally {
 	            try {				
 	                if (rst != null) rst.close();
 	                if (pstmt != null) pstmt.close();
 	                if (con != null) con.close();
-	            } catch (Exception e) {
+	            } catch (Throwable e) {
 	                e.printStackTrace();
 	            }
 	            
 	        }
-	        return exp;
+System.out.println("checkLogin: 3");
+            return exp;
 	    }
 	   
 %>

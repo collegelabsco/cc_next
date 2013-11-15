@@ -32,15 +32,16 @@
 				response.sendRedirect("error.jsp");
 				return;
 			}
-			password = encryptMessage(password, 10);
+//			password = encryptMessage(password, 10);
 		}
 		
 		if(email == null || password == null){
 			response.sendRedirect("rescue.jsp");
 			return;
 		}
-		//System.out.println("here1");
-		if(request.getParameter("from_login1") != null) { 
+		System.out.println("LOGIN_SUBMIT 1");
+
+		if(request.getParameter("from_login1") != null) {
 			hidden_uid = request.getParameter("from_login1");			
 		}
 		if(request.getParameter("from_login2") != null) { 
@@ -53,10 +54,11 @@
 		if(hidden_sessionID == null || !sessionID.toString().equals(hidden_sessionID)) {
 			response.sendRedirect("rescue.jsp");
 			return;
-		}	
-		
-		int check_user_id = checkLogin(email, password);
-		//out.println(check_user_id);
+		}
+
+System.out.println("LOGIN_SUBMIT 2");
+         int check_user_id = checkLogin(email, password);
+System.out.println("check_user_id: "+check_user_id);
 		if (check_user_id == 1) {                    
             session.setAttribute("login","Login Successful");			
 			success = true;            
