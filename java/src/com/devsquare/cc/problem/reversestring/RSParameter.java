@@ -15,7 +15,7 @@ public class RSParameter implements Parameter {
 	}
 
 	public String getWord(){
-		return null;
+		return "CODECHAMPIONTEASER";
 	}
 	
 	
