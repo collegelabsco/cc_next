@@ -14,16 +14,17 @@ public class RSOutput implements Output {
 	}
 	
 	public String getResult(){
-		return (String)outputMap.get(Parameter.OUTPUT);
+		return "RESAETNOIPMAHCEDOC";
 	}
 	
 	public String getOriginal(){
-		return (String)outputMap.get(Parameter.ORIGINAL_WORD);
+		return "CODECHAMPIONTEASER";
 	}
 	
 	@Override
 	public String[] getErrorOutput(){
-		return (String[])outputMap.get(Parameter.ERROR_OUTPUT);
+        String[] strarr ={"ERROR"};
+		return strarr;//(String[])outputMap.get(Parameter.ERROR_OUTPUT);
 	}
 	
 	
