@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.devsquare.cc.CCSystemException;
 import com.devsquare.cc.connection.Event;
+import com.devsquare.cc.problem.bitmap.BitmapProblem;
 import com.devsquare.cc.problem.jumbled.WordProcessor;
 
 public abstract class AbstractServlet extends HttpServlet {
@@ -25,7 +26,8 @@ public abstract class AbstractServlet extends HttpServlet {
 				if(!initCompleted){
 					try {
 						WordProcessor.getInstance().init();
-					} catch (CCSystemException e) {
+						BitmapProblem.get().init();
+					} catch (Exception e) {
 						throw new ServletException(e);
 					}
 				}

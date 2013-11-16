@@ -73,7 +73,7 @@ public class BitmapTest extends BaseTest {
 
 	public void testBitmapProblem() throws Exception{
 		
-		BitmapProblem problem = new BitmapProblem();
+		BitmapProblem problem = BitmapProblem.get().init();
 		BitmapOutput output = problem.getRandomFile();
 		int size = (Integer)output.get(Parameter.FILE_SIZE);
 		String fileId = (String)output.get(Parameter.FILE_ID);
