@@ -3,7 +3,9 @@ package com.devsquare.cc.problem.bitmap;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
@@ -19,9 +21,19 @@ public class BitmapProblem implements Problem<BitmapOutput, BitmapParameter> {
 	private Map<String, IReader> readerMap = new HashMap<String, IReader>();
 	
 	Random randomGen = null;
+	ArrayList<Entry<String,IReader>> filelist = null;
 	
-	public BitmapProblem() throws IOException{
+	private static BitmapProblem bp = new BitmapProblem();
+	
+	private BitmapProblem(){
 		
+	}
+	
+	public static BitmapProblem get(){
+		return bp;
+	}
+	
+	public BitmapProblem init() throws IOException{
 		String dataDir = Constants.DATA_DIR;
 		File f  = new File(dataDir);
 		File[] farray = f.listFiles(new FileFilter() {
@@ -36,8 +48,13 @@ public class BitmapProblem implements Problem<BitmapOutput, BitmapParameter> {
 			readerMap.put(ff.getName(), new BitmapFileChannelReader(ff));
 		}
 		
+		filelist = new ArrayList<Map.Entry<String,IReader>>(readerMap.size());
+		Iterator<Entry<String, IReader>> itr = readerMap.entrySet().iterator();
+		while(itr.hasNext()){
+			filelist.add(itr.next());
+		}
 		randomGen = new Random();
-		
+		return this;
 	}
 	
 	
@@ -56,8 +73,7 @@ public class BitmapProblem implements Problem<BitmapOutput, BitmapParameter> {
 	
 	public BitmapOutput getRandomFile(){
 		int index = randomGen.nextInt(readerMap.size());
-		Entry<String, IReader> entry = (Entry<String, IReader>)readerMap.entrySet().toArray()[index];
-		
+		Entry<String, IReader> entry = filelist.get(index);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(BitmapParameter.FILE_ID, entry.getKey());
 		map.put(BitmapParameter.FILE_SIZE, entry.getValue().size());

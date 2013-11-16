@@ -32,7 +32,6 @@ public class Event implements Runnable {
 	public Event(HttpServletRequest request, HttpServletResponse response) {
 		this.req = request;
 		this.res = response;
-
 	}
 
 
@@ -64,7 +63,7 @@ public class Event implements Runnable {
 	protected void process() throws Exception{
 		String qString = req.getQueryString();
 		Map<String, String> requestParams = getQueryMap(qString);
-		validateRequest(requestParams, qString);
+		//validateRequest(requestParams, qString);
 		String type = requestParams.get(SessionConstants.TYPE);
 		String response = null;
 		if (type.equals("get")) {

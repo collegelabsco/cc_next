@@ -6,7 +6,7 @@
 
 <web-app>
 
-	<display-name>CC</display-name>
+	<display-name>Code Champion</display-name>
 	<description>Code Champion</description>
 
 	<!-- welcome-file-list>
@@ -39,15 +39,15 @@
 		<servlet-name>DownloadServlet</servlet-name>
 		<url-pattern>/d/*</url-pattern>
 	</servlet-mapping>
-	<!-- servlet>
-		<servlet-name>CCServlet</servlet-name>
-		<display-name>CCServlet</display-name>
+	<servlet>
+		<servlet-name>ProblemServlet</servlet-name>
+		<display-name>ProblemServlet</display-name>
 		<description>User interaction serlet</description>
-		<servlet-class>com.devsquare.cc.servlets.CCServlet</servlet-class>
+		<servlet-class>com.devsquare.cc.servlets.ProblemServlet</servlet-class>
 		<load-on-startup>0</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>CCServlet</servlet-name>
+		<servlet-name>ProblemServlet</servlet-name>
 		<url-pattern>/cc/*</url-pattern>
-	</servlet-mapping-->
+	</servlet-mapping>
 </web-app>
