@@ -4,9 +4,7 @@
 <%@ page import="java.sql.*" %> 
 <%@ page import="java.io.*" %> 
 <%@ page import="javax.mail.*" %> 
-<%@ page import="com.ncstudio.dataobjects.Constants" %>
-<%@ page import="com.ncstudio.server.util.MailClient" %>
-<%@ include file="functions.jsp" %>    
+<%@ include file="functions.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -171,14 +169,6 @@ body {
   <tr>
     <td colspan="3" bgcolor="#ff6600"><img src="images/spacer.gif" width="1" height="3" /></td>
   </tr>
-  <tr>
-    <td height="43" colspan="2" background="images/bott_bg.jpg" ><a class="copyrights2" href="#">Sitemap</a></td>
-    <td background="images/bott_bg.jpg" class="rightimgpad"><img src="images/rss.jpg" width="37" height="14"  /></td>
-  </tr>
- <tr>
-	    <td height="39" colspan="2" bgcolor="#FFFFFF" class="normaltext3">Copyrights ©2010 Infosys Technologies Limited</td>
-	    <td bgcolor="#FFFFFF"><a class="copyrights" href="#">Privacy Statement</a> | &nbsp;&nbsp;<a class="copyrights" href="#">Safe Harbor Provision</a> | &nbsp;&nbsp;<a class="copyrights" href="#">Terms of use</a> | &nbsp;&nbsp;<a class="copyrights" href="#">Trademarks</a></td>
-  	</tr>
 </table>
 </body>
 </html>

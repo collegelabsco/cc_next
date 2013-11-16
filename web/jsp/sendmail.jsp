@@ -9,7 +9,7 @@
 	session.setAttribute("greeting",uid);
     java.util.UUID sessionID = (java.util.UUID)session.getAttribute("sessionCheck");
 	if(sessionID == null) {
-		response.sendRedirect("rescue.jsp");
+		response.sendRedirect("index.jsp");
 		return;
 	}
 %>
@@ -50,7 +50,7 @@ body {
    
       <tr>
    
-        <td><a href="<%=response.encodeURL("rescue.jsp")%>" target="_top" onclick="MM_nbGroup('down','group1','home','images/home_over.jpg',1)" onmouseover="MM_nbGroup('over','home','images/home_over.jpg','',1)" onmouseout="MM_nbGroup('out')"><img src="images/home.jpg" alt="" name="home" width="91" height="30" border="0" id="home" onload="" /></a></td>
+        <td><a href="<%=response.encodeURL("index.jsp")%>" target="_top" onclick="MM_nbGroup('down','group1','home','images/home_over.jpg',1)" onmouseover="MM_nbGroup('over','home','images/home_over.jpg','',1)" onmouseout="MM_nbGroup('out')"><img src="images/home.jpg" alt="" name="home" width="91" height="30" border="0" id="home" onload="" /></a></td>
         <td><a href="javascript:;" target="_top" onclick="MM_nbGroup('down','group1','menudivider','',1)" onmouseover="MM_nbGroup('over','menudivider','','',1)" onmouseout="MM_nbGroup('out')"><img src="images/menu_divider.jpg" alt="" name="menudivider" width="2" height="30" border="0" id="menudivider" onload="" /></a></td>
         <td><a href="detailed_Instructions.html" target="_blank" onclick="MM_nbGroup('down','group1','moreinfo','images/more_info_over.jpg',1)" onmouseover="MM_nbGroup('over','moreinfo','images/more_info_over.jpg','',1)" onmouseout="MM_nbGroup('out')"><img src="images/more_info.jpg" alt="" name="moreinfo"  border="0" id="myspaceme" onload="" /></a></td>
         <td><a href="javascript:;" target="_top" onclick="MM_nbGroup('down','group1','menudivider3','',1)" onmouseover="MM_nbGroup('over','menudivider3','','',1)" onmouseout="MM_nbGroup('out')"><img src="images/menu_divider.jpg" alt="" name="menudivider3" width="2" height="30" border="0" id="menudivider3" onload="" /></a></td>
@@ -168,14 +168,6 @@ function validate_registration_form() {
   <tr>
     <td colspan="3" bgcolor="#ff6600"><img src="images/spacer.gif" width="1" height="3" /></td>
   </tr>
-  <tr>
-    <td height="43" colspan="2" background="images/bott_bg.jpg" ><a class="copyrights2" href="#">Sitemap</a></td>
-    <td background="images/bott_bg.jpg" class="rightimgpad"><img src="images/rss.jpg" width="37" height="14"  /></td>
-  </tr>
- <tr>
-	    <td height="39" colspan="2" bgcolor="#FFFFFF" class="normaltext3">Copyrights ©2010 Infosys Technologies Limited</td>
-	    <td bgcolor="#FFFFFF"><a class="copyrights" href="#">Privacy Statement</a> | &nbsp;&nbsp;<a class="copyrights" href="#">Safe Harbor Provision</a> | &nbsp;&nbsp;<a class="copyrights" href="#">Terms of use</a> | &nbsp;&nbsp;<a class="copyrights" href="#">Trademarks</a></td>
-  	</tr>
 </table>
 </body>
 <!-- InstanceEnd --></html>

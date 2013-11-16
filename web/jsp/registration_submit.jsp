@@ -89,7 +89,7 @@
 			hidden = request.getParameter("from_registration");
 		}	
 		if(!uid.toString().equals(hidden)) {
-			response.sendRedirect("rescue.jsp");
+			response.sendRedirect("index.jsp");
 			return;
 		}
 		
@@ -138,7 +138,7 @@ body {
             session.setAttribute("greeting",ob);
 			//out.println("window.location.href='simulation.jsp'");
 			%>
-			<form  method="post" action="<%=response.encodeURL("rescue.jsp")%>" name="registration_submit_frm">
+			<form  method="post" action="<%=response.encodeURL("index.jsp")%>" name="registration_submit_frm">
 				<INPUT TYPE="hidden" NAME="from_registration" value="<%=ob.toString()%>"/>
 			</form>
 			<table width="960" border="0" align="center" cellpadding="0" cellspacing="0">
@@ -198,7 +198,7 @@ body {
 		          <tr>
 		                <td align="center" height="40">
 						<span class="username"> 
-						<a href="rescue.jsp">Go back to Main Page</a></span></td>
+						<a href="index.jsp">Go back to Main Page</a></span></td>
 		          </tr>
 		           
 		          <tr>
@@ -216,14 +216,6 @@ body {
 		  <tr>
 		    <td colspan="3" bgcolor="#ff6600"><img src="images/spacer.gif" width="1" height="3" /></td>
 		  </tr>
-		  <tr>
-		    <td height="43" colspan="2" background="images/bott_bg.jpg" ><a class="copyrights2" href="#">Sitemap</a></td>
-		    <td background="images/bott_bg.jpg" class="rightimgpad"><img src="images/rss.jpg" width="37" height="14"  /></td>
-		  </tr>
-		 <tr>
-			    <td height="39" colspan="2" bgcolor="#FFFFFF" class="normaltext3">Copyrights ©2010 Infosys Technologies Limited</td>
-			    <td bgcolor="#FFFFFF"><a class="copyrights" href="#">Privacy Statement</a> | &nbsp;&nbsp;<a class="copyrights" href="#">Safe Harbor Provision</a> | &nbsp;&nbsp;<a class="copyrights" href="#">Terms of use</a> | &nbsp;&nbsp;<a class="copyrights" href="#">Trademarks</a></td>
-		  	</tr>
 		</table>
 			
 		

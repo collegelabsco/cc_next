@@ -14,12 +14,12 @@ body {
 <%  
 	String mtd = request.getMethod();
 	if(mtd.equalsIgnoreCase("get")){
-		response.sendRedirect("rescue.jsp");
+		response.sendRedirect("index.jsp");
 		return;
 	}
 	java.util.UUID sessionID = (java.util.UUID)session.getAttribute("sessionCheck");
 	if(sessionID == null) {
-		response.sendRedirect("rescue.jsp");
+		response.sendRedirect("index.jsp");
 		return;
 	}
 	
@@ -37,7 +37,7 @@ body {
 		comments = request.getParameter("comments");
 	
 	if(name==null || contact==null || subject==null || topic==null || comments==null) {
-		response.sendRedirect("rescue.jsp");
+		response.sendRedirect("index.jsp");
 		return;	
 	}
 	String status = null;
@@ -133,7 +133,7 @@ body {
           <tr>
                 <td align="center" height="40">
 				<span class="username"> 
-				<a href="rescue.jsp">Go back to Main Page</a></span></td>
+				<a href="index.jsp">Go back to Main Page</a></span></td>
           </tr>
            
           <tr>
@@ -151,14 +151,6 @@ body {
   <tr>
     <td colspan="3" bgcolor="#ff6600"><img src="images/spacer.gif" width="1" height="3" /></td>
   </tr>
-  <tr>
-    <td height="43" colspan="2" background="images/bott_bg.jpg" ><a class="copyrights2" href="#">Sitemap</a></td>
-    <td background="images/bott_bg.jpg" class="rightimgpad"><img src="images/rss.jpg" width="37" height="14"  /></td>
-  </tr>
- <tr>
-	    <td height="39" colspan="2" bgcolor="#FFFFFF" class="normaltext3">Copyrights ©2010 Infosys Technologies Limited</td>
-	    <td bgcolor="#FFFFFF"><a class="copyrights" href="#">Privacy Statement</a> | &nbsp;&nbsp;<a class="copyrights" href="#">Safe Harbor Provision</a> | &nbsp;&nbsp;<a class="copyrights" href="#">Terms of use</a> | &nbsp;&nbsp;<a class="copyrights" href="#">Trademarks</a></td>
-  	</tr>
 </table>
 </body>
 </head>

@@ -1,5 +1,5 @@
 <%@page import="java.util.*" %>
 <%
 session.invalidate();
-response.sendRedirect("rescue.jsp");
+response.sendRedirect("index.jsp");
 %>

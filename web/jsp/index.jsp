@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Welcome to InStep</title><style type="text/css">
+<title>Welcome to Code Champion</title><style type="text/css">
 <!--
 body {
 	margin-top: 5px;
@@ -148,7 +148,7 @@ function submitEnter(myfield,e)
     <tr>
       <td colspan="3" background="images/but_line.jpg"><img src="images/spacer.gif" width="1" height="3" /></td>
     </tr>
-  
+
      <tr>     
        <td colspan="3" valign="top" height="20px" bgcolor="#FFFFFF" align="center">
       </br>
@@ -174,7 +174,7 @@ function submitEnter(myfield,e)
                 <td height="30" valign="center"  class="signin3">Username</td>
                 <td height="30" class="formtext2"  >
 				
-                    <input title="Use University Email ID only"  style="width:170px" name="email" type="text" id="textfield1" size="25" value="University email-ID only" onfocus="if(this.value=='University email-ID only'){this.value='';}" onblur="if(this.value==''){this.value='University email-ID only';}"/>
+                    <input title="Use University Email ID only"  style="width:170px" name="email" type="text" id="textfield1" size="25" value="Email-ID" onfocus="if(this.value=='Email-ID'){this.value='';}" onblur="if(this.value==''){this.value='University email-ID only';}"/>
                     
                		 <INPUT TYPE="hidden" NAME="from_login1" value="<%=uid.toString() %>"/>
                		 <INPUT TYPE="hidden" NAME="from_login2" value="<%=sessionID.toString() %>"/>
