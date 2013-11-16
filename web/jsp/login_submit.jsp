@@ -6,7 +6,7 @@
 
 <%
 	if(request.getMethod().equalsIgnoreCase("get")){
-		response.sendRedirect("rescue.jsp");
+		response.sendRedirect("index.jsp");
 		return;	
 	}
 	String NOT_ALLOWED_SPECIAL_CHARS_FOR_EMAIL = "|;$%\\'\"<>()\r\n";
@@ -36,7 +36,7 @@
 		}
 		
 		if(email == null || password == null){
-			response.sendRedirect("rescue.jsp");
+			response.sendRedirect("index.jsp");
 			return;
 		}
 		System.out.println("LOGIN_SUBMIT 1");
@@ -48,11 +48,11 @@
 			hidden_sessionID = request.getParameter("from_login2");
 		}		
 		if(hidden_uid == null || !uid.toString().equals(hidden_uid)) {
-			response.sendRedirect("rescue.jsp");
+			response.sendRedirect("index.jsp");
 			return;
 		}		
 		if(hidden_sessionID == null || !sessionID.toString().equals(hidden_sessionID)) {
-			response.sendRedirect("rescue.jsp");
+			response.sendRedirect("index.jsp");
 			return;
 		}
 
@@ -84,7 +84,7 @@ System.out.println("check_user_id: "+check_user_id);
             session.setAttribute("greeting",ob);
 			//out.println("window.location.href='simulation.jsp'");
 			%>
-			<form method="post" action="<%=response.encodeURL("simulation.jsp")%>" name="login_submit_frm">
+			<form method="post" action="<%=response.encodeURL("contestqs.jsp")%>" name="login_submit_frm">
 			<INPUT TYPE="hidden" NAME="from_login1" value="<%=ob.toString() %>"/>"
 			<INPUT TYPE="hidden" NAME="from_login2" value="<%=sessionID%>"/>"
 			</form>

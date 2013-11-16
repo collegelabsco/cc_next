@@ -15,28 +15,32 @@
 <%	
 
 String mtd = request.getMethod();
+/*
 if(mtd.equalsIgnoreCase("get")){
-	response.sendRedirect("rescue.jsp");
+	response.sendRedirect("index.jsp");
 	return;
 }
+*/
 //System.out.println("sim: here1");
+/*
 java.util.UUID uid = (java.util.UUID)session.getAttribute("greeting");
 java.util.UUID sessionID = (java.util.UUID)session.getAttribute("sessionCheck");
 if(uid == null) {
-	response.sendRedirect("rescue.jsp");
+	response.sendRedirect("index.jsp");
 	return;	
 }
 if(sessionID==null) {
-	response.sendRedirect("rescue.jsp");
+	response.sendRedirect("index.jsp");
 	return;
 }
+*/
 
-if(request.getParameter("from_login1") == null) {	
-	response.sendRedirect("rescue.jsp");
+    if(request.getParameter("from_login1") == null) {
+	response.sendRedirect("index.jsp");
 	return;	
 }
 if(request.getParameter("from_login2") == null) {
-	response.sendRedirect("rescue.jsp");
+	response.sendRedirect("index.jsp");
 	return;	
 }
 
@@ -60,31 +64,32 @@ if(request.getParameter("from_login2") == null) {
 	hidden_uid = request.getParameter("from_login1");
 	hidden_sessionID = request.getParameter("from_login2");	
 	
-	if(!uid.toString().equals(hidden_uid)) { 
-		response.sendRedirect("rescue.jsp");		
+/*
+	if(!uid.toString().equals(hidden_uid)) {
+		response.sendRedirect("index.jsp");
 		return;
 	}
 	
 	if(!sessionID.toString().equals(hidden_sessionID)) {
-		response.sendRedirect("rescue.jsp");
+		response.sendRedirect("index.jsp");
 		return;
 	}	
 	
 	java.util.UUID ob = UUID.randomUUID();
     session.setAttribute("greeting",ob); 
-    
+*/
+
     
     
 	if(session.getAttribute("loginemail")!=null) {
 		email = (String)session.getAttribute("loginemail");		
 	}
 	else {		
-		response.sendRedirect("rescue.jsp");
+		response.sendRedirect("index.jsp");
 		return;
 	}
 
-	System.out.println("sessionID: " + sessionID);
-	
+
    
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
@@ -201,88 +206,62 @@ function MM_nbGroup(event, grpName) { //v6.0
     <tr>
       <td colspan="3" bgcolor="#FFFFFF" class="leftimgpadt"><!-- InstanceBeginEditable name="EditRegion1" -->
 
-	  <%  
-          
-			if(email!=null && gameid!=null) {
-			
-			boolean result = insertLogDetails(email,gameid,dateStr);
-			
-			
-		
-		
-      %>
-<form action="<%=response.encodeURL("jcload.jsp")%>" method="post" name="form2" target="_blank" id="form2" align="center">
 <table width="975" border="0" cellpadding="0" cellspacing="0" bgcolor="#dddddd">
- 
-  <tr>
-    <td width="136" height="40" class="subtitle22aa"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Step 1:</td>
-    <td width="4" rowspan="2" bgcolor="#FFFFFF">&nbsp;</td>
-    <td width="614" class="subtitle22a">Click on the "Start Simulation" arrow button on the right, to start viewing the simulation: (You would need JDK or JRE 1.5+)</td>
+
+    <%
+        if(email!=null && gameid!=null) {
+            boolean result = insertLogDetails(email,gameid,dateStr);
+    %>
+    <tr>
+    <td width="136" height="40" class="subtitle22aa"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Session Key:</td>
+    <td width="4" rowspan="5" bgcolor="#FFFFFF">&nbsp;</td>
+    <td width="614" class="subtitle22bb">Use your session key for communication with the server. <span class="bluetext3">Your session key is <%=gameid%> </span></td>
     <td width="8" rowspan="12" bgcolor="#FFFFFF" >&nbsp;</td>
-    <td width="213" rowspan="12" align="center" valign="middle" class="subtitle22ccc" >
-      <input type="image" src="images/start_simulation_bt.jpg" name="startsim"  />
-      
-      <input type="hidden" name="gameid" value="<%=gameid%>" align="center"/>
-      <INPUT TYPE="hidden" NAME="from_login_submit1" value="<%=ob.toString()%>"/>
-      <INPUT TYPE="hidden" NAME="from_login_submit2" value="<%=sessionID.toString()%>"/>    </td>
   </tr>
   <tr>
-    <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Step 2:</td>
-    <td class="subtitle22bb">Begin your game by running your code. <span class="bluetext3">Your gameID is <%=gameid%> </span></td>
+    <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Level 1:</td>
+    <td class="subtitle22bb">Click <a target="_blank" href="level1.jsp">here</a> for the problem statement.</td>
+  </tr>
+  <tr>
+    <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Level 2:</td>
+    <td class="subtitle22bb">Click <a target="_blank" href="level2.jsp">here</a> for the problem statement.</td>
+  </tr>
+  <tr>
+    <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Level 3:</td>
+    <td class="subtitle22bb">Click <a target="_blank" href="level3.jsp">here</a> for the problem statement.</td>
+  </tr>
+  <tr>
+    <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Level 4:</td>
+    <td class="subtitle22bb">Click <a target="_blank" href="level4.jsp">here</a> for the problem statement.</td>
+  </tr>
+    <%} %>
+
+    <tr>
+    <td height="40" colspan="3" class="subtitle22aaa">Instructions</td>
     </tr>
   <tr>
-    <td height="40" colspan="3" class="subtitle22aaa">Instructions for Java</td>
-    </tr>
-  <tr>
-    <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Step 3:</td>
+    <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Step 1:</td>
     <td rowspan="4" bgcolor="#FFFFFF">&nbsp;</td>
     <td class="subtitle22b">Download the Java code from <a class="more" href="game_data/java_code1.zip">java_code.zip.</a> Unzip and put it in an any directory</td>
     </tr>
   <tr>
-    <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Step 4:</td>
+    <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Step 2:</td>
     <td class="subtitle22b">Open a command line (cmd) in your system. Change directory to the folder as above.</td>
     </tr>
   <tr>
-    <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" />&nbsp;&nbsp;&nbsp;&nbsp;Step 5: </td>
+    <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" />&nbsp;&nbsp;&nbsp;&nbsp;Step 3: </td>
     <td class="subtitle22b">Compile the file by the following command (You would need JDK 1.5+)</span><span class="bluetext3"><br />
       javac com/devsquare/fts/*.java</span></td>
     </tr>
   <tr>
-    <td height="40" class="subtitle22cc"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Step 6:</td>
+    <td height="40" class="subtitle22cc"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Step 4:</td>
     <td class="subtitle22c">Run your code by the following command (gameid as mentioned above)</span><span class="bluetext3"><br />
                 java -cp &quot;.&quot; com.devsquare.fts.UserGame gameid</span></td>
     </tr>
-  <tr>
-    <td height="40" colspan="3" class="subtitle22aaa">Instructions for C (linux only)</td>
-    </tr>
-  <tr>
-    <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Step 3:</td>
-    <td rowspan="4" bgcolor="#FFFFFF">&nbsp;</td>
-    <td class="subtitle22b">Download the C code from <a class="more" href="game_data/c_code1.zip">c_code1.zip.</a> Unzip and put it in an any directory</td>
-    </tr>
-  <tr>
-   <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Step 4:</td>
-    <td class="subtitle22b">Open a command line (cmd) in your system. Change directory to the folder as above.</td>
-    </tr>
-  <tr>
-     <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" />&nbsp;&nbsp;&nbsp;&nbsp;Step 5: </td>
-    <td class="subtitle22b">Compile the file by the following command (You would need gcc 4.3+)</span><span class="bluetext3"><br />
-      gcc -o user_game user_game.c</span></td>
-    </tr>
-  <tr>
-    <td height="40" class="subtitle22cc"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Step 6:</td>
-    <td class="subtitle22c">Run your code by the following command (gameid as mentioned above)</span><span class="bluetext3"><br />
-                 ./user_game gameid</span></td>
-    </tr>
 </table>
-</form>
       <!-- InstanceEndEditable --></td>
     </tr>
-    
-   
-    
-  <%} %>   
- 
+
   <tr>
     <td colspan="3" bgcolor="#FFFFFF">&nbsp;</td>
   </tr>
