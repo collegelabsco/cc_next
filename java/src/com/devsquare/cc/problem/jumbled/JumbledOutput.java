@@ -26,6 +26,5 @@ public class JumbledOutput implements Output<Object> {
 		return (String[])outputMap.get(Parameter.ERROR_OUTPUT);
 	}
 	
-	
 
 }

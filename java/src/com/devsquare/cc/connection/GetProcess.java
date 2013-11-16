@@ -2,6 +2,7 @@ package com.devsquare.cc.connection;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.json.JSONObject;
 
@@ -11,7 +12,7 @@ import com.devsquare.cc.problem.bitmap.BitmapOutput;
 import com.devsquare.cc.problem.bitmap.BitmapProblem;
 import com.devsquare.cc.problem.jumbled.JumbledOutput;
 import com.devsquare.cc.problem.jumbled.JumbledWordProblem;
-import com.devsquare.cc.problem.mapred.MapRedProblem;
+import com.devsquare.cc.problem.jumbled.WordProcessor;
 
 public class GetProcess implements Processor {
 	
@@ -35,22 +36,30 @@ public class GetProcess implements Processor {
 	    		JumbledOutput jo = jwp.get(null);
 		    	user.setJumbledOutput(jo);
 		    	response = jo.getResult(); 
-		    	json.put("dictionaryURL", "http://localhost:8082?"+SessionConstants.FILENAME+"=dictionary.txt");
+		    	JSONObject job = new JSONObject();
+		    	job.put(Parameter.FILE_ID, SessionConstants.DICTIONARY_FILE_NAME);
+		    	job.put(Parameter.FILE_SIZE, WordProcessor.getInstance().getDictionaryFileSize());
+		    	json.put("dictionary",job.toString());
+		    	
 		    	json.put("output", response);
 		    	break;
 	    	  case 2:
 	    		BitmapProblem bp = BitmapProblem.get();
 	    		Map<String, Integer> fileMap = new HashMap<String, Integer>();
-	    		for(int i=0;i<2;i++){
 	    		  BitmapOutput bo = bp.getRandomFile();
-	    		  fileMap.put(bo.get(Parameter.FILE_ID).toString(), (Integer)bo.get(Parameter.FILE_SIZE));
 	    		  JSONObject fj = new JSONObject();
-	    		  fj.put("file", bo.get(Parameter.FILE_ID));
-	    		  fj.put("size", bo.get(Parameter.FILE_SIZE));
-	    		  json.accumulate("output", fj.toString());
-	    		}
+	    		  fj.put(Parameter.FILE_ID, bo.get(Parameter.FILE_ID));
+	    		  fj.put(Parameter.FILE_SIZE, bo.get(Parameter.FILE_SIZE));
+	    		  json.put("output", fj.toString());
+	    		  
+	    		  for(int i=0;i<SessionConstants.BITMAP_FILE_COUNT;i++){
+	    			  String fuid = UUID.randomUUID().toString();
+	    			  String context = "/d?"+Parameter.FILE_ID+"="+fuid;
+	    			  json.accumulate("context", context);
+	    			  bo.add(fuid, null);
+	    		  }
 	    		
-	    		user.setBitMapOutput(fileMap);
+	    		 user.setBitmapOutput(bo);
 	    		
 	    	  case 3:
 	    		  break;
@@ -62,9 +71,9 @@ public class GetProcess implements Processor {
 		    		for(int i=0;i<filelistLimit;i++){
 		    		  fName = filePrefix+System.currentTimeMillis()+".txt";
 		    		  mapredfileMap.put(fName, null);
-		    		  JSONObject fj = new JSONObject();
-		    		  fj.put("file",fName);
-		    		  json.accumulate("output", fj.toString());
+		    		  JSONObject jf = new JSONObject();
+		    		  jf.put("file",fName);
+		    		  json.accumulate("output", jf.toString());
 		    		}
 		    		
 		    		user.setMapredOutput(mapredfileMap);

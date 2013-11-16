@@ -1,7 +1,9 @@
 package com.devsquare.cc.connection;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,8 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 
 import com.devsquare.cc.InvalidRequest;
+import com.devsquare.cc.interfaces.Parameter;
 import com.devsquare.cc.log.Log;
-import com.devsquare.cc.mgr.UserManager;
+import com.devsquare.cc.problem.bitmap.BitmapOutput;
+import com.devsquare.cc.problem.bitmap.BitmapParameter;
+import com.devsquare.cc.problem.bitmap.BitmapProblem;
 import com.devsquare.cc.problem.jumbled.WordProcessor;
 
 public class FileEvent extends Event {
@@ -29,28 +34,61 @@ public class FileEvent extends Event {
 	}
 
 	@Override
-	public void process() throws IOException {
+	public void process() throws Exception {
 
 		String qString = req.getQueryString();
 		Log.info("User request = " + qString);
 		requestParams = getQueryMap(qString);
-		//validateRequest(requestParams, qString);
+		validateRequest(requestParams, qString);
 		
-		write();
+		String levelStr = requestParams.get(SessionConstants.LEVEL);
+		String sessionToken = requestParams.get(SessionConstants.SESSION_KEY);
+		int level = Integer.parseInt(levelStr);
+		User user = SessionManager.getInstance().getUser(sessionToken);
+		switch(level){
+			case 1:
+				String fileName = requestParams.get(Parameter.FILE_ID);
+				if(fileName.equals(SessionConstants.DICTIONARY_FILE_NAME)){
+					write( WordProcessor.getInstance().getDictionaryStream());
+				}else{
+					write("{Error:Invalid file request}");	
+				}
+			case 2:
+				String file = requestParams.get(Parameter.FILE_ID);
+				BitmapOutput bp = user.getBitmapOutput();
+				if(bp.has(file)){
+					BitmapProblem bprob = BitmapProblem.get();
+					Map<String, Object> map = new HashMap<String, Object>();
+					map.put(Parameter.POSITION, Integer.valueOf(requestParams.get(Parameter.POSITION)));
+					map.put(Parameter.LENGTH, Integer.valueOf(requestParams.get(Parameter.LENGTH)));
+					map.put(Parameter.FILE_ID, bp.get(Parameter.FILE_ID));
+					BitmapParameter bpm = new BitmapParameter(map);
+					BitmapOutput bop =bprob.getFileChunk(bpm);
+					byte[] b = (byte[])bop.get(Parameter.BYTE);
+					write( new ByteArrayInputStream(b));
+					
+				}else{
+					write("{Error:Invalid file request}");
+				}
+				
+				
+			case 3:
+			case 4:
+		}
 		
 	}
 
+	
 	public int waitTime() {
 		return 30000;
 	}
 
-	public void write() {
-		InputStream is = null;
+	public void write(InputStream is) {
 		try {
-			is = WordProcessor.getInstance().getDictionaryStream();
+			
 			res.addHeader(HTTP_HEADER_CONTENT_DISPOSITION, 
 					CONTENT_DISPOSITION_ATTACHMENT + 
-					CONTENT_DISPOSITION_ATTACHMENT_FILENAME + "\"" + requestParams.get(SessionConstants.FILENAME) + "\";");	
+					CONTENT_DISPOSITION_ATTACHMENT_FILENAME + "\"" + requestParams.get(Parameter.FILE_ID) + "\";");	
 			
 			IOUtils.copy(is, res.getOutputStream());
 		} catch (IOException e) {
@@ -64,7 +102,7 @@ public class FileEvent extends Event {
 	public void validateRequest(Map<String, String> reqParams, String qstring) {
 
 		String sessionToken = reqParams.get(SessionConstants.SESSION_KEY);
-		User u = UserManager.getMgr().getUser(sessionToken);
+		User u = SessionManager.getInstance().getUser(sessionToken);
 		if (sessionToken != null && u != null) {
 			// TODO: validate from DB;
 
@@ -78,10 +116,10 @@ public class FileEvent extends Event {
 							throw new NumberFormatException();
 						}
 						String fileName = reqParams
-								.get(SessionConstants.FILENAME);
+								.get(Parameter.FILE_ID);
 						if (fileName == null) {
 							throw new InvalidRequest(
-									"File name is missing from request.");
+									"File id is missing from request.");
 						}
 					} catch (NumberFormatException e) {
 						throw new InvalidRequest(

@@ -2,39 +2,39 @@ package com.devsquare.cc.interfaces;
 
 public interface Parameter {
 	
-	static String JUMBLED_WORD = "JUMBLED_WORD";
+	static String JUMBLED_WORD = "jumbled_word";
 	
-	static String RESPONSE = "RESPONSE";
+	static String RESPONSE = "response";
 	
-	static String ORIGINAL_WORD = "ORIGINAL_WORD";
+	static String ORIGINAL_WORD = "original_word";
 	
-	static String OUTPUT = "OUTPUT";
+	static String OUTPUT = "output";
 
-	static String ERROR_OUTPUT = "ERROR_OUTPUT";
+	static String ERROR_OUTPUT = "error_output";
 	
 	
 	
-	static final String REQUEST_LOG ="REQUEST_LOG";
+	static final String REQUEST_LOG ="request_log";
 	
 	/**
 	 * BITMAP
 	 */
 	
-	static final String POSITION = "POSITION";
+	static final String POSITION = "position";
 	
-	static final String LENGTH = "LENGTH";
+	static final String LENGTH = "length";
 	
-	static final String FILE_ID = "FILE_ID";
+	static final String FILE_ID = "file_id";
 
-	public static final String BYTE = "BYTE";
+	public static final String BYTE = "byte";
 	
-	public static final String FILE_SIZE = "SIZE";
+	public static final String FILE_SIZE = "size";
 	
 	/**
 	 * MAPRED
 	 */
 	
-	public static final String PEOPLE_AGE = "PEOPLE_AGE";
+	public static final String PEOPLE_AGE = "people_age";
 	
 	
 

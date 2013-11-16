@@ -72,8 +72,6 @@ public class Event implements Runnable {
 		String sessionToken = requestParams.get(SessionConstants.SESSION_KEY);
 		int level = Integer.parseInt(levelStr);
 		
-		Log.info("request "+qString);
-		
 		if (type.equals("get")) {
 			GetProcess process = new GetProcess();
 			response = process.prepareResponse(level, sessionToken);
