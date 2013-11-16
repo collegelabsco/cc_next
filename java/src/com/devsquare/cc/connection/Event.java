@@ -63,17 +63,25 @@ public class Event implements Runnable {
 	protected void process() throws Exception{
 		String qString = req.getQueryString();
 		Map<String, String> requestParams = getQueryMap(qString);
-		//validateRequest(requestParams, qString);
+		System.out.println(req.getParameter(SessionConstants.RESULT));
+		
+		validateRequest(requestParams, qString);
 		String type = requestParams.get(SessionConstants.TYPE);
 		String response = null;
+		String levelStr = requestParams.get(SessionConstants.LEVEL);
+		String sessionToken = requestParams.get(SessionConstants.SESSION_KEY);
+		int level = Integer.parseInt(levelStr);
+		
+		Log.info("request "+qString);
+		
 		if (type.equals("get")) {
-			String levelStr = requestParams.get(SessionConstants.LEVEL);
-			String sessionToken = requestParams.get(SessionConstants.SESSION_KEY);
-			int level = Integer.parseInt(levelStr);
 			GetProcess process = new GetProcess();
 			response = process.prepareResponse(level, sessionToken);
-			
 		} else {
+			String result = requestParams.get(SessionConstants.RESULT);
+			Log.info("Result..."+result);
+			SubmitProcess sProcess = new SubmitProcess();
+			response = sProcess.process(result,level,sessionToken);
 			
 		}
 		
@@ -136,7 +144,7 @@ public class Event implements Runnable {
 		for (String param : params) {
 			String tokens[] = param.split("=");
 			if (tokens.length == 2) {
-				map.put(tokens[0], tokens[1]);
+				map.put(tokens[0].trim(), tokens[1].trim());
 			} else {
 				throw new InvalidRequest("Not a proper query string." + query);
 			}

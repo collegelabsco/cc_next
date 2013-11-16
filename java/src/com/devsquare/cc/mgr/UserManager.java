@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.devsquare.cc.connection.User;
 
+@Deprecated
 public class UserManager {
 	
 	private static UserManager um = new UserManager();

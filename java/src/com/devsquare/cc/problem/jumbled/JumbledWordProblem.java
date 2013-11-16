@@ -51,13 +51,14 @@ public class JumbledWordProblem implements Problem<JumbledOutput,JumbledParamete
 		List<String> errorWords = new LinkedList<String>();
 		if(response!=null){
 			for(String word:response){
-
 				if(wp.isaValidWord(word)){
 					word = StringUtil.sortString(word);
 					if(word.equals(sortedJW)) continue;
 				}
 				errorWords.add(word);
 			}
+		}else{
+			errorWords.add("Result not available.Please check query string in your url.");
 		}
 		
 		Map<String, Object> outputMap = new HashMap<String, Object>();

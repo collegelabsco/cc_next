@@ -10,5 +10,7 @@ public class SessionConstants {
 	public static final String SUBMIT="submit";
 	public static final String DOWNLOAD = "download";
 	public static final String FILENAME = "filename";
+	public static final int MAPRED_FILECOUNT = 5;
+	public static final String RESULT = "result";
 
 }

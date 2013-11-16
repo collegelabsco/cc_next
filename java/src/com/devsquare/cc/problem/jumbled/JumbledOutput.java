@@ -5,7 +5,7 @@ import java.util.Map;
 import com.devsquare.cc.interfaces.Output;
 import com.devsquare.cc.interfaces.Parameter;
 
-public class JumbledOutput implements Output {
+public class JumbledOutput implements Output<Object> {
 	
 	Map<String, Object> outputMap = null;
 	

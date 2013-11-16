@@ -9,6 +9,7 @@ import com.devsquare.cc.CCSystemException;
 import com.devsquare.cc.connection.Event;
 import com.devsquare.cc.problem.bitmap.BitmapProblem;
 import com.devsquare.cc.problem.jumbled.WordProcessor;
+import com.devsquare.cc.problem.mapred.MapRedProblem;
 
 public abstract class AbstractServlet extends HttpServlet {
 	
@@ -27,6 +28,7 @@ public abstract class AbstractServlet extends HttpServlet {
 					try {
 						WordProcessor.getInstance().init();
 						BitmapProblem.get().init();
+						MapRedProblem.get().init();
 					} catch (Exception e) {
 						throw new ServletException(e);
 					}

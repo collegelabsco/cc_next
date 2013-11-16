@@ -6,10 +6,12 @@ import java.util.Map;
 import org.json.JSONObject;
 
 import com.devsquare.cc.interfaces.Parameter;
+import com.devsquare.cc.log.Log;
 import com.devsquare.cc.problem.bitmap.BitmapOutput;
 import com.devsquare.cc.problem.bitmap.BitmapProblem;
 import com.devsquare.cc.problem.jumbled.JumbledOutput;
 import com.devsquare.cc.problem.jumbled.JumbledWordProblem;
+import com.devsquare.cc.problem.mapred.MapRedProblem;
 
 public class GetProcess implements Processor {
 	
@@ -19,6 +21,7 @@ public class GetProcess implements Processor {
     	  if(user==null){
     		  user = new User();
     		  user.setToken(token);
+    		  Log.info("Saving user detail "+user.toString());
     		  SessionManager.getInstance().addUser(token,user );
     	  }
     	  
@@ -50,7 +53,22 @@ public class GetProcess implements Processor {
 	    		user.setBitMapOutput(fileMap);
 	    		
 	    	  case 3:
+	    		  break;
 	    	  case 4:
+	    		  int filelistLimit = SessionConstants.MAPRED_FILECOUNT;
+	    		  Map<String, Object> mapredfileMap = new HashMap<String, Object>();
+	    		  String filePrefix = "mapred_";
+	    		  String fName="";
+		    		for(int i=0;i<filelistLimit;i++){
+		    		  fName = filePrefix+System.currentTimeMillis()+".txt";
+		    		  mapredfileMap.put(fName, null);
+		    		  JSONObject fj = new JSONObject();
+		    		  fj.put("file",fName);
+		    		  json.accumulate("output", fj.toString());
+		    		}
+		    		
+		    		user.setMapredOutput(mapredfileMap);
+	    		  
     	  }
     	  
     	    

@@ -24,7 +24,13 @@ public class MapRedProblem implements Problem<MapRedOuput, MapredParameter> {
 	List<String> lines = null;
 	Random ranGen = null;
 	
-	public MapRedProblem() throws IOException{
+	private static MapRedProblem SINGLETON = new MapRedProblem();
+	
+	public static MapRedProblem get(){
+		return SINGLETON;
+	}
+	
+	public MapRedProblem init() throws IOException{
 		String mapred_dir = Constants.DATA_DIR+"/"+Constants.MAPRED_DIR;
 		File mapreddir = new File(mapred_dir);
 		if(!mapreddir.exists()){
@@ -46,6 +52,7 @@ public class MapRedProblem implements Problem<MapRedOuput, MapredParameter> {
 		raf = new RandomAccessFile(file[0], "r");
 		createLineList();
 		ranGen = new Random();
+		return this;
 	}
 
 	@Override
@@ -74,6 +81,7 @@ public class MapRedProblem implements Problem<MapRedOuput, MapredParameter> {
 		   lines.add(line);	
 		}
 	}
+	
 	
 	
 	public void readFile(MapredParameter parameter) throws IOException{
