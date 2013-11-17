@@ -3,6 +3,7 @@ package test.com.devsquare.cc;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -26,7 +27,7 @@ import com.devsquare.cc.problem.bitmap.BitmapRequestLog;
 public class BitmapTest extends BaseTest {
 
 	@Test
-	public void testBitmapFileReader() throws IOException {
+	public void testBitmapFileReader() throws IOException, NoSuchAlgorithmException {
 		/*
 		 * BitmapFileChannelReader reader = new BitmapFileChannelReader(
 		 * "/Users/prabhat.kumar/git/cc_next/java/data/6.jpg");

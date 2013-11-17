@@ -3,11 +3,13 @@ package com.devsquare.cc.problem.bitmap;
 import java.util.Map;
 
 import com.devsquare.cc.interfaces.Output;
+import com.devsquare.cc.interfaces.Parameter;
 
 public class BitmapOutput implements Output<String>{
 	
     Map<String, Object> params = null;
     String fileName = null;
+    String error = null;
 	
 	public BitmapOutput(Map<String, Object> map){
 		this.params = map;
@@ -20,7 +22,7 @@ public class BitmapOutput implements Output<String>{
 	
 	@Override
 	public String getErrorOutput() {
-		return null;
+		return (String)this.params.get(Parameter.ERROR_OUTPUT);
 	}
 	
 	public void add(String key, Object param){

@@ -30,6 +30,8 @@ public interface Parameter {
 	
 	public static final String FILE_SIZE = "size";
 	
+	public static final String FILE_HASH = "file_hash";
+	
 	/**
 	 * MAPRED
 	 */

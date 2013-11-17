@@ -9,6 +9,9 @@ import org.json.JSONObject;
 import com.devsquare.cc.CCSystemException;
 import com.devsquare.cc.interfaces.Parameter;
 import com.devsquare.cc.log.Log;
+import com.devsquare.cc.problem.bitmap.BitmapOutput;
+import com.devsquare.cc.problem.bitmap.BitmapParameter;
+import com.devsquare.cc.problem.bitmap.BitmapProblem;
 import com.devsquare.cc.problem.jumbled.JumbledOutput;
 import com.devsquare.cc.problem.jumbled.JumbledParameter;
 import com.devsquare.cc.problem.jumbled.JumbledWordProblem;
@@ -44,15 +47,26 @@ public class SubmitProcess implements Processor {
 						if (jo.getErrorOutput() != null) {
 							response = "Error";
 						}
-					}else{
-						response="ERROR : Invalid response.";
+					} else {
+						response = "ERROR : Invalid response.";
 					}
 
 					break;
 				case 2:
-					
-					
-					
+					String bitmapresult = result.toString();
+
+					JSONObject json2 = new JSONObject(bitmapresult);
+
+					BitmapProblem bp = BitmapProblem.get();
+					Map<String, Object> subMap = new HashMap<String, Object>();
+					subMap.put(Parameter.FILE_ID, json2.get(Parameter.FILE_ID));
+					subMap.put(Parameter.FILE_HASH,	json2.get(Parameter.FILE_HASH));
+					BitmapParameter bparam = new BitmapParameter(subMap);
+					BitmapOutput bout = bp.validate(bparam);
+					if (bout.getErrorOutput() != null) {
+						response = "Error";
+					}
+
 					break;
 				case 3:
 					break;
@@ -60,24 +74,25 @@ public class SubmitProcess implements Processor {
 				case 4:
 					MapRedProblem mrp = MapRedProblem.get();
 					String r4 = result.toString();
-						JSONArray array = new JSONArray(r4);
-						Log.info(array.toString());
-						int length = array.length();
-						Map<Integer, Integer> sumMap = new HashMap<Integer, Integer>();
-						for(int i=0;i<length;i++){
-							JSONObject jos = array.optJSONObject(i);
-							sumMap.put(jos.getInt("age"), jos.getInt("count"));
-						}
-						
-						Map<String, Object> mrpMap = new HashMap<String, Object>();
-						mrpMap.put(Parameter.PEOPLE_AGE	, sumMap);
-						MapredParameter mp = new MapredParameter(mrpMap);
-						mp.setMapredOrinalData(user.getMapredOutput().getOutput().getOriginal());
-						MapRedOuput mro = mrp.validate(mp);
-						if(mro.getErrorOutput()!=null){
-							response = "Error";
-						}
-					
+					JSONArray array = new JSONArray(r4);
+					Log.info(array.toString());
+					int length = array.length();
+					Map<Integer, Integer> sumMap = new HashMap<Integer, Integer>();
+					for (int i = 0; i < length; i++) {
+						JSONObject jos = array.optJSONObject(i);
+						sumMap.put(jos.getInt("age"), jos.getInt("count"));
+					}
+
+					Map<String, Object> mrpMap = new HashMap<String, Object>();
+					mrpMap.put(Parameter.PEOPLE_AGE, sumMap);
+					MapredParameter mp = new MapredParameter(mrpMap);
+					mp.setMapredOrinalData(user.getMapredOutput().getOutput()
+							.getOriginal());
+					MapRedOuput mro = mrp.validate(mp);
+					if (mro.getErrorOutput() != null) {
+						response = "Error";
+					}
+
 					break;
 				}
 			} catch (Exception e) {

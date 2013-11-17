@@ -27,6 +27,10 @@ public class BitmapParameter implements Parameter {
 		return (String)params.get(FILE_ID);
 	}
 	
+	public String fileHash(){
+		return (String)params.get(FILE_HASH);
+	}
+	
 	public List<BitmapRequestLog> getRequestLog(){
 		return (List<BitmapRequestLog>)params.get(REQUEST_LOG);
 	}

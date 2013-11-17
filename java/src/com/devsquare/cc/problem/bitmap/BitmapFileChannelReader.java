@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
+import java.security.NoSuchAlgorithmException;
 
 import com.devsquare.cc.problem.bitmap.interfaces.IReader;
 
@@ -16,9 +17,12 @@ public class BitmapFileChannelReader implements IReader {
 	int size = 0;
 	String filename = null;
 	
+	String fileHash = null;
+	
 
-	public BitmapFileChannelReader(File file) throws IOException{
+	public BitmapFileChannelReader(File file) throws IOException, NoSuchAlgorithmException{
 		fis = new FileInputStream(file);
+		fileHash = new BitmapHashStringGenerator(file, "MD5").generateHash();
 		this.size = fis.available();
 		this.fChannel = fis.getChannel();
 		this.filename = file.getName();
@@ -74,4 +78,7 @@ public class BitmapFileChannelReader implements IReader {
 		return this.filename;
 	}
 
+	public String getHash(){
+		return this.fileHash;
+	}
 }

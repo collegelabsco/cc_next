@@ -1,56 +1,39 @@
 package com.devsquare.cc.problem.bitmap;
 
-
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigInteger;
+import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import javax.imageio.ImageIO;
-
+import com.devsquare.cc.log.Log;
 
 public class BitmapHashStringGenerator {
+	
+    private DigestInputStream dis;
+    private MessageDigest md;
+    String fname = null;
 
-    public static void main(String[] args) throws NoSuchAlgorithmException, Exception {
+	public BitmapHashStringGenerator(File file, String hashAlgo) throws FileNotFoundException, NoSuchAlgorithmException {
+			md = MessageDigest.getInstance(hashAlgo); // initializing
+			InputStream fis = new FileInputStream(file);
+			dis = new DigestInputStream(fis, md); // getting stream
+			fname = file.getName();
+	}
 
-        File input = new File("C:/image.png");
-        
-        BufferedImage buffImg = ImageIO.read(input);
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ImageIO.write(buffImg, "png", outputStream);
-        byte[] data = outputStream.toByteArray();
-
-        System.out.println("Start MD5 Digest");
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(data);
-        byte[] hash = md.digest();
-        System.out.println(returnHex(hash));
-    }                                       // Belongs to main class
-   
-    // Below method of converting Byte Array to hex
-    // Can be found at: http://www.rgagnon.com/javadetails/java-0596.html
-    static String returnHex(byte[] inBytes) throws Exception {
-        String hexString = null;
-        for (int i=0; i < inBytes.length; i++) { //for loop ID:1
-            hexString +=
-            Integer.toString( ( inBytes[i] & 0xff ) + 0x100, 16).substring( 1 );
-        }                                   // Belongs to for loop ID:1
-    return hexString;
-  }      
-    
-    static final String HEXES = "0123456789ABCDEF";
-    public static String getHex( byte [] raw ) {
-      if ( raw == null ) {
-        return null;
-      }
-      final StringBuilder hex = new StringBuilder( 2 * raw.length );
-      for ( final byte b : raw ) {
-        hex.append(HEXES.charAt((b & 0xF0) >> 4))
-           .append(HEXES.charAt((b & 0x0F)));
-      }
-      return hex.toString();
-    }// Belongs to returnHex class
-
+	public String generateHash() throws IOException {
+		byte[] buf = new byte[4096]; // setting buffer
+		while (dis.read() != -1)
+			; // reading and updating message digest
+		byte[] output = md.digest(); // getting hash data in bytes
+		BigInteger bi = new BigInteger(1, output);
+		String hashText = bi.toString(16); // getting hex value of hash
+		dis.close(); // closing stream
+		Log.info("hash text for file : "+fname+" = "+hashText);
+		return hashText;
+	}
 }
-

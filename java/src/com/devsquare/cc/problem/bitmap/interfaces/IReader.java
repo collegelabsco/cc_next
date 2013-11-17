@@ -12,4 +12,5 @@ public interface IReader {
 	
 	String getFileName();
 	
+	String getHash();
 }
