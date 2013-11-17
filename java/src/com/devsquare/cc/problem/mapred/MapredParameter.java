@@ -28,6 +28,10 @@ public class MapredParameter implements Parameter {
 		return (Map<Integer,Integer>)this.params.get(PEOPLE_AGE);
 	}
 	
+	public boolean keyExists(String key){
+		return params.containsKey(key);
+	}
+	
 	public void setMapredOrinalData(MapredOriginalData mod){
 		this.mod = mod;
 	}

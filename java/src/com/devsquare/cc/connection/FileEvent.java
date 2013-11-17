@@ -79,17 +79,21 @@ public class FileEvent extends Event {
 			case 3:
 			case 4:
 				String f4 = requestParams.get(Parameter.FILE_ID);
-				MapRedProblem mrp = MapRedProblem.get();
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				MapRedOuput mro = user.getMapredOutput();
-				MapredParameter mp = mro.getOutput();
-				mp.setOutputStream(baos);
-				mrp.readFile(mp);
-				//user.setMapredOutput(mp.getOriginal().getPeopleAgeGroup());
-				baos.size();
-				ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-				baos.close();
-				write(bais);
+				if(user.getMapredOutput().getOutput().keyExists(f4)){
+					MapRedProblem mrp = MapRedProblem.get();
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					MapRedOuput mro = user.getMapredOutput();
+					MapredParameter mp = mro.getOutput();
+					mp.setOutputStream(baos);
+					mrp.readFile(mp);
+					//user.setMapredOutput(mp.getOriginal().getPeopleAgeGroup());
+					baos.size();
+					ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+					baos.close();
+					write(bais);
+				}else{
+					write("{Error:Invalid file request}");	
+				}
 				
 				break;
 		}
