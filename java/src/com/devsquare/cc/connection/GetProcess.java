@@ -13,6 +13,8 @@ import com.devsquare.cc.problem.bitmap.BitmapProblem;
 import com.devsquare.cc.problem.jumbled.JumbledOutput;
 import com.devsquare.cc.problem.jumbled.JumbledWordProblem;
 import com.devsquare.cc.problem.jumbled.WordProcessor;
+import com.devsquare.cc.problem.mapred.MapRedOuput;
+import com.devsquare.cc.problem.mapred.MapredParameter;
 
 public class GetProcess implements Processor {
 	
@@ -45,7 +47,6 @@ public class GetProcess implements Processor {
 		    	break;
 	    	  case 2:
 	    		BitmapProblem bp = BitmapProblem.get();
-	    		Map<String, Integer> fileMap = new HashMap<String, Integer>();
 	    		  BitmapOutput bo = bp.getRandomFile();
 	    		  JSONObject fj = new JSONObject();
 	    		  fj.put(Parameter.FILE_ID, bo.get(Parameter.FILE_ID));
@@ -64,7 +65,7 @@ public class GetProcess implements Processor {
 	    	  case 3:
 	    		  break;
 	    	  case 4:
-	    		  int filelistLimit = SessionConstants.MAPRED_FILECOUNT;
+	    		  int filelistLimit = 1;// SessionConstants.MAPRED_FILECOUNT;
 	    		  Map<String, Object> mapredfileMap = new HashMap<String, Object>();
 	    		  String filePrefix = "mapred_";
 	    		  String fName="";
@@ -72,12 +73,13 @@ public class GetProcess implements Processor {
 		    		  fName = filePrefix+System.currentTimeMillis()+".txt";
 		    		  mapredfileMap.put(fName, null);
 		    		  JSONObject jf = new JSONObject();
-		    		  jf.put("file",fName);
+		    		  jf.put(Parameter.FILE_ID,fName);
 		    		  json.accumulate("output", jf.toString());
 		    		}
 		    		
-		    		user.setMapredOutput(mapredfileMap);
-	    		  
+		    		MapRedOuput mro = new MapRedOuput(new MapredParameter(mapredfileMap));
+		    		user.setMapredOutput(mro);
+	    		  break;
     	  }
     	  
     	    

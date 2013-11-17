@@ -1,15 +1,14 @@
 package com.devsquare.cc.connection;
 
-import java.util.Map;
-
 import com.devsquare.cc.problem.bitmap.BitmapOutput;
 import com.devsquare.cc.problem.jumbled.JumbledOutput;
+import com.devsquare.cc.problem.mapred.MapRedOuput;
 
 public class User {
 	
 	public String token;
 	public JumbledOutput jop;
-	public Map<String, Object> mrMap = null;
+	public MapRedOuput mrMap = null;
 	private BitmapOutput bop = null;
 	
 	public void setToken(String token){
@@ -37,8 +36,12 @@ public class User {
 	}
 
 	
-	public void setMapredOutput(Map<String, Object> mapredMap) {
+	public void setMapredOutput(MapRedOuput mapredMap) {
 		this.mrMap = mapredMap;
+	}
+	
+	public MapRedOuput getMapredOutput(){
+	  return this.mrMap;
 	}
 	
 	public String toString(){

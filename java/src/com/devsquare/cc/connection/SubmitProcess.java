@@ -3,6 +3,7 @@ package com.devsquare.cc.connection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.devsquare.cc.CCSystemException;
@@ -11,6 +12,9 @@ import com.devsquare.cc.log.Log;
 import com.devsquare.cc.problem.jumbled.JumbledOutput;
 import com.devsquare.cc.problem.jumbled.JumbledParameter;
 import com.devsquare.cc.problem.jumbled.JumbledWordProblem;
+import com.devsquare.cc.problem.mapred.MapRedOuput;
+import com.devsquare.cc.problem.mapred.MapRedProblem;
+import com.devsquare.cc.problem.mapred.MapredParameter;
 
 public class SubmitProcess implements Processor {
 
@@ -38,7 +42,7 @@ public class SubmitProcess implements Processor {
 						JumbledOutput jo = jwp.validate(new JumbledParameter(
 								jwMap));
 						if (jo.getErrorOutput() != null) {
-							response = "ERROR";
+							response = "Error";
 						}
 					}else{
 						response="ERROR : Invalid response.";
@@ -54,6 +58,25 @@ public class SubmitProcess implements Processor {
 					break;
 
 				case 4:
+					MapRedProblem mrp = MapRedProblem.get();
+					String r4 = result.toString();
+						JSONArray array = new JSONArray(r4);
+						Log.info(array.toString());
+						int length = array.length();
+						Map<Integer, Integer> sumMap = new HashMap<Integer, Integer>();
+						for(int i=0;i<length;i++){
+							JSONObject jos = array.optJSONObject(i);
+							sumMap.put(jos.getInt("age"), jos.getInt("count"));
+						}
+						
+						Map<String, Object> mrpMap = new HashMap<String, Object>();
+						mrpMap.put(Parameter.PEOPLE_AGE	, sumMap);
+						MapredParameter mp = new MapredParameter(mrpMap);
+						mp.setMapredOrinalData(user.getMapredOutput().getOutput().getOriginal());
+						MapRedOuput mro = mrp.validate(mp);
+						if(mro.getErrorOutput()!=null){
+							response = "Error";
+						}
 					
 					break;
 				}

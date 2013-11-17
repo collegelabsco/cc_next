@@ -13,9 +13,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.devsquare.cc.interfaces.Constants;
 import com.devsquare.cc.interfaces.Parameter;
 import com.devsquare.cc.interfaces.Problem;
+import com.devsquare.cc.log.Log;
 
 public class MapRedProblem implements Problem<MapRedOuput, MapredParameter> {
 	
@@ -68,10 +72,9 @@ public class MapRedProblem implements Problem<MapRedOuput, MapredParameter> {
 					entry.getValue()){
 				outputMap.put(Parameter.ERROR_OUTPUT, "Number of persons of age "+entry.getKey()+" is not correct");
 			}
-			
 		}
 		
-		return new MapRedOuput(outputMap);
+		return new MapRedOuput(new MapredParameter(outputMap));
 	}
 	
 	private void createLineList() throws IOException{
@@ -87,12 +90,12 @@ public class MapRedProblem implements Problem<MapRedOuput, MapredParameter> {
 	public void readFile(MapredParameter parameter) throws IOException{
 		
 		OutputStream os = parameter.getOutputStream();
-		int limit = Constants.MAPRED_LIMIT;
+		int limit = 100;// Constants.MAPRED_LIMIT;
 		Map<Integer, Integer> peopleAgeGroup= parameter.getOriginal().getPeopleAgeGroup();
 		while(limit-->0){
 			int lineIndex = ranGen.nextInt(lines.size()-1);
 			String line = lines.get(lineIndex);
-			int age = ranGen.nextInt(100);
+			int age = ranGen.nextInt(5)+1;
 			String _li = line+"|"+age+"\n";
 			os.write(_li.getBytes());
 			os.flush();
@@ -104,6 +107,8 @@ public class MapRedProblem implements Problem<MapRedOuput, MapredParameter> {
 			
 		}
 		
+		JSONObject ja = new JSONObject(peopleAgeGroup);
+		Log.info("expected "+ja.toString());
 		
 	}
 

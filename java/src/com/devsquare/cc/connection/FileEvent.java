@@ -1,6 +1,7 @@
 package com.devsquare.cc.connection;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -18,6 +19,9 @@ import com.devsquare.cc.problem.bitmap.BitmapOutput;
 import com.devsquare.cc.problem.bitmap.BitmapParameter;
 import com.devsquare.cc.problem.bitmap.BitmapProblem;
 import com.devsquare.cc.problem.jumbled.WordProcessor;
+import com.devsquare.cc.problem.mapred.MapRedOuput;
+import com.devsquare.cc.problem.mapred.MapRedProblem;
+import com.devsquare.cc.problem.mapred.MapredParameter;
 
 public class FileEvent extends Event {
 	
@@ -74,6 +78,20 @@ public class FileEvent extends Event {
 				
 			case 3:
 			case 4:
+				String f4 = requestParams.get(Parameter.FILE_ID);
+				MapRedProblem mrp = MapRedProblem.get();
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				MapRedOuput mro = user.getMapredOutput();
+				MapredParameter mp = mro.getOutput();
+				mp.setOutputStream(baos);
+				mrp.readFile(mp);
+				//user.setMapredOutput(mp.getOriginal().getPeopleAgeGroup());
+				baos.size();
+				ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+				baos.close();
+				write(bais);
+				
+				break;
 		}
 		
 	}
