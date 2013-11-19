@@ -11,6 +11,8 @@ public interface Parameter {
 	static String OUTPUT = "output";
 
 	static String ERROR_OUTPUT = "error_output";
+
+	static String PERSON_NAME = "person_name";
 	
 	
 	

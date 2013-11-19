@@ -1,8 +1,11 @@
 package com.devsquare.cc.connection;
 
+import java.util.Map;
+
 import com.devsquare.cc.problem.bitmap.BitmapOutput;
 import com.devsquare.cc.problem.jumbled.JumbledOutput;
 import com.devsquare.cc.problem.mapred.MapRedOuput;
+import com.devsquare.cc.problem.social.SocialOutput;
 
 public class User {
 	
@@ -10,6 +13,7 @@ public class User {
 	public JumbledOutput jop;
 	public MapRedOuput mrMap = null;
 	private BitmapOutput bop = null;
+	private SocialOutput socop = null;
 	
 	public void setToken(String token){
 		this.token = token;
@@ -46,6 +50,15 @@ public class User {
 	
 	public String toString(){
 		return "sessiontoken:"+token;
+	}
+
+	public void setSocialOutput(SocialOutput sop) {
+		this.socop = sop;
+		
+	}
+	
+	public SocialOutput getSocialOutput(){
+		return this.socop;
 	}
 
 }

@@ -77,6 +77,21 @@ public class FileEvent extends Event {
 				
 				
 			case 3:
+				String f3 = requestParams.get(Parameter.FILE_ID);
+				String sfile = (String) user.getSocialOutput().getMap().get(Parameter.FILE_ID);
+				if(sfile!=null & sfile.equals(f3)){
+					String friendName = requestParams.get(Parameter.PERSON_NAME);
+					Log.debug("friendName : "+friendName);
+					
+					
+					
+				}else{
+					write("{Error:Invalid file request}");
+				}
+				
+				
+				
+				break;
 			case 4:
 				String f4 = requestParams.get(Parameter.FILE_ID);
 				if(user.getMapredOutput().getOutput().keyExists(f4)){

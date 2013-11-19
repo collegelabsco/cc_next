@@ -15,6 +15,7 @@ import com.devsquare.cc.problem.jumbled.JumbledWordProblem;
 import com.devsquare.cc.problem.jumbled.WordProcessor;
 import com.devsquare.cc.problem.mapred.MapRedOuput;
 import com.devsquare.cc.problem.mapred.MapredParameter;
+import com.devsquare.cc.problem.social.SocialOutput;
 
 public class GetProcess implements Processor {
 	
@@ -63,9 +64,18 @@ public class GetProcess implements Processor {
 	    		 user.setBitmapOutput(bo);
 	    		
 	    	  case 3:
+	    		  
+	    		  Map<String, Object> socMap = new HashMap<String, Object>();
+	    		  socMap.put(Parameter.FILE_ID, "social"+System.currentTimeMillis()+".text");
+	    		  socMap.put(Parameter.PERSON_NAME,"shankar");
+	    		  SocialOutput sop = new SocialOutput(socMap);
+	    		  JSONObject jsoc = new JSONObject(socMap);
+	    		  user.setSocialOutput(sop);
+	    		  json.put("output",jsoc.toString());
+	    		  
 	    		  break;
 	    	  case 4:
-	    		  int filelistLimit = 1;// SessionConstants.MAPRED_FILECOUNT;
+	    		  int filelistLimit = SessionConstants.MAPRED_FILECOUNT;
 	    		  Map<String, Object> mapredfileMap = new HashMap<String, Object>();
 	    		  String filePrefix = "mapred_";
 	    		  String fName="";
