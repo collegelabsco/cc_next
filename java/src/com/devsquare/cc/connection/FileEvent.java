@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 
 import com.devsquare.cc.InvalidRequest;
+import com.devsquare.cc.interfaces.Output;
 import com.devsquare.cc.interfaces.Parameter;
 import com.devsquare.cc.log.Log;
 import com.devsquare.cc.problem.bitmap.BitmapOutput;
@@ -22,6 +23,8 @@ import com.devsquare.cc.problem.jumbled.WordProcessor;
 import com.devsquare.cc.problem.mapred.MapRedOuput;
 import com.devsquare.cc.problem.mapred.MapRedProblem;
 import com.devsquare.cc.problem.mapred.MapredParameter;
+import com.devsquare.cc.problem.social.SocialParameter;
+import com.devsquare.cc.problem.social.SocialProblem;
 
 public class FileEvent extends Event {
 	
@@ -53,10 +56,12 @@ public class FileEvent extends Event {
 			case 1:
 				String fileName = requestParams.get(Parameter.FILE_ID);
 				if(fileName.equals(SessionConstants.DICTIONARY_FILE_NAME)){
+					setResponseHeader();
 					write( WordProcessor.getInstance().getDictionaryStream());
 				}else{
 					write("{Error:Invalid file request}");	
 				}
+				break;
 			case 2:
 				String file = requestParams.get(Parameter.FILE_ID);
 				BitmapOutput bp = user.getBitmapOutput();
@@ -69,27 +74,31 @@ public class FileEvent extends Event {
 					BitmapParameter bpm = new BitmapParameter(map);
 					BitmapOutput bop =bprob.getFileChunk(bpm);
 					byte[] b = (byte[])bop.get(Parameter.BYTE);
+					setResponseHeader();
 					write( new ByteArrayInputStream(b));
 					
 				}else{
 					write("{Error:Invalid file request}");
 				}
 				
-				
+				break;
 			case 3:
 				String f3 = requestParams.get(Parameter.FILE_ID);
-				String sfile = (String) user.getSocialOutput().getMap().get(Parameter.FILE_ID);
-				if(sfile!=null & sfile.equals(f3)){
-					String friendName = requestParams.get(Parameter.PERSON_NAME);
+				String pName = requestParams.get(Parameter.PERSON_NAME);
+				String sfile = (String) user.getSocialOutput().getParameter().getFileName();
+				String friendName = (String) user.getSocialOutput().getParameter().getPersonName();
+				if(friendName!=null && friendName.equals(pName) && sfile!=null & sfile.equals(f3)){
+					
 					Log.debug("friendName : "+friendName);
-					
-					
+					SocialProblem sp = SocialProblem.get();
+					SocialParameter sparam = user.getSocialOutput().getParameter();
+					sparam.setOutputStream(res.getOutputStream());
+					setResponseHeader();
+					sp.getSocialNetworkFile(sparam);
 					
 				}else{
 					write("{Error:Invalid file request}");
 				}
-				
-				
 				
 				break;
 			case 4:
@@ -105,6 +114,7 @@ public class FileEvent extends Event {
 					baos.size();
 					ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
 					baos.close();
+					setResponseHeader();
 					write(bais);
 				}else{
 					write("{Error:Invalid file request}");	
@@ -119,14 +129,15 @@ public class FileEvent extends Event {
 	public int waitTime() {
 		return 30000;
 	}
+	
+	private void setResponseHeader(){
+		res.addHeader(HTTP_HEADER_CONTENT_DISPOSITION, 
+				CONTENT_DISPOSITION_ATTACHMENT + 
+				CONTENT_DISPOSITION_ATTACHMENT_FILENAME + "\"" + requestParams.get(Parameter.FILE_ID) + "\";");
+	}
 
 	public void write(InputStream is) {
 		try {
-			
-			res.addHeader(HTTP_HEADER_CONTENT_DISPOSITION, 
-					CONTENT_DISPOSITION_ATTACHMENT + 
-					CONTENT_DISPOSITION_ATTACHMENT_FILENAME + "\"" + requestParams.get(Parameter.FILE_ID) + "\";");	
-			
 			IOUtils.copy(is, res.getOutputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -152,6 +163,28 @@ public class FileEvent extends Event {
 						if ((l == 1 || l == 2 || l == 3 || l == 4) == false) {
 							throw new NumberFormatException();
 						}
+						
+						Output<?> requestGenerater = null;
+						switch(l){
+						case 1:
+							requestGenerater = u.getJumbledOutput();
+							break;
+						case 2:
+							requestGenerater = u.getBitmapOutput();
+							break;
+						case 3:
+							requestGenerater = u.getSocialOutput();
+							break;
+						case 4:
+							requestGenerater = u.getMapredOutput();
+							break;
+						}
+						
+						if(requestGenerater==null){
+							throw new InvalidRequest(
+									"File request is not generated. Please get the for problem first.");
+						}
+						
 						String fileName = reqParams
 								.get(Parameter.FILE_ID);
 						if (fileName == null) {

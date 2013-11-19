@@ -89,7 +89,7 @@ public class MapRedProblem implements Problem<MapRedOuput, MapredParameter> {
 	public void readFile(MapredParameter parameter) throws IOException{
 		
 		OutputStream os = parameter.getOutputStream();
-		int limit = 100;// Constants.MAPRED_LIMIT;
+		int limit =  Constants.MAPRED_LIMIT;
 		Map<Integer, Integer> peopleAgeGroup= parameter.getOriginal().getPeopleAgeGroup();
 		while(limit-->0){
 			int lineIndex = ranGen.nextInt(lines.size()-1);
@@ -107,7 +107,7 @@ public class MapRedProblem implements Problem<MapRedOuput, MapredParameter> {
 		}
 		
 		JSONObject ja = new JSONObject(peopleAgeGroup);
-		Log.info("expected "+ja.toString());
+		Log.debug("expected "+ja.toString());
 		
 	}
 

@@ -55,8 +55,9 @@ public class Event implements Runnable {
 			e.printStackTrace();
 			write("Bad request");
 		} catch (Exception e) {
-			write("Something wrong at server :"+e.getMessage());
 			e.printStackTrace();
+			write("Something wrong at server :"+e.getMessage());
+			
 		} 
 	}
 	

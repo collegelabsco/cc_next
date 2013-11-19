@@ -3,13 +3,19 @@ package com.devsquare.cc.problem.social;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+
+import org.apache.commons.io.IOUtils;
+import org.json.JSONObject;
 
 import com.devsquare.cc.interfaces.Constants;
 import com.devsquare.cc.interfaces.Problem;
+import com.devsquare.cc.log.Log;
 
 public class SocialProblem implements Problem<SocialOutput, SocialParameter>{
 	
@@ -51,6 +57,9 @@ public class SocialProblem implements Problem<SocialOutput, SocialParameter>{
 		while((line=raf.readLine())!=null){
 		   lines.add(line);	
 		}
+		
+		raf.close();
+		raf = null;
 	}
 
 
@@ -58,12 +67,15 @@ public class SocialProblem implements Problem<SocialOutput, SocialParameter>{
 		return SINGLETON;
 	}
 	
-	public SocialOutput getSocialNetworkFile(){
-		SocialOutput sop = new SocialOutput(null);
-		
-		
-		
-		return null;
+	public void getSocialNetworkFile(SocialParameter parameter) throws IOException{
+		String person = parameter.getPersonName();
+		OutputStream os = parameter.getOutputStream();
+		int limit =  Constants.CONNECTION_LIMIT;
+		while(limit-->0){
+			int lineIndex = ranGen.nextInt(lines.size()-1);
+			String line = lines.get(lineIndex).concat("\n");
+			IOUtils.write(line, os);
+		}
 	}
 
 	@Override

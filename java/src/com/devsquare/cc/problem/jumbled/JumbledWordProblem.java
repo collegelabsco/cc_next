@@ -12,13 +12,11 @@ import com.devsquare.cc.util.StringUtil;
 
 public class JumbledWordProblem implements Problem<JumbledOutput,JumbledParameter> {
 
-	private WordProcessor wp = null;
 	
 	private static JumbledWordProblem jwp = null;
 	
 	
-	private JumbledWordProblem() throws CCSystemException{
-		this.wp = WordProcessor.getInstance();
+	private JumbledWordProblem(){
 	}
 	
 	public static JumbledWordProblem get() throws CCSystemException{
@@ -31,6 +29,7 @@ public class JumbledWordProblem implements Problem<JumbledOutput,JumbledParamete
 	
 	
 	public JumbledOutput get(JumbledParameter parameter) throws Exception {
+		WordProcessor wp = WordProcessor.getInstance();
 		String original = wp.getRandomWord();
 		String jw = wp.jumbledTheWord(original);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -51,7 +50,7 @@ public class JumbledWordProblem implements Problem<JumbledOutput,JumbledParamete
 		List<String> errorWords = new LinkedList<String>();
 		if(response!=null){
 			for(String word:response){
-				if(wp.isaValidWord(word)){
+				if(WordProcessor.getInstance().isaValidWord(word)){
 					word = StringUtil.sortString(word);
 					if(word.equals(sortedJW)) continue;
 				}

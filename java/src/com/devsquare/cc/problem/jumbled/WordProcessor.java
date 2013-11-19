@@ -196,7 +196,7 @@ public class WordProcessor {
 	}
 	
 
-	public static void main(String args[]) throws CCSystemException,
+	/*public static void main(String args[]) throws CCSystemException,
 			IOException {
 		WordProcessor wp = WordProcessor.getInstance().init();
 		int i=10;
@@ -206,6 +206,6 @@ public class WordProcessor {
 		String jw = wp.jumbledTheWord(word);
 		Log.debug("Jumbled word "+jw);
 		}
-	}
+	}*/
 
 }

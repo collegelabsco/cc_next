@@ -16,6 +16,7 @@ import com.devsquare.cc.problem.jumbled.WordProcessor;
 import com.devsquare.cc.problem.mapred.MapRedOuput;
 import com.devsquare.cc.problem.mapred.MapredParameter;
 import com.devsquare.cc.problem.social.SocialOutput;
+import com.devsquare.cc.problem.social.SocialParameter;
 
 public class GetProcess implements Processor {
 	
@@ -68,7 +69,7 @@ public class GetProcess implements Processor {
 	    		  Map<String, Object> socMap = new HashMap<String, Object>();
 	    		  socMap.put(Parameter.FILE_ID, "social"+System.currentTimeMillis()+".text");
 	    		  socMap.put(Parameter.PERSON_NAME,"shankar");
-	    		  SocialOutput sop = new SocialOutput(socMap);
+	    		  SocialOutput sop = new SocialOutput(new SocialParameter(socMap));
 	    		  JSONObject jsoc = new JSONObject(socMap);
 	    		  user.setSocialOutput(sop);
 	    		  json.put("output",jsoc.toString());

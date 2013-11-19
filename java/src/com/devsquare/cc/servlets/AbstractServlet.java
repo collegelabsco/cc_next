@@ -10,6 +10,7 @@ import com.devsquare.cc.connection.Event;
 import com.devsquare.cc.problem.bitmap.BitmapProblem;
 import com.devsquare.cc.problem.jumbled.WordProcessor;
 import com.devsquare.cc.problem.mapred.MapRedProblem;
+import com.devsquare.cc.problem.social.SocialProblem;
 
 public abstract class AbstractServlet extends HttpServlet {
 	
@@ -28,6 +29,7 @@ public abstract class AbstractServlet extends HttpServlet {
 					try {
 						WordProcessor.getInstance().init();
 						BitmapProblem.get().init();
+						SocialProblem.get().init();
 						MapRedProblem.get().init();
 					} catch (Exception e) {
 						throw new ServletException(e);
