@@ -2,6 +2,7 @@ package com.devsquare.cc.problem.social;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
@@ -22,7 +23,6 @@ public class SocialProblem implements Problem<SocialOutput, SocialParameter>{
 	
 	private static SocialProblem SINGLETON = new SocialProblem();
 	
-	RandomAccessFile raf= null;
 	Random ranGen = null;
 	List<String> lines = new LinkedList<String>();
 	
@@ -45,21 +45,19 @@ public class SocialProblem implements Problem<SocialOutput, SocialParameter>{
 			throw new IllegalStateException("Mapred file is not present in dir "+mapreddir+".");
 		}
 		
-		raf = new RandomAccessFile(file[0], "r");
-		createLineList();
+		createLineList(file[0]);
 		ranGen = new Random();
 		return this;
 	}
 	
-	private void createLineList() throws IOException{
-		lines = new LinkedList<String>();
-		String line = null;
-		while((line=raf.readLine())!=null){
-		   lines.add(line);	
+	private void createLineList(File file) throws IOException{
+		FileInputStream fis = new FileInputStream(file);
+		try{
+		lines = IOUtils.readLines(fis);
+		}finally{
+			IOUtils.closeQuietly(fis);
 		}
 		
-		raf.close();
-		raf = null;
 	}
 
 

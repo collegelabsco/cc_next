@@ -14,6 +14,7 @@ public class User {
 	public MapRedOuput mrMap = null;
 	private BitmapOutput bop = null;
 	private SocialOutput socop = null;
+	private String email;
 	
 	public void setToken(String token){
 		this.token = token;
@@ -49,7 +50,7 @@ public class User {
 	}
 	
 	public String toString(){
-		return "sessiontoken:"+token;
+		return "sessiontoken:"+token+" email:"+email;
 	}
 
 	public void setSocialOutput(SocialOutput sop) {
@@ -59,6 +60,14 @@ public class User {
 	
 	public SocialOutput getSocialOutput(){
 		return this.socop;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+	
+	public void setEmail(String email){
+		 this.email = email;
 	}
 
 }

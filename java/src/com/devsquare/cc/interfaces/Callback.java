@@ -8,7 +8,7 @@ public interface Callback {
 	
 	void process(ZipOutputStream zos) throws IOException;
 	
-	OutputStream getOutputStream();
+	OutputStream getOutputStream() throws IOException;
 
 	boolean isFileAvailable();
 

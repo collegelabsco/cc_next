@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 
 import com.devsquare.cc.interfaces.Constants;
@@ -82,6 +83,7 @@ public class MapRedProblem implements Problem<MapRedOuput, MapredParameter> {
 		while((line=raf.readLine())!=null){
 		   lines.add(line);	
 		}
+		raf.close();
 	}
 	
 	
@@ -96,8 +98,7 @@ public class MapRedProblem implements Problem<MapRedOuput, MapredParameter> {
 			String line = lines.get(lineIndex);
 			int age = ranGen.nextInt(5)+1;
 			String _li = line+"|"+age+"\n";
-			os.write(_li.getBytes());
-			os.flush();
+			IOUtils.write(_li, os);
 			int count = 1;
 			if(peopleAgeGroup.containsKey(age)){
 				count = peopleAgeGroup.get(age)+1;

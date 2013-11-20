@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.devsquare.cc.CCSystemException;
+import com.devsquare.cc.db.DBMgr;
 import com.devsquare.cc.interfaces.Parameter;
 import com.devsquare.cc.log.Log;
 import com.devsquare.cc.problem.bitmap.BitmapOutput;
@@ -22,14 +23,17 @@ import com.devsquare.cc.problem.mapred.MapredParameter;
 public class SubmitProcess implements Processor {
 
 	public String process(Object result, int level, String sessionToken)
-			throws CCSystemException {
+			throws Exception {
 
 		User user = SessionManager.getInstance().getUser(sessionToken);
 		String response = "OK";
 		JSONObject json = new JSONObject();
 		String error = "";
+		
+		int status = SessionConstants.SUCCESS;
+		
 		if (user != null) {
-			json.put("token", user.getToken());
+			json.put(SessionConstants.SESSION_KEY, user.getToken());
 			try {
 				switch (level) {
 				case 1:
@@ -46,9 +50,11 @@ public class SubmitProcess implements Processor {
 								jwMap));
 						if (jo.getErrorOutput() != null) {
 							response = "Error";
+							status = SessionConstants.FAILURE;
 						}
 					} else {
-						response = "ERROR : Invalid response.";
+						status = SessionConstants.FAILURE;
+						response = "Error : Invalid response.";
 					}
 
 					break;
@@ -65,6 +71,7 @@ public class SubmitProcess implements Processor {
 					BitmapOutput bout = bp.validate(bparam);
 					if (bout.getErrorOutput() != null) {
 						response = "Error";
+						status = SessionConstants.FAILURE;
 					}
 
 					break;
@@ -91,6 +98,7 @@ public class SubmitProcess implements Processor {
 					MapRedOuput mro = mrp.validate(mp);
 					if (mro.getErrorOutput() != null) {
 						response = "Error";
+						status = SessionConstants.FAILURE;
 					}
 
 					break;
@@ -104,10 +112,21 @@ public class SubmitProcess implements Processor {
 		} else {
 			error = "User session does not exist";
 			response = "";
+			status = SessionConstants.NONE;
 		}
-		json.put("output", response);
-		json.put("error", error);
-		json.put("level", level);
+		
+		int score = 100;
+		if(status == SessionConstants.FAILURE){
+			score = 0;
+		}
+		
+		if(status != SessionConstants.NONE){
+			DBMgr.get().executeResult(sessionToken, level, score, String.valueOf(System.currentTimeMillis()));
+		}
+		
+		json.put(SessionConstants.STATUS, response);
+		json.put(SessionConstants.ERROR, error);
+		json.put(SessionConstants.LEVEL, level);
 
 		return json.toString();
 	}

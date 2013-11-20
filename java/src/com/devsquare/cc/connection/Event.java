@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.devsquare.cc.InvalidRequest;
+import com.devsquare.cc.db.DBMgr;
+import com.devsquare.cc.interfaces.Output;
 import com.devsquare.cc.log.Log;
 
 public class Event implements Runnable {
@@ -46,6 +48,7 @@ public class Event implements Runnable {
 
 		}  catch (InvalidRequest r) {
 			Log.info("Invalid request from user." + r.getMessage());
+			r.printStackTrace();
 			write(r.getMessage());
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -97,26 +100,59 @@ public class Event implements Runnable {
 		}
 	}
 
-	public void validateRequest(Map<String, String> reqParams, String qstring) {
+	public void validateRequest(Map<String, String> reqParams, String qstring) throws Exception {
 
 		String sessionToken = reqParams.get(SessionConstants.SESSION_KEY);
+		User u = SessionManager.getInstance().getUser(sessionToken);
+		int l = -1;
+		String type;
 		if (sessionToken != null) {
 			// TODO: validate from DB;
+			if(u==null){
+				u = DBMgr.get().fetchUser(sessionToken);
+				if(u!=null){
+					SessionManager.getInstance().addUser(sessionToken, u);
+				}else{
+					throw new InvalidRequest("Invalid session. User is not mapped with sessionkey : "+sessionToken);
+				}
+			}
 			
-			String type = reqParams.get(SessionConstants.TYPE);
+			type = reqParams.get(SessionConstants.TYPE);
 			if (type != null
 					&& (type.equals(SessionConstants.GET) || type
 							.equals(SessionConstants.SUBMIT))) {
 				String level = reqParams.get(SessionConstants.LEVEL);
 				if (level != null) {
 					try {
-						int l = Integer.parseInt(level);
+						 l = Integer.parseInt(level);
 						if ((l == 1 || l == 2 || l == 3 || l == 4) == false) {
 							throw new NumberFormatException();
 						}
 					} catch (NumberFormatException e) {
 						throw new InvalidRequest(
 								"level value should be 1/2/3/4 only." + qstring);
+					}
+					if(type.equals(SessionConstants.SUBMIT)){
+						Output<?> requestGenerater = null;
+						switch(l){
+						case 1:
+							requestGenerater = u.getJumbledOutput();
+							break;
+						case 2:
+							requestGenerater = u.getBitmapOutput();
+							break;
+						case 3:
+							requestGenerater = u.getSocialOutput();
+							break;
+						case 4:
+							requestGenerater = u.getMapredOutput();
+							break;
+						}
+						
+						if(requestGenerater==null){
+							throw new InvalidRequest(
+									"No problem was selected before submiting. Please get the for problem first.");
+						}
 					}
 
 				} else {
@@ -135,6 +171,8 @@ public class Event implements Runnable {
 			throw new InvalidRequest(
 					"sessionkey parameter missing from request. " + qstring);
 		}
+		
+		DBMgr.get().executeLoggerInsert(u.getEmail(), u.getToken(), l,type, String.valueOf(System.currentTimeMillis()));
 
 	}
 

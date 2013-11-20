@@ -22,7 +22,7 @@ public class DBConnection
 
 
    public DBConnection() throws Exception {
-      if (DB_NAME.length()==0 || USER_NAME.length()==0 || USER_PASSWORD.length()==0) {
+      if (DB_NAME.length()==0 || USER_NAME.length()==0 /*|| USER_PASSWORD.length()==0*/) {
          throw (new Exception("Please fill in the DB_NAME, USER_NAME and USER_PASSWORD."));
       }
       ds = new MysqlDataSource();

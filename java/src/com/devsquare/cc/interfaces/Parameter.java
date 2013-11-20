@@ -13,6 +13,8 @@ public interface Parameter {
 	static String ERROR_OUTPUT = "error_output";
 
 	static String PERSON_NAME = "person_name";
+
+	static String FRIEND_NAME = "connection_name";
 	
 	
 	

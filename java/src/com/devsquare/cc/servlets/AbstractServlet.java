@@ -1,5 +1,8 @@
 package com.devsquare.cc.servlets;
 
+import java.io.FileInputStream;
+import java.util.Properties;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.devsquare.cc.CCSystemException;
 import com.devsquare.cc.connection.Event;
+import com.devsquare.cc.connection.SessionConstants;
+import com.devsquare.cc.db.DBMgr;
 import com.devsquare.cc.problem.bitmap.BitmapProblem;
 import com.devsquare.cc.problem.jumbled.WordProcessor;
 import com.devsquare.cc.problem.mapred.MapRedProblem;
@@ -26,16 +31,29 @@ public abstract class AbstractServlet extends HttpServlet {
 	public void init() throws ServletException{
 			synchronized(LOCK){
 				if(!initCompleted){
+					
 					try {
+						String fullPath = getServletContext().getRealPath("/WEB-INF/runtime.properties");
+						FileInputStream fis = new FileInputStream(fullPath);
+						Properties prop = new Properties();
+						prop.load(fis);
+						
+						SessionConstants.setProperties(prop);
+						
+						DBMgr.get().init();
 						WordProcessor.getInstance().init();
 						BitmapProblem.get().init();
 						SocialProblem.get().init();
 						MapRedProblem.get().init();
+						
 					} catch (Exception e) {
 						throw new ServletException(e);
 					}
 				}
 			}
+			
+			
+			
 			
 	}
 	

@@ -23,17 +23,22 @@ public class GetProcess implements Processor {
       public String prepareResponse(int level,String token) throws Exception{
     	  
     	  User user = SessionManager.getInstance().getUser(token);
-    	  if(user==null){
-    		  user = new User();
-    		  user.setToken(token);
-    		  Log.info("Saving user detail "+user.toString());
-    		  SessionManager.getInstance().addUser(token,user );
-    	  }
-    	  
+//    	  if(user==null){
+//    		  user = new User();
+//    		  user.setToken(token);
+//    		  Log.info("Saving user detail "+user.toString());
+//    		  SessionManager.getInstance().addUser(token,user );
+//    	  }
+//    	  
     	  String response = "";
     	  String error = "";
     	  int _level = level;
     	  JSONObject json = new JSONObject();
+    	  StringBuilder sb = new StringBuilder();
+    	  //Preparing for download url
+    	  sb.append(SessionConstants.LEVEL).append("=").append(level)
+    	  .append("&").append(SessionConstants.SESSION_KEY).append("=").append(token)
+    	  .append("&").append(SessionConstants.TYPE).append("=").append(SessionConstants.DOWNLOAD);
     	  switch(level){
 	    	  case 1:
 	    		JumbledWordProblem jwp = JumbledWordProblem.get();
@@ -41,10 +46,12 @@ public class GetProcess implements Processor {
 		    	user.setJumbledOutput(jo);
 		    	response = jo.getResult(); 
 		    	JSONObject job = new JSONObject();
-		    	job.put(Parameter.FILE_ID, SessionConstants.DICTIONARY_FILE_NAME);
-		    	job.put(Parameter.FILE_SIZE, WordProcessor.getInstance().getDictionaryFileSize());
-		    	json.put("dictionary",job.toString());
-		    	json.put("output", response);
+		    	/*job.put(Parameter.FILE_SIZE, WordProcessor.getInstance().getDictionaryFileSize());*/
+		    	
+		    	sb.append("&").append(Parameter.FILE_ID).append("=").append(SessionConstants.DICTIONARY_DOWNLOAD_URL);
+		    	json.put(SessionConstants.DICTIONARY_DOWNLOAD_URL,
+		    			SessionConstants.getDownloadURL(sb.toString()));
+		    	json.put(SessionConstants.STATUS, response);
 		    	break;
 	    	  case 2:
 	    		BitmapProblem bp = BitmapProblem.get();
@@ -52,40 +59,50 @@ public class GetProcess implements Processor {
 	    		  JSONObject fj = new JSONObject();
 	    		  fj.put(Parameter.FILE_ID, bo.get(Parameter.FILE_ID));
 	    		  fj.put(Parameter.FILE_SIZE, bo.get(Parameter.FILE_SIZE));
-	    		  json.put("output", fj.toString());
+	    		  json.put(SessionConstants.STATUS, fj.toString());
 	    		  
 	    		  for(int i=0;i<SessionConstants.BITMAP_FILE_COUNT;i++){
 	    			  String fuid = UUID.randomUUID().toString();
-	    			  String context = "/d?"+Parameter.FILE_ID+"="+fuid;
-	    			  json.accumulate("context", context);
+	    			  sb.append("&").append(Parameter.FILE_ID).append("=").append(fuid);
+	    			  String context = SessionConstants.getDownloadURL(sb.toString());
+	    			  json.accumulate(SessionConstants.DOWNLOAD_URL, context);
 	    			  bo.add(fuid, null);
 	    		  }
 	    		
 	    		 user.setBitmapOutput(bo);
+	    		 break;
 	    		
 	    	  case 3:
 	    		  
 	    		  Map<String, Object> socMap = new HashMap<String, Object>();
-	    		  socMap.put(Parameter.FILE_ID, "social"+System.currentTimeMillis()+".text");
+	    		  String filename = "social"+System.currentTimeMillis()+".zip";
+	    		  
 	    		  socMap.put(Parameter.PERSON_NAME,"shankar");
+	    		  socMap.put(Parameter.FRIEND_NAME,"mohan");
 	    		  SocialOutput sop = new SocialOutput(new SocialParameter(socMap));
 	    		  JSONObject jsoc = new JSONObject(socMap);
 	    		  user.setSocialOutput(sop);
-	    		  json.put("output",jsoc.toString());
-	    		  
+	    		  sb.append("&").append(Parameter.FILE_ID).append("=").append(filename);
+	    		  json.accumulate(SessionConstants.DOWNLOAD_URL, SessionConstants.getDownloadURL(sb.toString()));
+	    		  json.put(SessionConstants.STATUS,jsoc.toString());
+	    		  /**
+	    		   * It's here so that json output should not have this.
+	    		   */
+	    		  socMap.put(Parameter.FILE_ID, filename);
 	    		  break;
 	    	  case 4:
 	    		  int filelistLimit = SessionConstants.MAPRED_FILECOUNT;
 	    		  Map<String, Object> mapredfileMap = new HashMap<String, Object>();
 	    		  String filePrefix = "mapred_";
 	    		  String fName="";
-		    		for(int i=0;i<filelistLimit;i++){
-		    		  fName = filePrefix+System.currentTimeMillis()+".txt";
+		    		/*for(int i=0;i<filelistLimit;i++){*/
+		    		  fName = filePrefix+System.currentTimeMillis()+".zip";
 		    		  mapredfileMap.put(fName, null);
-		    		  JSONObject jf = new JSONObject();
-		    		  jf.put(Parameter.FILE_ID,fName);
-		    		  json.accumulate("output", jf.toString());
-		    		}
+		    		  /*JSONObject jf = new JSONObject();
+		    		  jf.put(Parameter.FILE_ID,fName);*/
+		    		  sb.append("&").append(Parameter.FILE_ID).append("=").append(fName);
+		    		  json.accumulate(SessionConstants.DOWNLOAD_URL, SessionConstants.getDownloadURL(sb.toString()));
+		    		/*}*/
 		    		
 		    		MapRedOuput mro = new MapRedOuput(new MapredParameter(mapredfileMap));
 		    		user.setMapredOutput(mro);
@@ -93,9 +110,9 @@ public class GetProcess implements Processor {
     	  }
     	  
     	    
-	    	json.put("error", error);
-	    	json.put("level", _level);
-	    	json.put("token", user.getToken());
+	    	json.put(SessionConstants.ERROR, error);
+	    	json.put(SessionConstants.LEVEL, _level);
+	    	json.put(SessionConstants.SESSION_KEY, user.getToken());
     	  
     	  return json.toString();
       }
