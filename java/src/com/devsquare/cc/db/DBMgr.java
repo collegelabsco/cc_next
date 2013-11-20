@@ -40,7 +40,7 @@ public class DBMgr {
 		User u = null;
 		try{
 			Statement stm = conn.createStatement();
-			ResultSet rs = stm.executeQuery("SELECT email FROM game_rescue where sessionkey="+sessionkey);
+			ResultSet rs = stm.executeQuery("SELECT email FROM users where sessionkey="+sessionkey);
 			if(rs.next()){
 				u = new User();
 				u.setToken(sessionkey);
@@ -61,7 +61,7 @@ public class DBMgr {
 		Connection conn = DBConnection.getConnection();
 		try{
 			Statement stm = conn.createStatement();
-			stm.executeUpdate("INSERT INTO rescue_logger (email,sessionkey,level, type, time) VALUES ('"+email+"','"+sessionkey+"',"+level+",'"+type+"','"+time+"')");
+			stm.executeUpdate("INSERT INTO logger (email,sessionkey,level, event_type, time) VALUES ('"+email+"','"+sessionkey+"',"+level+",'"+type+"','"+time+"')");
 			
 		}finally{
 			DBConnection.closeConnection(conn);
@@ -74,7 +74,7 @@ public class DBMgr {
 		Connection conn = DBConnection.getConnection();
 		try{
 			Statement stm = conn.createStatement();
-			stm.executeUpdate("INSERT INTO rescue_scores (sessionkey,level,score, time) VALUES ('"+sessionkey+"',"+level+","+score+",'"+time+"')");
+			stm.executeUpdate("INSERT INTO scores (sessionkey,level,score, timecapture) VALUES ('"+sessionkey+"',"+level+","+score+",'"+time+"')");
 			
 		}finally{
 			DBConnection.closeConnection(conn);

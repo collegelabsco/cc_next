@@ -48,7 +48,7 @@ public class GetProcess implements Processor {
 		    	JSONObject job = new JSONObject();
 		    	/*job.put(Parameter.FILE_SIZE, WordProcessor.getInstance().getDictionaryFileSize());*/
 		    	
-		    	sb.append("&").append(Parameter.FILE_ID).append("=").append(SessionConstants.DICTIONARY_DOWNLOAD_URL);
+		    	sb.append("&").append(Parameter.FILE_ID).append("=").append(SessionConstants.DICTIONARY_FILE_NAME);
 		    	json.put(SessionConstants.DICTIONARY_DOWNLOAD_URL,
 		    			SessionConstants.getDownloadURL(sb.toString()));
 		    	json.put(SessionConstants.STATUS, response);
