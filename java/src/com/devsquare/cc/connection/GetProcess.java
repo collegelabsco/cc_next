@@ -44,7 +44,6 @@ public class GetProcess implements Processor {
 		    	job.put(Parameter.FILE_ID, SessionConstants.DICTIONARY_FILE_NAME);
 		    	job.put(Parameter.FILE_SIZE, WordProcessor.getInstance().getDictionaryFileSize());
 		    	json.put("dictionary",job.toString());
-		    	
 		    	json.put("output", response);
 		    	break;
 	    	  case 2:

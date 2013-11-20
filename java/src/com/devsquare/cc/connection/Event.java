@@ -102,6 +102,7 @@ public class Event implements Runnable {
 		String sessionToken = reqParams.get(SessionConstants.SESSION_KEY);
 		if (sessionToken != null) {
 			// TODO: validate from DB;
+			
 			String type = reqParams.get(SessionConstants.TYPE);
 			if (type != null
 					&& (type.equals(SessionConstants.GET) || type
