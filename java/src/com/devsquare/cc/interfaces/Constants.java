@@ -21,7 +21,7 @@ public class Constants {
 	public final static String DATA_DIR = fetchDataDir();
 	
 	public final static String MAPRED_DIR="mapred";
-	public static final int MAPRED_LIMIT = 1000;
+	public static final int MAPRED_LIMIT = 50000;
 	public static final int CONNECTION_LIMIT = 10000;
 	
 	private static String fetchDataDir() {

@@ -97,7 +97,8 @@ public class MapRedProblem implements Problem<MapRedOuput, MapredParameter> {
 		while(limit-->0){
 			int lineIndex = ranGen.nextInt(lines.size()-1);
 			String line = lines.get(lineIndex);
-			int age = ranGen.nextInt(5)+1;
+			line = line.split("|")[0];
+			int age = ranGen.nextInt(110)+1;
 			String _li = line+"|"+age+"\n";
 			IOUtils.write(_li, os);
 			int count = 1;
@@ -105,11 +106,9 @@ public class MapRedProblem implements Problem<MapRedOuput, MapredParameter> {
 				count = peopleAgeGroup.get(age)+1;
 			}
 			peopleAgeGroup.put(age, count);
-			
 		}
 		
 		JSONObject ja = new JSONObject(peopleAgeGroup);
-		Log.debug("expected "+ja.toString());
 		
 	}
 
