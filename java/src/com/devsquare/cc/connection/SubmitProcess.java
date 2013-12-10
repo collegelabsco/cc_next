@@ -33,12 +33,19 @@ public class SubmitProcess implements Processor {
 		
 		
 		if (user != null) {
+			
+			
+			
 			json.put(SessionConstants.SESSION_KEY, user.getToken());
 			int score = 0;
 			try {
+				if(result==null){
+					throw new InvalidResult("result parameter is missing.Please check query string in your url.");
+				}
+				
 				switch (level) {
 				case 1:
-					String _result = result.toString().replaceFirst("[", "").replaceAll("]","");
+					String _result = result.toString().replaceFirst("\\[", "").replaceAll("\\]","");
 //					if (_result.length() > 2) {
 //						_result = _result.substring(1, _result.length() - 1);
 						String res[] = _result.split(",");
