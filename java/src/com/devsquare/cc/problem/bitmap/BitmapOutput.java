@@ -40,4 +40,6 @@ public class BitmapOutput implements Output<String>{
 	public String getFileName(){
 		return this.fileName;
 	}
+	
+	
 }

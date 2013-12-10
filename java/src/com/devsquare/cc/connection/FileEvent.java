@@ -225,7 +225,7 @@ public class FileEvent extends Event {
 				if (level != null) {
 					try {
 						 l = Integer.parseInt(level);
-						if ((l == 1 || l == 2 || l == 3 || l == 4) == false) {
+						if ((l == 1 || l == 2 /*|| l == 3 */|| l == 4) == false) {
 							throw new NumberFormatException();
 						}
 						
@@ -258,7 +258,7 @@ public class FileEvent extends Event {
 						}
 					} catch (NumberFormatException e) {
 						throw new InvalidRequest(
-								"level value should be 1/2/3/4 only." + qstring);
+								"level value should be 1/2/4 only. " + qstring);
 					}
 
 				} else {
@@ -268,8 +268,8 @@ public class FileEvent extends Event {
 
 			} else {
 				throw new InvalidRequest(
-						"Either type parameter is missing or value of type parameter is not of"
-								+ SessionConstants.DOWNLOAD + "." + qstring);
+						"Either type parameter is missing or value of type parameter is not of "
+								+ SessionConstants.DOWNLOAD + ". " + qstring);
 			}
 
 		} else {

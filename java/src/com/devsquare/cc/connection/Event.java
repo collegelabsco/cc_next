@@ -67,7 +67,7 @@ public class Event implements Runnable {
 	protected void process() throws Exception{
 		String qString = req.getQueryString();
 		Map<String, String> requestParams = getQueryMap(qString);
-		System.out.println(req.getParameter(SessionConstants.RESULT));
+		
 		
 		validateRequest(requestParams, qString);
 		String type = requestParams.get(SessionConstants.TYPE);
@@ -81,13 +81,13 @@ public class Event implements Runnable {
 			response = process.prepareResponse(level, sessionToken);
 		} else {
 			String result = requestParams.get(SessionConstants.RESULT);
-			Log.info("Result..."+result);
+			Log.info("User submitted result : "+req.getParameter(SessionConstants.RESULT));
 			SubmitProcess sProcess = new SubmitProcess();
 			response = sProcess.process(result,level,sessionToken);
 			
 		}
 		
-		Log.info("Response :"+response);
+		Log.info("Response : "+response);
 		write(response);
 	}
 	
@@ -118,6 +118,9 @@ public class Event implements Runnable {
 			}
 			
 			type = reqParams.get(SessionConstants.TYPE);
+			DBMgr.get().executeLoggerInsert(u.getEmail(), u.getToken(), l,type, String.valueOf(System.currentTimeMillis()));
+			
+			
 			if (type != null
 					&& (type.equals(SessionConstants.GET) || type
 							.equals(SessionConstants.SUBMIT))) {
@@ -125,12 +128,12 @@ public class Event implements Runnable {
 				if (level != null) {
 					try {
 						 l = Integer.parseInt(level);
-						if ((l == 1 || l == 2 || l == 3 || l == 4) == false) {
+						if ((l == 1 || l == 2 /*|| l == 3*/ || l == 4) == false) {
 							throw new NumberFormatException();
 						}
 					} catch (NumberFormatException e) {
 						throw new InvalidRequest(
-								"level value should be 1/2/3/4 only." + qstring);
+								"level value should be 1/2/4 only." + qstring);
 					}
 					if(type.equals(SessionConstants.SUBMIT)){
 						Output<?> requestGenerater = null;
@@ -151,7 +154,7 @@ public class Event implements Runnable {
 						
 						if(requestGenerater==null){
 							throw new InvalidRequest(
-									"No problem was selected before submiting. Please get the for problem first.");
+									"Please fetch the problem for level "+level+" before submiting result.");
 						}
 					}
 
@@ -162,9 +165,9 @@ public class Event implements Runnable {
 
 			} else {
 				throw new InvalidRequest(
-						"Either type parameter is missing or value of type parameter is not of"
+						"Either type parameter is missing or value of type parameter is not of ("
 								+ SessionConstants.GET + "/"
-								+ SessionConstants.SUBMIT + "." + qstring);
+								+ SessionConstants.SUBMIT + "). URL Sent : " + qstring);
 			}
 
 		} else {
@@ -172,7 +175,7 @@ public class Event implements Runnable {
 					"sessionkey parameter missing from request. " + qstring);
 		}
 		
-		DBMgr.get().executeLoggerInsert(u.getEmail(), u.getToken(), l,type, String.valueOf(System.currentTimeMillis()));
+		
 
 	}
 

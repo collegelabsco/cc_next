@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.devsquare.cc.CCSystemException;
+import com.devsquare.cc.InvalidResult;
 import com.devsquare.cc.db.DBMgr;
 import com.devsquare.cc.interfaces.Parameter;
 import com.devsquare.cc.log.Log;
@@ -30,16 +31,16 @@ public class SubmitProcess implements Processor {
 		JSONObject json = new JSONObject();
 		String error = "";
 		
-		int status = SessionConstants.SUCCESS;
 		
 		if (user != null) {
 			json.put(SessionConstants.SESSION_KEY, user.getToken());
+			int score = 0;
 			try {
 				switch (level) {
 				case 1:
-					String _result = result.toString();
-					if (_result.length() > 2) {
-						_result = _result.substring(1, _result.length() - 1);
+					String _result = result.toString().replaceFirst("[", "").replaceAll("]","");
+//					if (_result.length() > 2) {
+//						_result = _result.substring(1, _result.length() - 1);
 						String res[] = _result.split(",");
 						JumbledWordProblem jwp = JumbledWordProblem.get();
 						Map<String, Object> jwMap = new HashMap<String, Object>();
@@ -48,14 +49,15 @@ public class SubmitProcess implements Processor {
 								.getJumbledOutput().getOriginal());
 						JumbledOutput jo = jwp.validate(new JumbledParameter(
 								jwMap));
-						if (jo.getErrorOutput() != null) {
-							response = "Error";
-							status = SessionConstants.FAILURE;
-						}
-					} else {
-						status = SessionConstants.FAILURE;
-						response = "Error : Invalid response.";
-					}
+						score=100;
+//						if (jo.getErrorOutput() != null) {
+//							response = "Error";
+//							score=0;
+//						}
+//					} else {
+//						response = "Error : Invalid response.";
+//						score=0;
+//					}
 
 					break;
 				case 2:
@@ -65,14 +67,22 @@ public class SubmitProcess implements Processor {
 
 					BitmapProblem bp = BitmapProblem.get();
 					Map<String, Object> subMap = new HashMap<String, Object>();
+					if(!json2.has(Parameter.FILE_ID) ){
+						throw new InvalidResult(Parameter.FILE_ID+" attribute missing from result");
+					}
+					
+					if(!json2.has(Parameter.FILE_HASH)){
+						throw new InvalidResult(Parameter.FILE_HASH+" attribute missing from result");
+					}
 					subMap.put(Parameter.FILE_ID, json2.get(Parameter.FILE_ID));
 					subMap.put(Parameter.FILE_HASH,	json2.get(Parameter.FILE_HASH));
 					BitmapParameter bparam = new BitmapParameter(subMap);
 					BitmapOutput bout = bp.validate(bparam);
-					if (bout.getErrorOutput() != null) {
-						response = "Error";
-						status = SessionConstants.FAILURE;
-					}
+					score=100;
+//					if (bout.getErrorOutput() != null) {
+//						response = "Error";
+//						score=0;
+//					}
 
 					break;
 				case 3:
@@ -87,6 +97,13 @@ public class SubmitProcess implements Processor {
 					Map<Integer, Integer> sumMap = new HashMap<Integer, Integer>();
 					for (int i = 0; i < length; i++) {
 						JSONObject jos = array.optJSONObject(i);
+						if(!jos.has("age")){
+							throw new InvalidResult("age attribute missing from result");
+						}
+						if(!jos.has("count")){
+							throw new InvalidResult("count attribute missing from result");
+						}
+						
 						sumMap.put(jos.getInt("age"), jos.getInt("count"));
 					}
 
@@ -96,32 +113,33 @@ public class SubmitProcess implements Processor {
 					mp.setMapredOrinalData(user.getMapredOutput().getOutput()
 							.getOriginal());
 					MapRedOuput mro = mrp.validate(mp);
-					if (mro.getErrorOutput() != null) {
-						response = "Error";
-						status = SessionConstants.FAILURE;
-					}
+					score=100;
+//					if (mro.getErrorOutput() != null) {
+//						response = "Error";
+//						score=0;
+//					}
 
 					break;
 				}
 			} catch (Exception e) {
-				error = e.getMessage();
-				response = "";
+				
+				
+				if(e instanceof InvalidResult){
+					response = e.getMessage();
+				}else{
+					error = e.getMessage();
+					response = "";
+				}
+				
 				Log.info(e.getMessage());
 				e.printStackTrace();
 			}
+
+			DBMgr.get().executeResult(sessionToken, level, score, String.valueOf(System.currentTimeMillis()));
+			
 		} else {
 			error = "User session does not exist";
-			response = "";
-			status = SessionConstants.NONE;
-		}
-		
-		int score = 100;
-		if(status == SessionConstants.FAILURE){
-			score = 0;
-		}
-		
-		if(status != SessionConstants.NONE){
-			DBMgr.get().executeResult(sessionToken, level, score, String.valueOf(System.currentTimeMillis()));
+			response = "Error";
 		}
 		
 		json.put(SessionConstants.STATUS, response);

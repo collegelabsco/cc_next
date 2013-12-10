@@ -16,6 +16,7 @@ import java.util.Random;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 
+import com.devsquare.cc.InvalidResult;
 import com.devsquare.cc.interfaces.Constants;
 import com.devsquare.cc.interfaces.Parameter;
 import com.devsquare.cc.interfaces.Problem;
@@ -70,7 +71,7 @@ public class MapRedProblem implements Problem<MapRedOuput, MapredParameter> {
 			Entry<Integer, Integer> entry = paItr.next();
 			if(mod.getPeopleAgeGroup().get(entry.getKey())!=
 					entry.getValue()){
-				outputMap.put(Parameter.ERROR_OUTPUT, "Number of persons of age "+entry.getKey()+" is not correct");
+				throw new InvalidResult("Invalid count for age "+entry.getKey());
 			}
 		}
 		

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.devsquare.cc.CCSystemException;
+import com.devsquare.cc.InvalidResult;
 import com.devsquare.cc.interfaces.Parameter;
 import com.devsquare.cc.interfaces.Problem;
 import com.devsquare.cc.util.StringUtil;
@@ -48,6 +49,7 @@ public class JumbledWordProblem implements Problem<JumbledOutput,JumbledParamete
 		String sortedJW = StringUtil.sortString(jw);
 		String[] response = parameter.getResponse();
 		List<String> errorWords = new LinkedList<String>();
+		StringBuilder sb = new StringBuilder();
 		if(response!=null){
 			for(String word:response){
 				if(WordProcessor.getInstance().isaValidWord(word)){
@@ -55,16 +57,18 @@ public class JumbledWordProblem implements Problem<JumbledOutput,JumbledParamete
 					if(word.equals(sortedJW)) continue;
 				}
 				errorWords.add(word);
+				sb.append(word).append(",");
 			}
 		}else{
-			errorWords.add("Result not available.Please check query string in your url.");
+			throw new InvalidResult("result parameter is missing.Please check query string in your url.");
 		}
 		
 		Map<String, Object> outputMap = new HashMap<String, Object>();
 		if(errorWords.size()>0){
 			String[] errorValues = new String[errorWords.size()];
 			errorWords.toArray(errorValues);
-			outputMap.put(Parameter.ERROR_OUTPUT, errorValues);
+			throw new InvalidResult("Invalid words : "+sb.toString());
+			//outputMap.put(Parameter.ERROR_OUTPUT, errorValues);
 		}
 		
 		return new JumbledOutput(outputMap);

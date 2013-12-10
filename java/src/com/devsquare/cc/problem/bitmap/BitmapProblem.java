@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import com.devsquare.cc.InvalidResult;
 import com.devsquare.cc.interfaces.Constants;
 import com.devsquare.cc.interfaces.Parameter;
 import com.devsquare.cc.interfaces.Problem;
@@ -87,15 +88,23 @@ public class BitmapProblem implements Problem<BitmapOutput, BitmapParameter> {
 
 	@Override
 	public BitmapOutput validate(BitmapParameter parameter) {
-		String fileId = parameter.getFileID();
-		String ofileid = readerMap.get(fileId).getFileName();
-		
-		boolean success = fileId.equals(ofileid) && readerMap.get(fileId).getHash().equals(parameter.fileHash());
 		Map<String, Object> outMap = new HashMap<String, Object>();
 		BitmapOutput bop = new BitmapOutput(outMap);
-		if(!success){
-			outMap.put(Parameter.ERROR_OUTPUT, "Error");
-		}
+			String fileId = parameter.getFileID();
+			
+			IReader reader = readerMap.get(fileId);
+			if(reader == null){
+				throw new InvalidResult("Invalid file name.");
+			}
+			String ofileid = readerMap.get(fileId).getFileName();
+			//success = fileId.equals(ofileid) && readerMap.get(fileId).getHash().equals(parameter.fileHash());
+			if(!fileId.equals(ofileid) ){
+				throw new InvalidResult("Invalid file name.");
+			}
+			if(!readerMap.get(fileId).getHash().equals(parameter.fileHash())){
+				throw new InvalidResult("Invalid file hash value.");
+			}
+			
 		return bop;
 		
 	}
