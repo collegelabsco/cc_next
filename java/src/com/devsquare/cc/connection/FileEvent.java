@@ -95,7 +95,13 @@ public class FileEvent extends Event {
 				if(bp.has(file)){
 					BitmapProblem bprob = BitmapProblem.get();
 					Map<String, Object> map = new HashMap<String, Object>();
+					if(!requestParams.containsKey(Parameter.POSITION)){
+						throw new InvalidRequest("Missing position parameter.");
+					}
 					map.put(Parameter.POSITION, Integer.valueOf(requestParams.get(Parameter.POSITION)));
+					if(!requestParams.containsKey(Parameter.LENGTH)){
+						throw new InvalidRequest("Missing length parameter.");
+					}
 					map.put(Parameter.LENGTH, Integer.valueOf(requestParams.get(Parameter.LENGTH)));
 					map.put(Parameter.FILE_ID, bp.get(Parameter.FILE_ID));
 					BitmapParameter bpm = new BitmapParameter(map);

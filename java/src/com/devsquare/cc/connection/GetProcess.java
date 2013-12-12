@@ -61,12 +61,15 @@ public class GetProcess implements Processor {
 	    		  fj.put(Parameter.FILE_SIZE, bo.get(Parameter.FILE_SIZE));
 	    		  json.put(SessionConstants.STATUS, fj.toString());
 	    		  
+	    		  StringBuilder fileUrl = new StringBuilder();
 	    		  for(int i=0;i<SessionConstants.BITMAP_FILE_COUNT;i++){
 	    			  String fuid = UUID.randomUUID().toString();
-	    			  sb.append("&").append(Parameter.FILE_ID).append("=").append(fuid);
-	    			  String context = SessionConstants.getDownloadURL(sb.toString());
+	    			  fileUrl.append(sb.toString()).append("&").
+	    			  append(Parameter.FILE_ID).append("=").append(fuid);
+	    			  String context = SessionConstants.getDownloadURL(fileUrl.toString());
 	    			  json.accumulate(SessionConstants.DOWNLOAD_URL, context);
 	    			  bo.add(fuid, null);
+	    			  fileUrl = new StringBuilder();
 	    		  }
 	    		
 	    		 user.setBitmapOutput(bo);

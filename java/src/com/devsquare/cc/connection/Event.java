@@ -52,7 +52,7 @@ public class Event implements Runnable {
 			write(r.getMessage());
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
-			Log.info("uns Invalid request from user. "+e.getMessage());
+			Log.info("Invalid request from user. "+e.getMessage());
 			write("Invalid request from user.");
 		} catch (IOException e) {
 			e.printStackTrace();
