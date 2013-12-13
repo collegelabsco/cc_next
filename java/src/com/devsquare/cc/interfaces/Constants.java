@@ -5,10 +5,10 @@ import java.io.File;
 public class Constants {
 
 
-	final static int LEVEL_1 = 1;
-	final static int LEVEL_2 = 2;
-	final static int LEVEL_3 = 3;
-	final static int LEVEL_4 = 4;
+	public final static int LEVEL_1 = 1;
+	public final static int LEVEL_2 = 2;
+	public final static int LEVEL_3 = 3;
+	public final static int LEVEL_4 = 4;
 
 	public final static int LOG_LEVEL = 1;
 
@@ -34,5 +34,7 @@ public class Constants {
 		
 		return path;
 	}
+	
+	
 	
 }

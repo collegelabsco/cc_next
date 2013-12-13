@@ -4,8 +4,9 @@ import java.util.Map;
 
 import com.devsquare.cc.interfaces.Output;
 import com.devsquare.cc.interfaces.Parameter;
+import com.devsquare.cc.problem.AbstractOutput;
 
-public class JumbledOutput implements Output<Object> {
+public class JumbledOutput extends AbstractOutput implements Output<Object> {
 	
 	Map<String, Object> outputMap = null;
 	

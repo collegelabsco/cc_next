@@ -1,8 +1,9 @@
 package com.devsquare.cc.problem.mapred;
 
 import com.devsquare.cc.interfaces.Output;
+import com.devsquare.cc.problem.AbstractOutput;
 
-public class MapRedOuput implements Output<String> {
+public class MapRedOuput extends AbstractOutput implements Output<String> {
 
 	
 	MapredParameter param = null;

@@ -4,8 +4,9 @@ import java.util.Map;
 
 import com.devsquare.cc.interfaces.Output;
 import com.devsquare.cc.interfaces.Parameter;
+import com.devsquare.cc.problem.AbstractOutput;
 
-public class BitmapOutput implements Output<String>{
+public class BitmapOutput extends AbstractOutput implements Output<String>{
 	
     Map<String, Object> params = null;
     String fileName = null;

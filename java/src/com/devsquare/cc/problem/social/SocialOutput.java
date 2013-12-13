@@ -1,8 +1,9 @@
 package com.devsquare.cc.problem.social;
 
 import com.devsquare.cc.interfaces.Output;
+import com.devsquare.cc.problem.AbstractOutput;
 
-public class SocialOutput implements Output<String> {
+public class SocialOutput extends AbstractOutput implements Output<String> {
 	
 	SocialParameter socParam = null;
 	private String error;

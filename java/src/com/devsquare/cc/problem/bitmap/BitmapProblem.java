@@ -16,9 +16,10 @@ import com.devsquare.cc.interfaces.Constants;
 import com.devsquare.cc.interfaces.Parameter;
 import com.devsquare.cc.interfaces.Problem;
 import com.devsquare.cc.log.Log;
+import com.devsquare.cc.problem.AbstractProblem;
 import com.devsquare.cc.problem.bitmap.interfaces.IReader;
 
-public class BitmapProblem implements Problem<BitmapOutput, BitmapParameter> {
+public class BitmapProblem extends AbstractProblem implements Problem<BitmapOutput, BitmapParameter> {
 	
 	
 	

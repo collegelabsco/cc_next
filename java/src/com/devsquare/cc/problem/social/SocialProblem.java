@@ -17,8 +17,9 @@ import org.json.JSONObject;
 import com.devsquare.cc.interfaces.Constants;
 import com.devsquare.cc.interfaces.Problem;
 import com.devsquare.cc.log.Log;
+import com.devsquare.cc.problem.AbstractProblem;
 
-public class SocialProblem implements Problem<SocialOutput, SocialParameter>{
+public class SocialProblem extends AbstractProblem implements Problem<SocialOutput, SocialParameter>{
 	
 	
 	private static SocialProblem SINGLETON = new SocialProblem();

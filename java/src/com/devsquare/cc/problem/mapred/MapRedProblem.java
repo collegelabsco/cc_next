@@ -17,12 +17,14 @@ import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 
 import com.devsquare.cc.InvalidResult;
+import com.devsquare.cc.connection.SessionConstants;
 import com.devsquare.cc.interfaces.Constants;
 import com.devsquare.cc.interfaces.Parameter;
 import com.devsquare.cc.interfaces.Problem;
 import com.devsquare.cc.log.Log;
+import com.devsquare.cc.problem.AbstractProblem;
 
-public class MapRedProblem implements Problem<MapRedOuput, MapredParameter> {
+public class MapRedProblem extends AbstractProblem implements Problem<MapRedOuput, MapredParameter> {
 	
 	
 	RandomAccessFile raf = null;
@@ -92,7 +94,7 @@ public class MapRedProblem implements Problem<MapRedOuput, MapredParameter> {
 	public void readFile(MapredParameter parameter) throws IOException{
 		
 		OutputStream os = parameter.getOutputStream();
-		int limit =  Constants.MAPRED_LIMIT;
+		int limit =  SessionConstants.getMapredLimit();
 		Map<Integer, Integer> peopleAgeGroup= parameter.getOriginal().getPeopleAgeGroup();
 		while(limit-->0){
 			int lineIndex = ranGen.nextInt(lines.size()-1);

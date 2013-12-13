@@ -2,6 +2,8 @@ package com.devsquare.cc.connection;
 
 import java.util.Properties;
 
+import com.devsquare.cc.interfaces.Constants;
+
 public class SessionConstants {
 	
 	public static final String SESSION_KEY = "sessionkey";
@@ -34,6 +36,10 @@ public class SessionConstants {
 		return properties.getProperty(key);
 	}
 	
+	public static int getMapRedFileCount(){
+		return Integer.valueOf(properties.getProperty("MAPRED_FILE_COUNT", "50"));
+	}
+	
 	public static String getDownloadURL(String queryString){
 		StringBuilder sb = new StringBuilder();
 		sb.append("http://")
@@ -44,6 +50,35 @@ public class SessionConstants {
 		  .append(queryString);
 		
 		return sb.toString();
+	}
+	
+	public static int getBitmapFileCount(){
+		return Integer.valueOf(properties.getProperty("BITMAP_FILE_COUNT", "3"));
+	}
+
+	public static long getAllowedTimeForQuestionSubmittion(int level){
+		long value = 0;
+		switch(level){
+		case Constants.LEVEL_1:
+			 value = Integer.valueOf(properties.getProperty("level_1_limit"));
+			 break;
+		case Constants.LEVEL_2:
+			 value  = Integer.valueOf(properties.getProperty("level_2_limit"));
+			 break;
+		case Constants.LEVEL_3:
+			value = Integer.valueOf(properties.getProperty("level_3_limit"));
+			break;
+		case Constants.LEVEL_4:
+			value = Integer.valueOf(properties.getProperty("level_4_limit"));
+			break;
+		}
+		return value;
+		
+	}
+
+	public static int getMapredLimit() {
+		// TODO Auto-generated method stub
+		return Integer.valueOf(properties.getProperty("MAPRED_LIMIT", "50000"));
 	}
 
 }

@@ -6,11 +6,12 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.devsquare.cc.CCSystemException;
+import com.devsquare.cc.InvalidRequest;
 import com.devsquare.cc.InvalidResult;
 import com.devsquare.cc.db.DBMgr;
 import com.devsquare.cc.interfaces.Parameter;
 import com.devsquare.cc.log.Log;
+import com.devsquare.cc.problem.AbstractOutput;
 import com.devsquare.cc.problem.bitmap.BitmapOutput;
 import com.devsquare.cc.problem.bitmap.BitmapParameter;
 import com.devsquare.cc.problem.bitmap.BitmapProblem;
@@ -40,14 +41,15 @@ public class SubmitProcess implements Processor {
 			int score = 0;
 			try {
 				if(result==null){
-					throw new InvalidResult("result parameter is missing.Please check query string in your url.");
+					throw new InvalidResult(SessionConstants.getValue("param_result_missing"));
 				}
 				
 				switch (level) {
 				case 1:
+					validateTime(level, user
+								.getJumbledOutput());
+					
 					String _result = result.toString().replaceFirst("\\[", "").replaceAll("\\]","");
-//					if (_result.length() > 2) {
-//						_result = _result.substring(1, _result.length() - 1);
 						String res[] = _result.split(",");
 						JumbledWordProblem jwp = JumbledWordProblem.get();
 						Map<String, Object> jwMap = new HashMap<String, Object>();
@@ -57,39 +59,28 @@ public class SubmitProcess implements Processor {
 						JumbledOutput jo = jwp.validate(new JumbledParameter(
 								jwMap));
 						score=100;
-//						if (jo.getErrorOutput() != null) {
-//							response = "Error";
-//							score=0;
-//						}
-//					} else {
-//						response = "Error : Invalid response.";
-//						score=0;
-//					}
 
 					break;
 				case 2:
 					String bitmapresult = result.toString();
-
+					
+					validateTime(level, user.getBitmapOutput());
 					JSONObject json2 = new JSONObject(bitmapresult);
 
 					BitmapProblem bp = BitmapProblem.get();
 					Map<String, Object> subMap = new HashMap<String, Object>();
 					if(!json2.has(Parameter.FILE_ID) ){
-						throw new InvalidResult(Parameter.FILE_ID+" attribute missing from result");
+						throw new InvalidResult(Parameter.FILE_ID+" "+SessionConstants.getValue("attribute_missing"));
 					}
 					
 					if(!json2.has(Parameter.FILE_HASH)){
-						throw new InvalidResult(Parameter.FILE_HASH+" attribute missing from result");
+						throw new InvalidResult(Parameter.FILE_HASH+" "+SessionConstants.getValue("attribute_missing"));
 					}
 					subMap.put(Parameter.FILE_ID, json2.get(Parameter.FILE_ID));
 					subMap.put(Parameter.FILE_HASH,	json2.get(Parameter.FILE_HASH));
 					BitmapParameter bparam = new BitmapParameter(subMap);
 					BitmapOutput bout = bp.validate(bparam);
 					score=100;
-//					if (bout.getErrorOutput() != null) {
-//						response = "Error";
-//						score=0;
-//					}
 
 					break;
 				case 3:
@@ -98,6 +89,7 @@ public class SubmitProcess implements Processor {
 				case 4:
 					MapRedProblem mrp = MapRedProblem.get();
 					String r4 = result.toString();
+					validateTime(level, user.getMapredOutput());
 					JSONArray array = new JSONArray(r4);
 					Log.info(array.toString());
 					int length = array.length();
@@ -105,10 +97,10 @@ public class SubmitProcess implements Processor {
 					for (int i = 0; i < length; i++) {
 						JSONObject jos = array.optJSONObject(i);
 						if(!jos.has("age")){
-							throw new InvalidResult("age attribute missing from result");
+							throw new InvalidResult("age "+SessionConstants.getValue("attribute_missing"));
 						}
 						if(!jos.has("count")){
-							throw new InvalidResult("count attribute missing from result");
+							throw new InvalidResult("count "+SessionConstants.getValue("attribute_missing"));
 						}
 						
 						sumMap.put(jos.getInt("age"), jos.getInt("count"));
@@ -121,10 +113,6 @@ public class SubmitProcess implements Processor {
 							.getOriginal());
 					MapRedOuput mro = mrp.validate(mp);
 					score=100;
-//					if (mro.getErrorOutput() != null) {
-//						response = "Error";
-//						score=0;
-//					}
 
 					break;
 				}
@@ -135,7 +123,7 @@ public class SubmitProcess implements Processor {
 					response = e.getMessage();
 				}else{
 					error = e.getMessage();
-					response = "";
+					response = "Error";
 				}
 				
 				Log.info(e.getMessage());
@@ -145,7 +133,7 @@ public class SubmitProcess implements Processor {
 			DBMgr.get().executeResult(sessionToken, level, score, String.valueOf(System.currentTimeMillis()));
 			
 		} else {
-			error = "User session does not exist";
+			error = SessionConstants.getValue("invalid_user_session");
 			response = "Error";
 		}
 		
@@ -154,6 +142,16 @@ public class SubmitProcess implements Processor {
 		json.put(SessionConstants.LEVEL, level);
 
 		return json.toString();
+	}
+	
+	
+	private void validateTime(int level,AbstractOutput output){
+		long requestTime = output.getRequestTime();
+		if(System.currentTimeMillis()-requestTime>SessionConstants.getAllowedTimeForQuestionSubmittion(level)){
+			throw new InvalidRequest(SessionConstants.getValue("time_limit_exhausted"));
+		}
+		
+		
 	}
 
 }

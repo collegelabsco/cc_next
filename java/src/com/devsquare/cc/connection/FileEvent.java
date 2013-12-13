@@ -155,7 +155,7 @@ public class FileEvent extends Event {
 					setResponseHeader();
 					DataTransferMgr.get().getZipStream(res.getOutputStream()).setInputStream(new SetInput() {
 						
-						int count = 80;
+						int count = SessionConstants.getMapRedFileCount();
 						
 						@Override
 						public void process(ZipOutputStream zos) throws IOException {

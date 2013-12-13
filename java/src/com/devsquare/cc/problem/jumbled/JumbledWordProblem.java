@@ -9,12 +9,14 @@ import com.devsquare.cc.CCSystemException;
 import com.devsquare.cc.InvalidResult;
 import com.devsquare.cc.interfaces.Parameter;
 import com.devsquare.cc.interfaces.Problem;
+import com.devsquare.cc.problem.AbstractProblem;
 import com.devsquare.cc.util.StringUtil;
 
-public class JumbledWordProblem implements Problem<JumbledOutput,JumbledParameter> {
+public class JumbledWordProblem  extends AbstractProblem implements Problem<JumbledOutput,JumbledParameter> {
 
 	
 	private static JumbledWordProblem jwp = null;
+	
 	
 	
 	private JumbledWordProblem(){
@@ -73,6 +75,7 @@ public class JumbledWordProblem implements Problem<JumbledOutput,JumbledParamete
 		
 		return new JumbledOutput(outputMap);
 	}
+
 	
 	
 

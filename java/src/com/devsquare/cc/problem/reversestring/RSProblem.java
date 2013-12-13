@@ -2,8 +2,9 @@ package com.devsquare.cc.problem.reversestring;
 
 import com.devsquare.cc.CCSystemException;
 import com.devsquare.cc.interfaces.Problem;
+import com.devsquare.cc.problem.AbstractProblem;
 
-public class RSProblem implements Problem<RSOutput,RSParameter> {
+public class RSProblem extends AbstractProblem implements Problem<RSOutput,RSParameter> {
 
 	private static RSProblem jwp = null;
 
