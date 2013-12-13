@@ -4,10 +4,14 @@
 <%!
 	private static String countUserId = "select email,pwd from users where email = ? and pwd = ?";
 	private static String checkUserExistence = "select email from users where email = ?";
-	private static String insertLogDetails = "insert into logger(email,gameid,time) values (?,?,?)";
-	private static String insertUserDetails = "insert into users(fname,lname,universityid,email,pwd,university,academic,sem) values (?,?,?,?,?,?,?,?)";
+	private static String insertLogDetails = "insert into logger(email,sessionkey,time) values (?,?,?)";
+	private static String insertUserDetails = "insert into users(fname,lname,universityid,email,pwd,university,academic,sem,sessionkey) values (?,?,?,?,?,?,?,?,?)";
 	private static String get_password = "select pwd from users where email = ?";
-	
+
+    private static String get_sessionkey = "select sessionkey from users where email = ?";
+    private static String get_score = "select score from scores where timecapture in (select max(timecapture) from scores where sessionkey =? and level=?)";
+
+
 	public static int checkUserId(String email) {
 		
         int exp = -1; 
@@ -50,7 +54,7 @@
         }
         return exp;
     }
-	public static boolean insertLogDetails(String email, String gameid, String time) {	   
+	public static boolean insertLogDetails(String email, String sessionkey, String time) {
 	    PreparedStatement pstmt = null;
 	    boolean flag = false;
 	    Connection con = null;
@@ -59,7 +63,7 @@
         	con = DriverManager.getConnection(connectionString, db_username, db_password);		
 	        pstmt = con.prepareStatement(insertLogDetails);
 	        pstmt.setString(1, email);
-	        pstmt.setString(2, gameid);
+	        pstmt.setString(2, sessionkey);
 	        pstmt.setString(3, time);
 	               
 	        pstmt.executeUpdate();
@@ -145,7 +149,7 @@
 	        }
 	        return exp;
 	    }
-	    public static boolean insertRegisteredUsers(String f_name, String l_name, String universityid, String email, String password, String university, String academia, int sem) {
+	    public static boolean insertRegisteredUsers(String f_name, String l_name, String universityid, String email, String password, String university, String academia, int sem, String sessionkey) {
 	        
 	        PreparedStatement pstmt = null;
 	        boolean flag = false;
@@ -161,8 +165,9 @@
 	            pstmt.setString(5, password);
 	            pstmt.setString(6, university);
 	            pstmt.setString(7, academia);
-	            pstmt.setInt(8, sem);           
-	            pstmt.executeUpdate();
+	            pstmt.setInt(8, sem);
+                pstmt.setString(9,sessionkey);
+                pstmt.executeUpdate();
 	            flag = true;
 
 				//DBConnection.closeConnection(con);
@@ -279,5 +284,74 @@ System.out.println("checkLogin: 2");
 System.out.println("checkLogin: 3");
             return exp;
 	    }
-	   
+
+
+    public static String getScore(String sessionkey, int level) {
+        String score = null;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rst = null;
+        try {
+            Class.forName(driverName).newInstance();
+            con = DriverManager.getConnection(connectionString, db_username, db_password);
+            pstmt = con.prepareStatement(get_score);
+            pstmt.setString(1, sessionkey);
+            pstmt.setInt(2, level);
+
+            rst = pstmt.executeQuery();
+            while(rst.next()) {
+                score = rst.getString("score");
+            }
+
+        }
+        catch(Exception sql) {
+            sql.printStackTrace();
+        }
+        finally {
+            try {
+                if (rst != null) rst.close();
+                if (pstmt != null) pstmt.close();
+                if (con != null) con.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        return score;
+    }
+
+
+    public static String getSessionKey(String email) {
+        String sessionkey = null;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rst = null;
+        try {
+            Class.forName(driverName).newInstance();
+            con = DriverManager.getConnection(connectionString, db_username, db_password);
+            pstmt = con.prepareStatement(get_sessionkey);
+            pstmt.setString(1, email);
+
+            rst = pstmt.executeQuery();
+            while(rst.next()) {
+                sessionkey = rst.getString("sessionkey");
+            }
+                    }
+        catch(Exception sql) {
+            sql.printStackTrace();
+        }
+        finally {
+            try {
+                if (rst != null) rst.close();
+                if (pstmt != null) pstmt.close();
+                if (con != null) con.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        return sessionkey;
+    }
+
+
 %>

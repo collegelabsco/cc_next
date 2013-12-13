@@ -8,8 +8,8 @@
 <!--
 body {
 	margin-top: 5px;
-	background-color: #e2e2e2;
-}
+	background-color: #FFFFFF;
+    }
 -->
 </style>
 <link href="CSS/main.css" rel="stylesheet" type="text/css" />
@@ -24,7 +24,7 @@ body {
 
       function callSubmitAction() {
 			var flag = true;
-			if(document.form1.email.value == "" || document.form1.password.value == "" || document.form1.email.value == "University email-ID only"){				
+			if(document.form1.email.value == "" || document.form1.password.value == "" || document.form1.email.value == "University email-ID only"){
                 alert("Please fill both username and password");
                 document.form1.focus();
                 flag = false;
@@ -138,16 +138,7 @@ function submitEnter(myfield,e)
 <tr>
       <td colspan="3" background="images/top_line.jpg"><img src="images/spacer.gif" width="1" height="3" /></td>
   </tr>
-    <tr>
-      <td width="148" rowspan="2" align="center" bgcolor="#FFFFFF"><img src="images/instep_logo.jpg" width="106" height="85" /></td>
-      <td height="54" colspan="2" align="right" valign="middle" bgcolor="#000000" class="rightimgpad"><img src="images/infosys_logo.jpg" width="70" height="29"  /></td>
-    </tr>
-    <tr>
-      <td height="30" colspan="2" background="images/menu_bg2.jpg" class="signin2">An Infosys Online Game Programming Contest</td>
-   </tr>
-    <tr>
-      <td colspan="3" background="images/but_line.jpg"><img src="images/spacer.gif" width="1" height="3" /></td>
-    </tr>
+
 
      <tr>     
        <td colspan="3" valign="top" height="20px" bgcolor="#FFFFFF" align="center">
@@ -155,93 +146,55 @@ function submitEnter(myfield,e)
         <a class="redtext2" href="enablejs.jsp" ><noscript>Your browser does not support JavaScript, please enable JavaScript. Click here for support.</noscript></a><br />
   	</td>
    </tr>
-    
-    <tr>
-      <td colspan="2" align="right" bgcolor="#FFFFFF"><img src="images/banner22.jpg" width="513" height="254" /></td>
-      <td valign="top" bgcolor="#ffffff" class="loginbgimg2">
-<form id="form1" name="form1" method="post" action="<%=response.encodeURL("login_submit.jsp")%>">
-	  <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <td width="96%" align="right"><table width="95%" border="0" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF">
-              <tr>
-                <td colspan="2" class="signin">&nbsp;</td>
-              </tr>
-              <tr>
-                <td height="40" colspan="2" valign="top" class="signin">Sign in</td>
-              </tr>
 
-               <tr>
-                <td height="30" valign="center"  class="signin3">Username</td>
-                <td height="30" class="formtext2"  >
-				
-                    <input title="Use University Email ID only"  style="width:170px" name="email" type="text" id="textfield1" size="25" value="Email-ID" onfocus="if(this.value=='Email-ID'){this.value='';}" onblur="if(this.value==''){this.value='University email-ID only';}"/>
-                    
-               		 <INPUT TYPE="hidden" NAME="from_login1" value="<%=uid.toString() %>"/>
-               		 <INPUT TYPE="hidden" NAME="from_login2" value="<%=sessionID.toString() %>"/>
-               		 
-              </tr>
+   <tr><td></td></tr>
+     <tr bgcolor="#FFFFFF"><td><b><font size=+1>Welcome to The Infosys Code Champion Contest 2013</font></b></td></tr>
+     <tr bgcolor="#FFFFFF"><td>Participants would need to enter their Infosys email address and click on submit button to register for the contest. Login credentials will be sent to the registered email address.<br><br></td></tr>
+     <tr bgcolor="#FFFFFF"><td>Infoscions who would like to opt for Mainframe technologies in the Infosys Code Champion Contest, would first need to participate in the preliminary round consisting of objective assessment in programming related topics. The final round however will be a programming contest in Mainframe Technologies. The preliminary round will be opened on December 4th, 2013.<br><br></td></tr>
+     <tr bgcolor="#FFFFFF"><td>Infoscions who opt for technologies other than Mainframes would need to appear for a programming contest both in the preliminary and the final round. The programming solution(s) can be written in Java, C#.Net, C or C++. A few sample programming questions can be accessed <a href="http://107.23.11.198/openpbt/codechampion/login.jsp" target=_blank>here</a>.<br><br></td></tr>
 
-              <tr>
-                <td height="30" valign="center" class="signin3" style="width:170px" >Password</td>
-                <td height="30" class="formtext2">
-				
-                    <input name="password" type="password" style="width:170px" id="textfield" size="25" onkeypress="return submitEnter(this,event)"/>
-                </td>
-              </tr>
-
-              <tr>
-                <td width="24%">&nbsp;</td>
-                <td width="76%" align="right" valign="top"><a href="#"><img src="images/login_bt.jpg" width="74" height="20" border="0" class="rightimgpad2" onclick="callSubmitAction()" type="submit"/></a></td>
-              </tr>
-              <tr>
-                <td colspan="2" class="signin2"  ><a class="register" href="sendmail.jsp">Forgot Password</a> <span >|</span> <span class="register"><a class="register" href="registration.jsp">Register&gt;&gt; </a></span></td>
-              </tr>
-              <tr>
-                <td height="40" colspan="2" class="signin2"  ><span class="username7"> Please read the </span><span class="username3 style1"><a class="username3" href="javascript:void(0)" onclick="window.open('detailed_Instructions.html','QuickSteps','scrollbars=yes,location=no,directories=no');return false">Detailed Instructions</a></span><span class="username7"> before starting the game.</span></td>
-              </tr>
-              <tr>
-                <td height="26" colspan="2" class="signin2"  ><span class="username3 style1"><a class="username3" href='http://server.iad.liveperson.net/hc/41340205/?cmd=file&file=visitorWantsToChat&site=41340205&byhref=1' target='chat41340205'  onClick="javascript:window.open('http://server.iad.liveperson.net/hc/41340205/?cmd=file&file=visitorWantsToChat&site=41340205&referrer='+escape(document.location),'chat41340205','width=472,height=320');return false;" >LIVE HELP</a></span><span class="username7">:
-		 Please click here for assistance at any time.</span></td>
-              </tr>
-          </table>
-	</form></td>
-          <td width="4%" bgcolor="#FFFFFF">&nbsp;</td>
-        </tr>
-      </table></td>
-   </tr>
-    <tr>
-      <td bgcolor="#FFFFFF">&nbsp;</td>
-      <td width="384" bgcolor="#FFFFFF">&nbsp;</td>
-      <td width="428" bgcolor="#FFFFFF">&nbsp;</td>
-    </tr>   
-    
-    
-    
-    <tr>
-      <td colspan="3" valign="top" bgcolor="#FFFFFF"><strong class="subheader">About the Game:</strong><br />
-        <br />
-        <span class="normaltextor"> <B>Rescue</B> is about saving a captive from a prison guarded by enemy guards. The rescue is done by the rescuer navigating the maze like prison, trying to avoid the enemy <span class="normaltextor">guards.</span> 
-         The participant needs to code the logic for the rescuer. We request you to refer to the "detailed instruction" link for more details on the contest.<br />
-        </span>
-       <br />
-        </td>
-   </tr>
-     <tr>
-      <td colspan="3" valign="top" bgcolor="#FFFFFF"><strong class="subheader">Eligibility Criteria</strong><br />
-        <br />
-        <span class="normaltextor"> Only students from  <b>The University of Purdue</b> , <b>The University of Texas at Austin </b> and <b>The University of Illinois at Urbana, Champaign </b> can apply for this contest . 
-        <br /><span class="normaltextor">Please give the details as requested for in the registration page.</span><br />        
-       <br />
-        </span></td>
-   </tr>
-  
-    <tr>
-      <td height="30" colspan="3" bgcolor="#FFFFFF" ></td>
-    </tr>
-    <tr>
-      <td colspan="3" bgcolor="#ff6600"><img src="images/spacer.gif" width="1" height="3" /></td>
-    </tr>
+       <br><br>
   </table>
+
+ <form id="form1" name="form1" method="post" action="<%=response.encodeURL("login_submit.jsp")%>">
+     <table align="center" >
+
+                 <tr>
+                  <td>UserName</td>
+                 <td class="formtext2"  >
+
+                         <input title="Use University Email ID only"   name="email" type="text" id="textfield1" size="25" value="Email-ID" onfocus="if(this.value=='Email-ID'){this.value='';}"/>
+
+                         <INPUT TYPE="hidden" NAME="from_login1" value="<%=uid.toString() %>"/>
+                         <INPUT TYPE="hidden" NAME="from_login2" value="<%=sessionID.toString() %>"/>
+                 <td>
+                 </tr>
+
+                 <tr>
+                     <td>Password</td>
+                     <td height="30" class="formtext2">
+
+                         <input name="password" type="password" id="textfield" size="25" onkeypress="return submitEnter(this,event)"/>
+                     </td>
+                 </tr>
+
+                 <tr>
+                     <td></td>
+                     <td  align="center" valign="top"><a href="#"><img src="images/login_bt.jpg" height="20" border="0" class="rightimgpad2" onclick="callSubmitAction()" type="submit"/></a></td>
+                 </tr>
+     </table>
+
+
+
+ </form>
+
+  <br>
+ <table width="960" border="0" align="center" cellpadding="0" cellspacing="0">
+
+     <tr>
+         <td colspan="3" bgcolor="#ff6600"><img src="images/spacer.gif" width="1" height="3" /></td>
+     </tr>
+ </table>
 
 
 </body>

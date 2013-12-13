@@ -1,8 +1,8 @@
 <% response.setContentType("application/x-java-jnlp-file"); %>
 
 <%    
-   String gameid= request.getParameter("gameid");
-   System.out.println("jcload.jsp: Starting JNLP with gameid=" + gameid);
+   String sessionkey= request.getParameter("sessionkey");
+   System.out.println("jcload.jsp: Starting JNLP with sessionkey=" + sessionkey);
 %>
 
 
@@ -23,7 +23,7 @@
   </resources>
 
   <application-desc  main-class="com.devsquare.fts.Simulation">
-		<argument><%=gameid%></argument>
+		<argument><%=sessionkey%></argument>
   </application-desc>
 
 </jnlp>

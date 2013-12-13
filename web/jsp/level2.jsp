@@ -35,7 +35,7 @@ if(sessionID==null) {
 
     Random rand = new Random();
 	double gid = 1000000000+Math.random()*999999999;
-	String gameid = Integer.toString((int)gid);
+	String sessionkey = Integer.toString((int)gid);
 
 	SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 	java.util.Date date = new java.util.Date ();
@@ -66,7 +66,7 @@ if(sessionID==null) {
 
     
     
-/*
+
 	if(session.getAttribute("loginemail")!=null) {
 		email = (String)session.getAttribute("loginemail");		
 	}
@@ -75,9 +75,9 @@ if(sessionID==null) {
 		return;
 	}
 
-	System.out.println("sessionID: " + sessionID);
+
 	
-*/
+
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
@@ -155,31 +155,16 @@ function MM_nbGroup(event, grpName) { //v6.0
   <tr>
     <td colspan="3" background="images/top_line.jpg"><img src="images/spacer.gif" width="1" height="3" /></td>
   </tr>
+
   <tr>
-    <td width="148" rowspan="2" align="center" bgcolor="#FFFFFF"><img src="images/instep_logo.jpg" width="106" height="85" /></td>
-    <td height="54" colspan="2" align="right" valign="middle" bgcolor="#000000" class="rightimgpad"><img src="images/infosys_logo.jpg" width="70" height="29"  /></td>
-  </tr>
-  <tr>
-    <td height="30" colspan="2" align="right" background="images/menu_bg2.jpg"><table border="0" cellpadding="0" cellspacing="0">
-      <tr>
-         <td><a href="#" target="_top" onclick="MM_nbGroup('down','group1','home','images/home_over.jpg',1)" onmouseover="MM_nbGroup('over','home','images/home_over.jpg','',1)" onmouseout="MM_nbGroup('out')"><img src="images/home_over.jpg" alt="" name="home" width="91" height="30" border="0" id="home" onload="" /></a></td>
-        <td><a href="javascript:;" target="_top" onclick="MM_nbGroup('down','group1','menudivider','',1)" onmouseover="MM_nbGroup('over','menudivider','','',1)" onmouseout="MM_nbGroup('out')"><img src="images/menu_divider.jpg" alt="" name="menudivider" width="2" height="30" border="0" id="menudivider" onload="" /></a></td>
-        <td><a href="detailed_Instructions.html" target="_blank" onclick="MM_nbGroup('down','group1','moreinfo','images/more_info.jpg',1)" onmouseover="MM_nbGroup('over','moreinfo','images/more_info_over.jpg','',1)" onmouseout="MM_nbGroup('out')"><img src="images/more_info.jpg" alt="" name="moreinfo" border="0" id="myspaceme" onload="" /></a></td>
-        <td><a href="javascript:;" target="_top" onclick="MM_nbGroup('down','group1','menudivider3','',1)" onmouseover="MM_nbGroup('over','menudivider3','','',1)" onmouseout="MM_nbGroup('out')"><img src="images/menu_divider.jpg" alt="" name="menudivider3" width="2" height="30" border="0" id="menudivider3" onload="" /></a></td>
-        <td><a href="<%=response.encodeURL("contact_us.jsp")%>" target="_top" onclick="MM_nbGroup('down','group1','contact','images/contact_over.jpg',1)" onmouseover="MM_nbGroup('over','contact','images/contact_over.jpg','',1)" onmouseout="MM_nbGroup('out')"><img src="images/contact.jpg" alt="" name="contact" width="99" height="30" border="0" id="contact" onload="" /></a></td>
-        </tr>
-    </table>
-    </td>
+
   </tr>
 
-    <tr>
-      <td colspan="3" background="images/but_line.jpg"><img src="images/spacer.gif" width="1" height="3" /></td>
-    </tr>
     <tr>
       <td colspan="3" align="center" bgcolor="#FFFFFF"><table width="912" border="0" cellspacing="0" cellpadding="0">
         <tr>
           <td height="39" align="left" background="images/sub_header_bg.jpg"><!-- InstanceBeginEditable name="EditRegion4" -->
-            <p class="subheader">Welcome to Rescue</p>
+            <p class="subheader">Welcome to Champion Contest 2013</p>
             <td height="39"  background="images/sub_header_bg.jpg"><!-- InstanceBeginEditable name="EditRegion4" -->
 		  <p class="bluetextsub2"><%=email%> | <A class="bluetext" HREF="logout.jsp" >Logout</A></p>
           <!-- InstanceEndEditable --></td>

@@ -46,7 +46,7 @@ if(request.getParameter("from_login2") == null) {
 
     Random rand = new Random();
 	double gid = 1000000000+Math.random()*999999999;
-	String gameid = Integer.toString((int)gid);
+	String sessionkey = Integer.toString((int)gid);
 
 	SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 	java.util.Date date = new java.util.Date ();
@@ -203,9 +203,9 @@ function MM_nbGroup(event, grpName) { //v6.0
 
 	  <%  
           
-			if(email!=null && gameid!=null) {
+			if(email!=null && sessionkey!=null) {
 			
-			boolean result = insertLogDetails(email,gameid,dateStr);
+			boolean result = insertLogDetails(email,sessionkey,dateStr);
 			
 			
 		
@@ -222,13 +222,13 @@ function MM_nbGroup(event, grpName) { //v6.0
     <td width="213" rowspan="12" align="center" valign="middle" class="subtitle22ccc" >
       <input type="image" src="images/start_simulation_bt.jpg" name="startsim"  />
       
-      <input type="hidden" name="gameid" value="<%=gameid%>" align="center"/>
+      <input type="hidden" name="sessionkey" value="<%=sessionkey%>" align="center"/>
       <INPUT TYPE="hidden" NAME="from_login_submit1" value="<%=ob.toString()%>"/>
       <INPUT TYPE="hidden" NAME="from_login_submit2" value="<%=sessionID.toString()%>"/>    </td>
   </tr>
   <tr>
     <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Step 2:</td>
-    <td class="subtitle22bb">Begin your game by running your code. <span class="bluetext3">Your gameID is <%=gameid%> </span></td>
+    <td class="subtitle22bb">Begin your game by running your code. <span class="bluetext3">Your sessionkey is <%=sessionkey%> </span></td>
     </tr>
   <tr>
     <td height="40" colspan="3" class="subtitle22aaa">Instructions for Java</td>
@@ -249,8 +249,8 @@ function MM_nbGroup(event, grpName) { //v6.0
     </tr>
   <tr>
     <td height="40" class="subtitle22cc"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Step 6:</td>
-    <td class="subtitle22c">Run your code by the following command (gameid as mentioned above)</span><span class="bluetext3"><br />
-                java -cp &quot;.&quot; com.devsquare.fts.UserGame gameid</span></td>
+    <td class="subtitle22c">Run your code by the following command (sessionkey as mentioned above)</span><span class="bluetext3"><br />
+                java -cp &quot;.&quot; com.devsquare.fts.UserGame sessionkey</span></td>
     </tr>
   <tr>
     <td height="40" colspan="3" class="subtitle22aaa">Instructions for C (linux only)</td>
@@ -271,8 +271,8 @@ function MM_nbGroup(event, grpName) { //v6.0
     </tr>
   <tr>
     <td height="40" class="subtitle22cc"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Step 6:</td>
-    <td class="subtitle22c">Run your code by the following command (gameid as mentioned above)</span><span class="bluetext3"><br />
-                 ./user_game gameid</span></td>
+    <td class="subtitle22c">Run your code by the following command (sessionkey as mentioned above)</span><span class="bluetext3"><br />
+                 ./user_game sessionkey</span></td>
     </tr>
 </table>
 </form>

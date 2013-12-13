@@ -104,8 +104,8 @@
 <%
     java.net.InetAddress address = java.net.InetAddress.getLocalHost();
     String ip = address.getHostAddress();
-    String gameid = request.getParameter("gameid");
-    String jcUrl = "http://" + ip  + "/jcload.jsp?gameid=" + gameid ;
+    String sessionkey = request.getParameter("sessionkey");
+    String jcUrl = "http://" + ip  + "/jcload.jsp?sessionkey=" + sessionkey ;
 %>
 
 <body onload="onLoad('<%=jcUrl%>')" >

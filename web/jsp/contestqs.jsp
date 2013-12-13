@@ -44,13 +44,9 @@ if(request.getParameter("from_login2") == null) {
 	return;	
 }
 
-
-
-    
-
     Random rand = new Random();
-	double gid = 1000000000+Math.random()*999999999;
-	String gameid = Integer.toString((int)gid);
+	double skey = 1000000000+Math.random()*999999999;
+	String sessionkey = Integer.toString((int)skey);
 
 	SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 	java.util.Date date = new java.util.Date ();
@@ -96,7 +92,7 @@ if(request.getParameter("from_login2") == null) {
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>Welcome to Rescue</title>
+<title>Code Champion</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable -->
 <link href="CSS/main.css" rel="stylesheet" type="text/css" />
@@ -163,59 +159,55 @@ function MM_nbGroup(event, grpName) { //v6.0
 </head>
 
 <body onload="MM_preloadImages('images/home_over.jpg','images/contact_over.jpg','images/more_info_over.jpg')">
+
 <table width="960" border="0" align="center" cellpadding="0" cellspacing="0">
-  <tr>
-    <td colspan="3" background="images/top_line.jpg"><img src="images/spacer.gif" width="1" height="3" /></td>
-  </tr>
-  <tr>
-    <td width="148" rowspan="2" align="center" bgcolor="#FFFFFF"><img src="images/instep_logo.jpg" width="106" height="85" /></td>
-    <td height="54" colspan="2" align="right" valign="middle" bgcolor="#000000" class="rightimgpad"><img src="images/infosys_logo.jpg" width="70" height="29"  /></td>
-  </tr>
-  <tr>
-    <td height="30" colspan="2" align="right" background="images/menu_bg2.jpg"><table border="0" cellpadding="0" cellspacing="0">
-      <tr>
-         <td><a href="#" target="_top" onclick="MM_nbGroup('down','group1','home','images/home_over.jpg',1)" onmouseover="MM_nbGroup('over','home','images/home_over.jpg','',1)" onmouseout="MM_nbGroup('out')"><img src="images/home_over.jpg" alt="" name="home" width="91" height="30" border="0" id="home" onload="" /></a></td>
-        <td><a href="javascript:;" target="_top" onclick="MM_nbGroup('down','group1','menudivider','',1)" onmouseover="MM_nbGroup('over','menudivider','','',1)" onmouseout="MM_nbGroup('out')"><img src="images/menu_divider.jpg" alt="" name="menudivider" width="2" height="30" border="0" id="menudivider" onload="" /></a></td>
-        <td><a href="detailed_Instructions.html" target="_blank" onclick="MM_nbGroup('down','group1','moreinfo','images/more_info.jpg',1)" onmouseover="MM_nbGroup('over','moreinfo','images/more_info_over.jpg','',1)" onmouseout="MM_nbGroup('out')"><img src="images/more_info.jpg" alt="" name="moreinfo" border="0" id="myspaceme" onload="" /></a></td>
-        <td><a href="javascript:;" target="_top" onclick="MM_nbGroup('down','group1','menudivider3','',1)" onmouseover="MM_nbGroup('over','menudivider3','','',1)" onmouseout="MM_nbGroup('out')"><img src="images/menu_divider.jpg" alt="" name="menudivider3" width="2" height="30" border="0" id="menudivider3" onload="" /></a></td>
-        <td><a href="<%=response.encodeURL("contact_us.jsp")%>" target="_top" onclick="MM_nbGroup('down','group1','contact','images/contact_over.jpg',1)" onmouseover="MM_nbGroup('over','contact','images/contact_over.jpg','',1)" onmouseout="MM_nbGroup('out')"><img src="images/contact.jpg" alt="" name="contact" width="99" height="30" border="0" id="contact" onload="" /></a></td>
-        </tr>
-    </table>
-    </td>
-  </tr>
 
     <tr>
-      <td colspan="3" background="images/but_line.jpg"><img src="images/spacer.gif" width="1" height="3" /></td>
-    </tr>
-    <tr>
-      <td colspan="3" align="center" bgcolor="#FFFFFF"><table width="912" border="0" cellspacing="0" cellpadding="0">
+      <td colspan="3" align="center" bgcolor="#FFFFFF"><table width="960" border="0" cellspacing="0" cellpadding="0">
         <tr>
           <td height="39" align="left" background="images/sub_header_bg.jpg"><!-- InstanceBeginEditable name="EditRegion4" -->
-            <p class="subheader">Welcome to Rescue</p>
+            <p class="subheader">Welcome to The Infosys Code Champion Contest 2013
+            </p>
             <td height="39"  background="images/sub_header_bg.jpg"><!-- InstanceBeginEditable name="EditRegion4" -->
 		  <p class="bluetextsub2"><%=email%> | <A class="bluetext" HREF="logout.jsp" >Logout</A></p>
           <!-- InstanceEndEditable --></td>
+
         </tr>
-      </table></td>
-    </tr>
+           </table>
+      </td>
+       </tr>
+
+
+        <tr>
+            <td width="90%" bgcolor="#FFFFFF" align="right">
+                <form name="score" action="view_score.jsp" target="_blank" method="get">
+
+                    <input type="submit" value="View Score">
+                </form>
+
+            </td>
+        </tr>
+
     <tr>
       <td bgcolor="#FFFFFF">&nbsp;</td>
       <td width="384" bgcolor="#FFFFFF">&nbsp;</td>
       <td width="428" bgcolor="#FFFFFF">&nbsp;</td>
     </tr>
+
+
     <tr>
       <td colspan="3" bgcolor="#FFFFFF" class="leftimgpadt"><!-- InstanceBeginEditable name="EditRegion1" -->
 
 <table width="975" border="0" cellpadding="0" cellspacing="0" bgcolor="#dddddd">
 
     <%
-        if(email!=null && gameid!=null) {
-            boolean result = insertLogDetails(email,gameid,dateStr);
+        if(email!=null && sessionkey!=null) {
+            boolean result = insertLogDetails(email,sessionkey,dateStr);
     %>
     <tr>
     <td width="136" height="40" class="subtitle22aa"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Session Key:</td>
     <td width="4" rowspan="5" bgcolor="#FFFFFF">&nbsp;</td>
-    <td width="614" class="subtitle22bb">Use your session key for communication with the server. <span class="bluetext3">Your session key is <%=gameid%> </span></td>
+    <td width="614" class="subtitle22bb">Use your session key for communication with the server. <span class="bluetext3">Your session key is <%=sessionkey%> </span></td>
     <td width="8" rowspan="12" bgcolor="#FFFFFF" >&nbsp;</td>
   </tr>
   <tr>
@@ -226,12 +218,9 @@ function MM_nbGroup(event, grpName) { //v6.0
     <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Level 2:</td>
     <td class="subtitle22bb">Click <a target="_blank" href="level2.jsp">here</a> for the problem statement.</td>
   </tr>
+
   <tr>
     <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Level 3:</td>
-    <td class="subtitle22bb">Click <a target="_blank" href="level3.jsp">here</a> for the problem statement.</td>
-  </tr>
-  <tr>
-    <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Level 4:</td>
     <td class="subtitle22bb">Click <a target="_blank" href="level4.jsp">here</a> for the problem statement.</td>
   </tr>
     <%} %>
@@ -240,24 +229,75 @@ function MM_nbGroup(event, grpName) { //v6.0
     <td height="40" colspan="3" class="subtitle22aaa">Instructions</td>
     </tr>
   <tr>
-    <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Step 1:</td>
+    <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;1. </td>
     <td rowspan="4" bgcolor="#FFFFFF">&nbsp;</td>
-    <td class="subtitle22b">Download the Java code from <a class="more" href="game_data/java_code1.zip">java_code.zip.</a> Unzip and put it in an any directory</td>
+    <td class="subtitle22b">This is a new format of contest.</td>
+    </tr>
+  <tr>                                                                                 <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;2. </td>
+    <td class="subtitle22b">The contestant will write a client that communicates with the contest server</td>
     </tr>
   <tr>
-    <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Step 2:</td>
-    <td class="subtitle22b">Open a command line (cmd) in your system. Change directory to the folder as above.</td>
+    <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" />&nbsp;&nbsp;&nbsp;&nbsp;3. </td>
+    <td class="subtitle22b">The client will use a sessionkey to manage sessions</td>
     </tr>
   <tr>
-    <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" />&nbsp;&nbsp;&nbsp;&nbsp;Step 3: </td>
-    <td class="subtitle22b">Compile the file by the following command (You would need JDK 1.5+)</span><span class="bluetext3"><br />
-      javac com/devsquare/fts/*.java</span></td>
-    </tr>
+    <td height="40" class="subtitle22cc"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;4. </td>
+    <td class="subtitle22c"><p>The client is expected to
+        <ul>
+        <li>Communicate with the contest server</li>
+        <li>Establish a connection</li>
+        <li>Get input data</li>
+        <li>Solve the problem</li>
+        <li>Send result to the contest server</li>
+        </ul></p>
+    </td>
+  </tr>
   <tr>
-    <td height="40" class="subtitle22cc"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;Step 4:</td>
-    <td class="subtitle22c">Run your code by the following command (gameid as mentioned above)</span><span class="bluetext3"><br />
-                java -cp &quot;.&quot; com.devsquare.fts.UserGame gameid</span></td>
+        <td height="40" class="subtitle22bb"><img src="images/arrow2.jpg" />&nbsp;&nbsp;&nbsp;&nbsp;5. </td>
+      <td rowspan="4" bgcolor="#FFFFFF">&nbsp;</td>
+      <td class="subtitle22b">The solution can be written in any language</td>
+
+  </tr>
+    <tr>
+        <td height="40" class="subtitle22cc"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;6. </td>
+         <td class="subtitle22b">The communication with the server is through session key and http protocol</td>
     </tr>
+    <tr>
+        <td height="40" class="subtitle22cc"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;7. </td>
+        <td class="subtitle22b">Read the problem statement for each level</td>
+
+    </tr>
+    <tr>
+        <td height="40" class="subtitle22cc"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;8. </td>
+        <td class="subtitle22b">Download the template code having basic skeleton code with examples – <b>if available</b></td>
+    </tr>
+    <tr>
+        <td height="40" class="subtitle22cc"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;9. </td>
+        <td rowspan="4" bgcolor="#FFFFFF">&nbsp;</td>
+        <td class="subtitle22b">Follow the instructions in each problem statement</td>
+
+    </tr>
+    <tr>
+        <td height="40" class="subtitle22cc"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;10. </td>
+        <td class="subtitle22b">Different urls to get the input data and submit output data</td>
+
+    </tr>
+    <tr>
+        <td height="40" class="subtitle22cc"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;11. </td>
+        <td class="subtitle22b">Answers have to be submitted within <b>30 secs</b> or lesser of requesting input data</td>
+    </tr>
+    <tr>
+        <td height="40" class="subtitle22cc"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;12. </td>
+        <td class="subtitle22b">Getting the input data, calculating/solving and submitting the result has to be done programmatically</td>
+    </tr>
+    <tr>
+        <td height="40" class="subtitle22cc"><img src="images/arrow2.jpg" width="8" height="5" />&nbsp;&nbsp;&nbsp;&nbsp;13. </td>
+        <td rowspan="4" bgcolor="#FFFFFF">&nbsp;</td>
+        <td class="subtitle22b">HTTP connection logic has to be written by you</td>
+    </tr>
+
+
+
 </table>
       <!-- InstanceEndEditable --></td>
     </tr>

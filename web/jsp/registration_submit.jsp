@@ -96,8 +96,9 @@
 		int check_user_id = checkExistence(email);
 		
         if (check_user_id == -1) {
-            
-            insertValue = insertRegisteredUsers(f_name, l_name, universityID, email, password, university, academia, sem);
+            double skey = 1000000000+Math.random()*999999999;
+            String sessionkey = Integer.toString((int)skey);
+            insertValue = insertRegisteredUsers(f_name, l_name, universityID, email, password, university, academia, sem, sessionkey);
             session.setAttribute("userExist","You have successfully registered, Use the same Email id and password to Login");
 			
 			success = insertValue;
