@@ -37,7 +37,7 @@ public class SessionConstants {
 	}
 	
 	public static int getMapRedFileCount(){
-		return Integer.valueOf(properties.getProperty("MAPRED_FILE_COUNT", "50"));
+		return Integer.valueOf(properties.getProperty("MAPRED_FILE_COUNT", "10"));
 	}
 	
 	public static String getDownloadURL(String queryString){
@@ -78,7 +78,7 @@ public class SessionConstants {
 
 	public static int getMapredLimit() {
 		// TODO Auto-generated method stub
-		return Integer.valueOf(properties.getProperty("MAPRED_LIMIT", "50000"));
+		return Integer.valueOf(properties.getProperty("MAPRED_LIMIT", "500"));
 	}
 
 }

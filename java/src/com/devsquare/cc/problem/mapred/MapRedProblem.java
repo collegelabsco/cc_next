@@ -66,12 +66,15 @@ public class MapRedProblem extends AbstractProblem implements Problem<MapRedOupu
 	public MapRedOuput validate(MapredParameter parameter) {
 		
 		Map<Integer,Integer> ageGroup = parameter.getPeopleCountWithAge();
-		Iterator<Entry<Integer, Integer>> paItr = ageGroup.entrySet().iterator();
+//		Iterator<Entry<Integer, Integer>> paItr = ageGroup.entrySet().iterator();
 		MapredOriginalData mod = parameter.getOriginal();
 		Map<String, Object> outputMap = new HashMap<String, Object>();
-		while(paItr.hasNext()){
-			Entry<Integer, Integer> entry = paItr.next();
-			if(mod.getPeopleAgeGroup().get(entry.getKey())!=
+		Iterator<Entry<Integer,Integer>> origIterator = mod.getPeopleAgeGroup().entrySet().iterator();
+		while(origIterator.hasNext()){
+			//Entry<Integer, Integer> entry = paItr.next();
+			Entry<Integer, Integer> entry = origIterator.next();
+			
+			if(ageGroup.get(entry.getKey())!=
 					entry.getValue()){
 				throw new InvalidResult("Invalid count for age "+entry.getKey());
 			}
@@ -99,7 +102,9 @@ public class MapRedProblem extends AbstractProblem implements Problem<MapRedOupu
 		while(limit-->0){
 			int lineIndex = ranGen.nextInt(lines.size()-1);
 			String line = lines.get(lineIndex);
-			line = line.split("|")[0];
+			System.out.println(line);
+			line = line.split("\\|")[0];
+			System.out.println(line);
 			int age = ranGen.nextInt(110)+1;
 			String _li = line+"|"+age+"\n";
 			IOUtils.write(_li, os);
@@ -112,6 +117,8 @@ public class MapRedProblem extends AbstractProblem implements Problem<MapRedOupu
 		
 		JSONObject ja = new JSONObject(peopleAgeGroup);
 		
+		
+		//System.out.println(ja.toString());
 	}
 
 }

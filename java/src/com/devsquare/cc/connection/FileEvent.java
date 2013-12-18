@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.json.JSONObject;
 
 import com.devsquare.cc.InvalidRequest;
 import com.devsquare.cc.db.DBMgr;
@@ -170,6 +171,9 @@ public class FileEvent extends Event {
 							return count>0;
 						}
 					}).process();
+					
+					JSONObject jso = new JSONObject(mp.getOriginal().getPeopleAgeGroup());
+					System.out.println(jso.toString());
 					//user.setMapredOutput(mp.getOriginal().getPeopleAgeGroup());
 					
 					//write(bais);
